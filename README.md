@@ -3,6 +3,13 @@ Fodder
 
 Lemmings/Tower Defense type game
 
+Requirements
+------------
+VS2010
+XNA Game Studio 4
+Windows Phone 7.1 SDK
+Portable Class Library extension (Search "Portable" in Extensions Manager/Online)
+
 
 The List!
 ---------
