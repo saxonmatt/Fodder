@@ -40,6 +40,8 @@ namespace Fodder.Core
             {
                 p.Update(gameTime);
 
+                if (!p.Active) continue;
+
                 // Check collision
                 foreach (Dude d in GameSession.Instance.DudeController.Dudes)
                 {

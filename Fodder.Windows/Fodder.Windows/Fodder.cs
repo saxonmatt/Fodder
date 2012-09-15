@@ -51,6 +51,7 @@ namespace Fodder.Windows
             funcs.Add(new Function("machinegun", 30000, true));
             funcs.Add(new Function("mortar", 30000, true));
 
+
             var playerControls = new WindowsPlayerControls(new MouseObserver(), new KeyboardObserver());
 
             gameSession = new GameSession(playerControls, GameClientType.Human, GameClientType.AI, 2000, 2000, 100, 100, funcs, "1", GraphicsDevice.Viewport);

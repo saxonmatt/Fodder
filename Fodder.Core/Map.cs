@@ -13,7 +13,7 @@ using System.IO;
 
 namespace Fodder.Core
 {
-    class Map
+    public class Map
     {
         public string Name;
         public List<int> Path;
@@ -88,13 +88,13 @@ namespace Fodder.Core
                 if (_currentT1SpawnTime >= GameSession.Instance.Team1SpawnRate && GameSession.Instance.Team1Reinforcements > 0)
                 {
                     _currentT1SpawnTime = 0;
-                    GameSession.Instance.DudeController.Add(new Vector2(-40, Path[0]), 0);
+                    GameSession.Instance.DudeController.Add(new Vector2(-40 * GameSession.Instance.ScaleFactor, Path[0]), 0);
                     GameSession.Instance.Team1Reinforcements--;
                 }
                 if (_currentT2SpawnTime >= GameSession.Instance.Team2SpawnRate && GameSession.Instance.Team2Reinforcements > 0)
                 {
                     _currentT2SpawnTime = 0;
-                    GameSession.Instance.DudeController.Add(new Vector2(Width + 39, Path[Width - 1]), 1);
+                    GameSession.Instance.DudeController.Add(new Vector2(Width + (39* GameSession.Instance.ScaleFactor), Path[Width - 1]), 1);
                     GameSession.Instance.Team2Reinforcements--;
                 }
             }
@@ -145,7 +145,7 @@ namespace Fodder.Core
                     x += _texBG[i].Width;
                 }
                 y -= (_texBG[i].Height / 4f) *Zoom;
-                y -= (50f);
+                y -= (50f * GameSession.Instance.ScaleFactor);
             }
 
             

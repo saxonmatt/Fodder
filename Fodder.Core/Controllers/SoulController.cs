@@ -49,7 +49,7 @@ namespace Fodder.Core
             {
                 if (!s.Active) continue;
 
-                if (s.Position.Y > -50)
+                if (s.Position.Y > (-50 * GameSession.Instance.ScaleFactor))
                 {
                     s.Position.Y -= 1f;
                 }
@@ -75,7 +75,7 @@ namespace Fodder.Core
             {
                 if (!s.Active) continue;
 
-                Rectangle sourceRect = new Rectangle(s.Team * 40, 0, 40, 40);
+                Rectangle sourceRect = new Rectangle(s.Team * (int)(40 * GameSession.Instance.ScaleFactor), 0, (int)(40 * GameSession.Instance.ScaleFactor), (int)(40 * GameSession.Instance.ScaleFactor));
                 sb.Draw(_texDude, s.ScreenRelativePosition, sourceRect,
                     Color.White * s.Alpha,
                     0f,

@@ -14,11 +14,14 @@ namespace Fodder.Core
 {
     class HUD
     {
-        static Texture2D _texHud;
-        static SpriteFont _font;
+        Texture2D _texHud;
+        SpriteFont _font;
 
-        static Vector2 _team1Bar;
-        static Vector2 _team2Bar;
+        Vector2 _team1Bar;
+        Vector2 _team2Bar;
+
+        int _barWidth;
+        int _barHeight;
 
         public HUD() { }
 
@@ -27,8 +30,11 @@ namespace Fodder.Core
             _texHud = content.Load<Texture2D>("hud");
             _font = content.Load<SpriteFont>("font");
 
+            _barWidth = (int)(200 * GameSession.Instance.ScaleFactor);
+            _barHeight = (int)(30 * GameSession.Instance.ScaleFactor);
+
             _team1Bar = new Vector2(20, 50);
-            _team2Bar = new Vector2(GameSession.Instance.Viewport.Width - 20 - 200, 50);
+            _team2Bar = new Vector2(GameSession.Instance.Viewport.Width - 20 - _barWidth, 50);
         }
 
         public void Update(GameTime gameTime)
@@ -40,17 +46,17 @@ namespace Fodder.Core
         {
             sb.Begin();
 
-            int reinforcementswidth = (int)((200f / (float)GameSession.Instance.Team1StartReinforcements) * (float)GameSession.Instance.Team1Reinforcements);
-            int activewidth = (int)((200f / (float)GameSession.Instance.Team1StartReinforcements) * (float)GameSession.Instance.Team1ActiveCount);
-            sb.Draw(_texHud, _team1Bar, new Rectangle(0, 0, 200, 30), Color.White);
-            sb.Draw(_texHud, _team1Bar + new Vector2(reinforcementswidth,0), new Rectangle(reinforcementswidth, 30, activewidth, 30), Color.White);
-            sb.Draw(_texHud, _team1Bar, new Rectangle(0, 60, reinforcementswidth, 30), Color.White);
+            int reinforcementswidth = (int)((_barWidth / (float)GameSession.Instance.Team1StartReinforcements) * (float)GameSession.Instance.Team1Reinforcements);
+            int activewidth = (int)((_barWidth / (float)GameSession.Instance.Team1StartReinforcements) * (float)GameSession.Instance.Team1ActiveCount);
+            sb.Draw(_texHud, _team1Bar, new Rectangle(0, 0, _barWidth, _barHeight), Color.White);
+            sb.Draw(_texHud, _team1Bar + new Vector2(reinforcementswidth, 0), new Rectangle(reinforcementswidth, _barHeight, activewidth, _barHeight), Color.White);
+            sb.Draw(_texHud, _team1Bar, new Rectangle(0, _barHeight * 2, reinforcementswidth, _barHeight), Color.White);
 
-            reinforcementswidth = (int)((200f / (float)GameSession.Instance.Team2StartReinforcements) * (float)GameSession.Instance.Team2Reinforcements);
-            activewidth = (int)((200f / (float)GameSession.Instance.Team2StartReinforcements) * (float)GameSession.Instance.Team2ActiveCount);
-            sb.Draw(_texHud, _team2Bar, new Rectangle(0, 0, 200, 30), Color.White);
-            sb.Draw(_texHud, _team2Bar + new Vector2(200 - reinforcementswidth - activewidth, 0), new Rectangle(200-reinforcementswidth-activewidth, 30, activewidth, 30), Color.White);
-            sb.Draw(_texHud, _team2Bar + new Vector2(200 - reinforcementswidth, 0), new Rectangle(200-reinforcementswidth, 60, reinforcementswidth, 30), Color.White);
+            reinforcementswidth = (int)((_barWidth / (float)GameSession.Instance.Team2StartReinforcements) * (float)GameSession.Instance.Team2Reinforcements);
+            activewidth = (int)((_barWidth / (float)GameSession.Instance.Team2StartReinforcements) * (float)GameSession.Instance.Team2ActiveCount);
+            sb.Draw(_texHud, _team2Bar, new Rectangle(0, 0, _barWidth, _barHeight), Color.White);
+            sb.Draw(_texHud, _team2Bar + new Vector2(_barWidth - reinforcementswidth - activewidth, 0), new Rectangle(_barWidth - reinforcementswidth - activewidth, _barHeight, activewidth, _barHeight), Color.White);
+            sb.Draw(_texHud, _team2Bar + new Vector2(_barWidth - reinforcementswidth, 0), new Rectangle(_barWidth - reinforcementswidth, _barHeight * 2, reinforcementswidth, _barHeight), Color.White);
 
             if (GameSession.Instance.Team1Win && GameSession.Instance.Team2Win) sb.DrawString(_font, "Nobody wins", new Vector2(GameSession.Instance.Viewport.Width, GameSession.Instance.Viewport.Height) / 2, Color.White, 0f, _font.MeasureString("Nobody wins") / 2, 1f, SpriteEffects.None, 1);
             else

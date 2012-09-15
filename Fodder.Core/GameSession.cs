@@ -44,7 +44,7 @@ namespace Fodder.Core
         internal SoulController SoulController;
         internal HUD HUD;
 
-        internal Map Map;
+        public Map Map;
 
         internal GameClientType Team1ClientType;
         internal GameClientType Team2ClientType;
@@ -66,6 +66,7 @@ namespace Fodder.Core
         internal bool Team2Win;
 
         internal Viewport Viewport;
+        internal float ScaleFactor;
 
         internal List<Function> AvailableFunctions;
 
@@ -73,6 +74,7 @@ namespace Fodder.Core
         AIController AI2 = new AIController();
 
         int lastScrollWheelValue = 0;
+
 
         private IHumanPlayerControls PlayerControls;
 
@@ -89,8 +91,8 @@ namespace Fodder.Core
             Team2Reinforcements = t2Reinforcements;
             Team1StartReinforcements = t1Reinforcements;
             Team2StartReinforcements = t2Reinforcements;
-            Team1SpawnRate = t1SpawnRate;
-            Team2SpawnRate = t2SpawnRate;
+            Team1SpawnRate = t1SpawnRate;// *(double)scale;
+            Team2SpawnRate = t2SpawnRate;// *(double)scale;
 
             Team1DeadCount = 0;
             Team2DeadCount = 0;
@@ -111,6 +113,7 @@ namespace Fodder.Core
             AI2.Initialize(5000);
 
             Viewport = vp;
+            //ScaleFactor = scale;
 
             this.PlayerControls = playerControls;
 
@@ -140,6 +143,8 @@ namespace Fodder.Core
 
             if (this.PlayerControls.Scroll == ScrollDirection.Left) this.Map.ScrollPos.X -= (10f);
             if (this.PlayerControls.Scroll == ScrollDirection.Right) this.Map.ScrollPos.Y += (10f);
+
+
 
             Map.Update(gameTime);
             DudeController.Update(gameTime);

@@ -20,7 +20,7 @@ namespace Fodder.Core.Weapons
             Range = 20f;
             StartingAmmo = -1;
             CurrentAmmo = -1;
-            WeaponOffset = new Vector2(5, -20);
+            WeaponOffset = new Vector2(5, -20) * GameSession.Instance.ScaleFactor;
 
             _targetAttackTime = 1000;
 
