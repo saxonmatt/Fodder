@@ -47,6 +47,9 @@
     <Compile Include="UI\Button.cs" />
     <Compile Include="UI\ButtonController.cs" />
     <Compile Include="UI\HUD.cs" />
+    <Compile Include="UX\IHumanPlayerControls.cs" />
+    <Compile Include="UX\ScrollDirection.cs" />
+    <Compile Include="UX\ZoomDirection.cs" />
     <Compile Include="Weapons\MachineGun.cs" />
     <Compile Include="Weapons\Mortar.cs" />
     <Compile Include="Weapons\Pistol.cs" />
@@ -65,6 +68,7 @@
     <Reference Include="Microsoft.Xna.Framework.Graphics">
       <HintPath>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Xbox360\Microsoft.Xna.Framework.Graphics.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
