@@ -36,6 +36,8 @@ namespace Fodder.Windows.UX
 
             this._MouseObserver = mouseObserver;
             this._KeyboardObserver = keyboardObserver;
+
+            this._LastKnownMouseScrollWheelValue = this._MouseObserver.MouseScrollWheelValue;
         }
 
         #region IHumanPlayerControls members
