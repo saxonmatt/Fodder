@@ -12,7 +12,7 @@
     <OutputPath>bin\$(Platform)\$(Configuration)</OutputPath>
   </PropertyGroup>
   <PropertyGroup>
-    <RootNamespace>Fodder.Content.HD</RootNamespace>
+    <RootNamespace>Fodder.Content</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.EffectImporter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />

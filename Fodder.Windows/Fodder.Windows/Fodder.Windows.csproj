@@ -109,7 +109,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Fodder.Content.HD\Fodder.Content.HD.contentproj">
+    <ProjectReference Include="..\..\Fodder.Content\Fodder.Content.contentproj">
       <Project>{A5ACB79A-0071-4507-A27D-BD9C817DCF55}</Project>
       <Name>Fodder.Content.HD</Name>
       <XnaReferenceType>Content</XnaReferenceType>

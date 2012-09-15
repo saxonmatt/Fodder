@@ -67,7 +67,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="Fodder.WindowsPhone_2012_09_15_00_27_08.sap" />
     <None Include="Properties\AppManifest.xml">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </None>
@@ -87,11 +86,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Fodder.Content.Mobile\Fodder.Content.Mobile.contentproj">
-      <Project>{A4139AD1-EC81-4BDE-8C4D-7FC81D06C55A}</Project>
-      <Name>Fodder.Content.Mobile</Name>
-      <XnaReferenceType>Content</XnaReferenceType>
-    </ProjectReference>
     <ProjectReference Include="..\..\Fodder.Core\Fodder.Core.csproj">
       <Project>{7DFA4F42-2CD3-4CC3-B654-B6A185CF3E8D}</Project>
       <Name>Fodder.Core</Name>

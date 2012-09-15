@@ -30,8 +30,8 @@ namespace Fodder.Core
             _texHud = content.Load<Texture2D>("hud");
             _font = content.Load<SpriteFont>("font");
 
-            _barWidth = (int)(200 * GameSession.Instance.ScaleFactor);
-            _barHeight = (int)(30 * GameSession.Instance.ScaleFactor);
+            _barWidth = 200;
+            _barHeight = 30;
 
             _team1Bar = new Vector2(20, 50);
             _team2Bar = new Vector2(GameSession.Instance.Viewport.Width - 20 - _barWidth, 50);

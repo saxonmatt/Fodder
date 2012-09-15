@@ -26,7 +26,7 @@ namespace Fodder.Windows
         public Fodder()
         {
             graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Fodder.Content.HD";
+            Content.RootDirectory = "Fodder.Content";
 
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;

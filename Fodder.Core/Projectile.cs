@@ -45,7 +45,7 @@ namespace Fodder.Core
             Damage = damage;
             AffectedByGravity = affectedbygravity;
 
-            _sourceRect = new Rectangle((int)(107 * GameSession.Instance.ScaleFactor), (int)(7 * GameSession.Instance.ScaleFactor), (int)(6 * GameSession.Instance.ScaleFactor), (int)(6 * GameSession.Instance.ScaleFactor));
+            _sourceRect = new Rectangle(107, 7, 6, 6);
         }
 
         public void Update(GameTime gameTime)

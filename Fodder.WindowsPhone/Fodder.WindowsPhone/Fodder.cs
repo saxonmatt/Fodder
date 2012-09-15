@@ -29,7 +29,7 @@ namespace Fodder.WindowsPhone
         public Fodder()
         {
             graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Fodder.Content.Mobile";
+            Content.RootDirectory = "Fodder.Content";
 
             // Frame rate is 30 fps by default for Windows Phone.
             TargetElapsedTime = TimeSpan.FromSeconds(1.0 / 60.0);

@@ -20,7 +20,7 @@ namespace Fodder.Core.Weapons
             Range = 500f;
             StartingAmmo = 100;
             CurrentAmmo = 100;
-            WeaponOffset = new Vector2(5, -20) * GameSession.Instance.ScaleFactor;
+            WeaponOffset = new Vector2(5, -20);
             FeetPlanted = true;
 
             _targetAttackTime = 50;
@@ -30,7 +30,7 @@ namespace Fodder.Core.Weapons
 
         public override void Draw(SpriteBatch sb)
         {
-            sb.Draw(Owner.texDude, Owner._screenRelativePosition - (new Vector2(0, 80 * GameSession.Instance.ScaleFactor) * GameSession.Instance.Map.Zoom), new Rectangle((int)(140 * GameSession.Instance.ScaleFactor), 0, (int)(20 * GameSession.Instance.ScaleFactor), (int)(20 * GameSession.Instance.ScaleFactor)),
+            sb.Draw(Owner.texDude, Owner._screenRelativePosition - (new Vector2(0, 80) * GameSession.Instance.Map.Zoom), new Rectangle(140, 0, 20, 20),
                      Color.White,
                      0f,
                      new Vector2(10, 0),

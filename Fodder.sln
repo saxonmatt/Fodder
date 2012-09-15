@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fodder.Windows", "Fodder.Windows\Fodder.Windows\Fodder.Windows.csproj", "{EF6B2671-16CD-40B6-8072-7A4E2FC583D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fodder.Content.HD", "Fodder.Content.HD\Fodder.Content.HD.contentproj", "{A5ACB79A-0071-4507-A27D-BD9C817DCF55}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fodder.Content.Mobile", "Fodder.Content.Mobile\Fodder.Content.Mobile.contentproj", "{A4139AD1-EC81-4BDE-8C4D-7FC81D06C55A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fodder.Content", "Fodder.Content\Fodder.Content.contentproj", "{A5ACB79A-0071-4507-A27D-BD9C817DCF55}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fodder.Core", "Fodder.Core\Fodder.Core.csproj", "{7DFA4F42-2CD3-4CC3-B654-B6A185CF3E8D}"
 EndProject

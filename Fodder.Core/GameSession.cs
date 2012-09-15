@@ -66,15 +66,11 @@ namespace Fodder.Core
         internal bool Team2Win;
 
         internal Viewport Viewport;
-        internal float ScaleFactor;
 
         internal List<Function> AvailableFunctions;
 
         AIController AI1 = new AIController();
         AIController AI2 = new AIController();
-
-        int lastScrollWheelValue = 0;
-
 
         private IHumanPlayerControls PlayerControls;
 
@@ -113,7 +109,6 @@ namespace Fodder.Core
             AI2.Initialize(5000);
 
             Viewport = vp;
-            //ScaleFactor = scale;
 
             this.PlayerControls = playerControls;
 
@@ -130,21 +125,18 @@ namespace Fodder.Core
             HUD.LoadContent(content);
 
             Map.LoadContent(content);
-
-            lastScrollWheelValue = Mouse.GetState().ScrollWheelValue;
         }
 
         public void Update(GameTime gameTime)
         {
             if (this.PlayerControls.Reset) this.Reset();
 
-            if (this.PlayerControls.Zoom == ZoomDirection.In) this.Map.DoZoom(0.05f, 0);
-            if (this.PlayerControls.Zoom == ZoomDirection.Out) this.Map.DoZoom(-0.05f, 0);
+            var zoomDir = this.PlayerControls.Zoom;
+            if (zoomDir == ZoomDirection.In) this.Map.DoZoom(0.05f, 0);
+            if (zoomDir == ZoomDirection.Out) this.Map.DoZoom(-0.05f, 0);
 
             if (this.PlayerControls.Scroll == ScrollDirection.Left) this.Map.ScrollPos.X -= (10f);
-            if (this.PlayerControls.Scroll == ScrollDirection.Right) this.Map.ScrollPos.Y += (10f);
-
-
+            if (this.PlayerControls.Scroll == ScrollDirection.Right) this.Map.ScrollPos.X += (10f);
 
             Map.Update(gameTime);
             DudeController.Update(gameTime);
