@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Fodder.Core;
+using Fodder.Windows.UX;
 
 namespace Fodder.Windows
 {
@@ -50,7 +51,9 @@ namespace Fodder.Windows
             funcs.Add(new Function("machinegun", 30000, true));
             funcs.Add(new Function("mortar", 30000, true));
 
-            gameSession = new GameSession(GameClientType.Human, GameClientType.AI, 2000, 2000, 100, 100, funcs, "1", GraphicsDevice.Viewport);
+            var playerControls = new WindowsPlayerControls(new MouseObserver(), new KeyboardObserver());
+
+            gameSession = new GameSession(playerControls, GameClientType.Human, GameClientType.AI, 2000, 2000, 100, 100, funcs, "1", GraphicsDevice.Viewport);
 
             base.Initialize();
         }
