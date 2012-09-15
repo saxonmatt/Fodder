@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using Fodder.Core.UX;
 
 namespace Fodder.Core
 {
@@ -59,8 +60,11 @@ namespace Fodder.Core
             }
         }
 
-        public void HandleInput(MouseState ms, int team)
+        public void HandleInput(IHumanPlayerControls playerControls, int team)
         {
+            if (playerControls == null)
+                throw new ArgumentException("Cannot handle little dude input without PlayerControls");
+
             bool found = false;
 
             foreach (Dude d in Dudes)
@@ -70,12 +74,12 @@ namespace Fodder.Core
                 if (!found)
                 {
                     // This assumes that player is controlling team 0 (left)
-                    if (d.UIRect.Contains((int)ms.X, (int)ms.Y) && d.Team==team)
+                    if (d.UIRect.Contains(playerControls.X, playerControls.Y) && d.Team == team)
                     {
                         d.UIHover = true;
                         found = true;
 
-                        if (ms.LeftButton == ButtonState.Pressed)
+                        if (playerControls.Select)
                         {
                             GameSession.Instance.ButtonController.DudeClicked(d);
                         }

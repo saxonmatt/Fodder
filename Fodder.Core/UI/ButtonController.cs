@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using Fodder.Core.UX;
 
 namespace Fodder.Core
 {
@@ -43,22 +44,25 @@ namespace Fodder.Core
                 b.Update(gameTime);
         }
 
-        public void HandleInput(MouseState ms, KeyboardState ks)
+        public void HandleInput(IHumanPlayerControls playerControls)
         {
+            if (playerControls == null)
+                throw new ArgumentException("Cannot handle input for game buttons without PlayerControls");
+
             if (GameSession.Instance.Team1Win || GameSession.Instance.Team2Win) return;
             if (GameSession.Instance.Team1ClientType != GameClientType.Human && GameSession.Instance.Team2ClientType != GameClientType.Human) return;
 
             foreach (Button b in Buttons)
             {
-                if (b.UIRect.Contains((int)ms.X, (int)ms.Y))
+                if(b.UIRect.Contains(playerControls.X, playerControls.Y))
                 {
                     b.MouseOver();
-                    if (ms.LeftButton == ButtonState.Pressed) b.MouseDown();
+                    if (playerControls.Select) b.MouseDown();
                     else b.MouseUp();
                 }
                 else b.MouseOut();
 
-                if (ks.IsKeyDown(b.ShortcutKey) && b.IsEnabled)
+                if (playerControls.IsButtonShortcutKeyPressed(b.ShortcutKey) && b.IsEnabled)
                 {
                     Deselect();
                     b.IsSelected = true;

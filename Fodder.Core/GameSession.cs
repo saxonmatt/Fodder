@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using Fodder.Core.UX;
 
 namespace Fodder.Core
 {
@@ -73,8 +74,13 @@ namespace Fodder.Core
 
         int lastScrollWheelValue = 0;
 
-        public GameSession(GameClientType t1CT, GameClientType t2CT, double t1SpawnRate, double t2SpawnRate, int t1Reinforcements, int t2Reinforcements, List<Function> availableFunctions, string map, Viewport vp)
+        private IHumanPlayerControls PlayerControls;
+
+        public GameSession(IHumanPlayerControls playerControls, GameClientType t1CT, GameClientType t2CT, double t1SpawnRate, double t2SpawnRate, int t1Reinforcements, int t2Reinforcements, List<Function> availableFunctions, string map, Viewport vp)
         {
+            if (playerControls == null)
+                throw new ArgumentException("GameSession cannot be created without PlayerControls");
+
             Instance = this;
 
             Team1ClientType = t1CT;
@@ -106,6 +112,8 @@ namespace Fodder.Core
 
             Viewport = vp;
 
+            this.PlayerControls = playerControls;
+
             Map = new Map(map);
         }
 
@@ -125,25 +133,24 @@ namespace Fodder.Core
 
         public void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Reset();
+            if (this.PlayerControls.Reset) this.Reset();
 
-            if (Mouse.GetState().ScrollWheelValue > lastScrollWheelValue) Map.DoZoom(0.05f, 0);
-            if (Mouse.GetState().ScrollWheelValue < lastScrollWheelValue) Map.DoZoom(-0.05f, 0);
-            lastScrollWheelValue = Mouse.GetState().ScrollWheelValue;
+            if (this.PlayerControls.Zoom == ZoomDirection.In) this.Map.DoZoom(0.05f, 0);
+            if (this.PlayerControls.Zoom == ZoomDirection.Out) this.Map.DoZoom(-0.05f, 0);
 
-            if (Keyboard.GetState().IsKeyDown(Keys.A)) Map.ScrollPos.X -= (10f);
-            if (Keyboard.GetState().IsKeyDown(Keys.D)) Map.ScrollPos.X += (10f);
+            if (this.PlayerControls.Scroll == ScrollDirection.Left) this.Map.ScrollPos.X -= (10f);
+            if (this.PlayerControls.Scroll == ScrollDirection.Right) this.Map.ScrollPos.Y += (10f);
 
             Map.Update(gameTime);
             DudeController.Update(gameTime);
 
             if (Team1ClientType == GameClientType.AI) AI1.Update(gameTime, 0);
-            else if (Team1ClientType == GameClientType.Human) DudeController.HandleInput(Mouse.GetState(), 0);
+            else if (Team1ClientType == GameClientType.Human) DudeController.HandleInput(this.PlayerControls, 0);
             if (Team2ClientType == GameClientType.AI) AI2.Update(gameTime, 1);
-            else if (Team1ClientType == GameClientType.Human) DudeController.HandleInput(Mouse.GetState(), 1);
+            else if (Team1ClientType == GameClientType.Human) DudeController.HandleInput(this.PlayerControls, 1);
 
             ButtonController.Update(gameTime);
-            ButtonController.HandleInput(Mouse.GetState(), Keyboard.GetState());
+            ButtonController.HandleInput(this.PlayerControls);
 
             SoulController.Update(gameTime);
             HUD.Update(gameTime);
