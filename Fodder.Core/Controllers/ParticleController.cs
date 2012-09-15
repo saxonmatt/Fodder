@@ -97,6 +97,10 @@ namespace Fodder.Core
                     p.Life = life;
                     p.AffectedByGravity = affectedbygravity;
                     p.SourceRect = sourcerect;
+                    sourcerect.X = (int)(sourcerect.X * GameSession.Instance.ScaleFactor);
+                    sourcerect.Y = (int)(sourcerect.Y * GameSession.Instance.ScaleFactor);
+                    sourcerect.Width = (int)(sourcerect.Width * GameSession.Instance.ScaleFactor);
+                    sourcerect.Height = (int)(sourcerect.Height * GameSession.Instance.ScaleFactor);
                     p.Alpha = 1f;
                     p.Active = true;
                     p.RotationSpeed = rot;
@@ -134,21 +138,21 @@ namespace Fodder.Core
         {
             if (team == 0)
             {
-                Add(hitpos + new Vector2(0, -10), new Vector2((float)(Rand.NextDouble() * 4) - 2f, (float)(Rand.NextDouble() * 4) - 2f), 5000, true, new Rectangle(23, 0, 15, 12),(float)(Rand.NextDouble()/10) - 0.05f);
-                Add(hitpos + new Vector2(0, 0), new Vector2((float)(Rand.NextDouble() * 4) - 2f, (float)(Rand.NextDouble() * 4) - 2f), 5000, true, new Rectangle(28, 12, 5, 21), (float)(Rand.NextDouble() / 10) - 0.05f);
-                Add(hitpos + new Vector2(-10, 0), new Vector2((float)(Rand.NextDouble() * 4) - 2f, (float)(Rand.NextDouble() * 4) - 2f), 5000, true, new Rectangle(17, 16, 12, 6), (float)(Rand.NextDouble() / 10) - 0.05f);
-                Add(hitpos + new Vector2(10, 0), new Vector2((float)(Rand.NextDouble() * 4) - 2f, (float)(Rand.NextDouble() * 4) - 2f), 5000, true, new Rectangle(33, 16, 12, 6), (float)(Rand.NextDouble() / 10) - 0.05f);
-                Add(hitpos + new Vector2(-10, 10), new Vector2((float)(Rand.NextDouble() * 4) - 2f, (float)(Rand.NextDouble() * 4) - 2f), 5000, true, new Rectangle(16, 28, 12, 11), (float)(Rand.NextDouble() / 10) - 0.05f);
-                Add(hitpos + new Vector2(10, 10), new Vector2((float)(Rand.NextDouble() * 4) - 2f, (float)(Rand.NextDouble() * 4) - 2f), 5000, true, new Rectangle(33, 28, 12, 11), (float)(Rand.NextDouble() / 10) - 0.05f);
+                Add(hitpos + (new Vector2(0, -10) * GameSession.Instance.ScaleFactor), new Vector2((float)(Rand.NextDouble() * 4) - 2f, (float)(Rand.NextDouble() * 4) - 2f) * GameSession.Instance.ScaleFactor, 5000, true, new Rectangle(23, 0, 15, 12), (float)(Rand.NextDouble() / 10) - 0.05f);
+                Add(hitpos + (new Vector2(0, 0) * GameSession.Instance.ScaleFactor), new Vector2((float)(Rand.NextDouble() * 4) - 2f, (float)(Rand.NextDouble() * 4) - 2f) * GameSession.Instance.ScaleFactor, 5000, true, new Rectangle(28, 12, 5, 21), (float)(Rand.NextDouble() / 10) - 0.05f);
+                Add(hitpos + (new Vector2(-10, 0) * GameSession.Instance.ScaleFactor), new Vector2((float)(Rand.NextDouble() * 4) - 2f, (float)(Rand.NextDouble() * 4) - 2f) * GameSession.Instance.ScaleFactor, 5000, true, new Rectangle(17, 16, 12, 6), (float)(Rand.NextDouble() / 10) - 0.05f);
+                Add(hitpos + (new Vector2(10, 0) * GameSession.Instance.ScaleFactor), new Vector2((float)(Rand.NextDouble() * 4) - 2f, (float)(Rand.NextDouble() * 4) - 2f) * GameSession.Instance.ScaleFactor, 5000, true, new Rectangle(33, 16, 12, 6), (float)(Rand.NextDouble() / 10) - 0.05f);
+                Add(hitpos + (new Vector2(-10, 10) * GameSession.Instance.ScaleFactor), new Vector2((float)(Rand.NextDouble() * 4) - 2f, (float)(Rand.NextDouble() * 4) - 2f) * GameSession.Instance.ScaleFactor, 5000, true, new Rectangle(16, 28, 12, 11), (float)(Rand.NextDouble() / 10) - 0.05f);
+                Add(hitpos + (new Vector2(10, 10) * GameSession.Instance.ScaleFactor), new Vector2((float)(Rand.NextDouble() * 4) - 2f, (float)(Rand.NextDouble() * 4) - 2f) * GameSession.Instance.ScaleFactor, 5000, true, new Rectangle(33, 28, 12, 11), (float)(Rand.NextDouble() / 10) - 0.05f);
             }
             if (team == 1)
             {
-                Add(hitpos + new Vector2(0, -10), new Vector2((float)(Rand.NextDouble() * 4) - 2f, (float)(Rand.NextDouble() * 4) - 2f), 5000, true, new Rectangle(63, 0, 15, 12), (float)(Rand.NextDouble() / 10) - 0.05f);
-                Add(hitpos + new Vector2(0, 0), new Vector2((float)(Rand.NextDouble() * 4) - 2f, (float)(Rand.NextDouble() * 4) - 2f), 5000, true, new Rectangle(68, 12, 5, 21), (float)(Rand.NextDouble() / 10) - 0.05f);
-                Add(hitpos + new Vector2(-10, 0), new Vector2((float)(Rand.NextDouble() * 4) - 2f, (float)(Rand.NextDouble() * 4) - 2f), 5000, true, new Rectangle(57, 16, 12, 6), (float)(Rand.NextDouble() / 10) - 0.05f);
-                Add(hitpos + new Vector2(10, 0), new Vector2((float)(Rand.NextDouble() * 4) - 2f, (float)(Rand.NextDouble() * 4) - 2f), 5000, true, new Rectangle(73, 16, 12, 6), (float)(Rand.NextDouble() / 10) - 0.05f);
-                Add(hitpos + new Vector2(-10, 10), new Vector2((float)(Rand.NextDouble() * 4) - 2f, (float)(Rand.NextDouble() * 4) - 2f), 5000, true, new Rectangle(56, 28, 12, 11), (float)(Rand.NextDouble() / 10) - 0.05f);
-                Add(hitpos + new Vector2(10, 10), new Vector2((float)(Rand.NextDouble() * 4) - 2f, (float)(Rand.NextDouble() * 4) - 2f), 5000, true, new Rectangle(73, 28, 12, 11), (float)(Rand.NextDouble() / 10) - 0.05f);
+                Add(hitpos + (new Vector2(0, -10) * GameSession.Instance.ScaleFactor), new Vector2((float)(Rand.NextDouble() * 4) - 2f, (float)(Rand.NextDouble() * 4) - 2f) * GameSession.Instance.ScaleFactor, 5000, true, new Rectangle(63, 0, 15, 12), (float)(Rand.NextDouble() / 10) - 0.05f);
+                Add(hitpos + (new Vector2(0, 0) * GameSession.Instance.ScaleFactor), new Vector2((float)(Rand.NextDouble() * 4) - 2f, (float)(Rand.NextDouble() * 4) - 2f) * GameSession.Instance.ScaleFactor, 5000, true, new Rectangle(68, 12, 5, 21), (float)(Rand.NextDouble() / 10) - 0.05f);
+                Add(hitpos + (new Vector2(-10, 0) * GameSession.Instance.ScaleFactor), new Vector2((float)(Rand.NextDouble() * 4) - 2f, (float)(Rand.NextDouble() * 4) - 2f) * GameSession.Instance.ScaleFactor, 5000, true, new Rectangle(57, 16, 12, 6), (float)(Rand.NextDouble() / 10) - 0.05f);
+                Add(hitpos + (new Vector2(10, 0) * GameSession.Instance.ScaleFactor), new Vector2((float)(Rand.NextDouble() * 4) - 2f, (float)(Rand.NextDouble() * 4) - 2f) * GameSession.Instance.ScaleFactor, 5000, true, new Rectangle(73, 16, 12, 6), (float)(Rand.NextDouble() / 10) - 0.05f);
+                Add(hitpos + (new Vector2(-10, 10) * GameSession.Instance.ScaleFactor), new Vector2((float)(Rand.NextDouble() * 4) - 2f, (float)(Rand.NextDouble() * 4) - 2f) * GameSession.Instance.ScaleFactor, 5000, true, new Rectangle(56, 28, 12, 11), (float)(Rand.NextDouble() / 10) - 0.05f);
+                Add(hitpos + (new Vector2(10, 10) * GameSession.Instance.ScaleFactor), new Vector2((float)(Rand.NextDouble() * 4) - 2f, (float)(Rand.NextDouble() * 4) - 2f) * GameSession.Instance.ScaleFactor, 5000, true, new Rectangle(73, 28, 12, 11), (float)(Rand.NextDouble() / 10) - 0.05f);
             }
         }
 

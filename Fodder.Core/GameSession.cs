@@ -43,7 +43,7 @@ namespace Fodder.Core
         internal SoulController SoulController;
         internal HUD HUD;
 
-        internal Map Map;
+        public Map Map;
 
         internal GameClientType Team1ClientType;
         internal GameClientType Team2ClientType;
@@ -65,6 +65,7 @@ namespace Fodder.Core
         internal bool Team2Win;
 
         internal Viewport Viewport;
+        internal float ScaleFactor;
 
         internal List<Function> AvailableFunctions;
 
@@ -73,7 +74,7 @@ namespace Fodder.Core
 
         int lastScrollWheelValue = 0;
 
-        public GameSession(GameClientType t1CT, GameClientType t2CT, double t1SpawnRate, double t2SpawnRate, int t1Reinforcements, int t2Reinforcements, List<Function> availableFunctions, string map, Viewport vp)
+        public GameSession(GameClientType t1CT, GameClientType t2CT, double t1SpawnRate, double t2SpawnRate, int t1Reinforcements, int t2Reinforcements, List<Function> availableFunctions, string map, Viewport vp, float scale)
         {
             Instance = this;
 
@@ -83,8 +84,8 @@ namespace Fodder.Core
             Team2Reinforcements = t2Reinforcements;
             Team1StartReinforcements = t1Reinforcements;
             Team2StartReinforcements = t2Reinforcements;
-            Team1SpawnRate = t1SpawnRate;
-            Team2SpawnRate = t2SpawnRate;
+            Team1SpawnRate = t1SpawnRate * (double)scale;
+            Team2SpawnRate = t2SpawnRate * (double)scale;
 
             Team1DeadCount = 0;
             Team2DeadCount = 0;
@@ -105,6 +106,7 @@ namespace Fodder.Core
             AI2.Initialize(5000);
 
             Viewport = vp;
+            ScaleFactor = scale;
 
             Map = new Map(map);
         }
@@ -133,6 +135,8 @@ namespace Fodder.Core
 
             if (Keyboard.GetState().IsKeyDown(Keys.A)) Map.ScrollPos.X -= (10f);
             if (Keyboard.GetState().IsKeyDown(Keys.D)) Map.ScrollPos.X += (10f);
+
+
 
             Map.Update(gameTime);
             DudeController.Update(gameTime);

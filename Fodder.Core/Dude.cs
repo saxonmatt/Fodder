@@ -62,7 +62,7 @@ namespace Fodder.Core
 
             if (team == 0) PathDirection = 1; else PathDirection = -1;
 
-            _sourceRect = new Rectangle(team * 40, 0, 40, 40);
+            _sourceRect = new Rectangle(team * (int)(40 * GameSession.Instance.ScaleFactor), 0, (int)(40 * GameSession.Instance.ScaleFactor), (int)(40 * GameSession.Instance.ScaleFactor));
 
             BoostTime = 0;
             ShieldTime = 0;
@@ -117,7 +117,7 @@ namespace Fodder.Core
                 if (ShieldTime > 0)
                     ShieldTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
 
-                if ((PathDirection == 1 && (int)Position.X >= GameSession.Instance.Map.Width + 40) || (PathDirection == -1 && (int)Position.X <= -40)) Active = false;
+                if ((PathDirection == 1 && (int)Position.X >= GameSession.Instance.Map.Width + (40 * GameSession.Instance.ScaleFactor)) || (PathDirection == -1 && (int)Position.X <= (-40 * GameSession.Instance.ScaleFactor))) Active = false;
             }
             else
             {
@@ -168,7 +168,7 @@ namespace Fodder.Core
             Weapon.Draw(sb);
 
             if (UIHover)
-                sb.Draw(texDude, _screenRelativePosition - (new Vector2(0, 60) * GameSession.Instance.Map.Zoom), new Rectangle(80, 0, 20, 20),
+                sb.Draw(texDude, _screenRelativePosition - (new Vector2(0, 60 * GameSession.Instance.ScaleFactor) * GameSession.Instance.Map.Zoom), new Rectangle((int)(80 * GameSession.Instance.ScaleFactor), 0, (int)(20 * GameSession.Instance.ScaleFactor), (int)(20 * GameSession.Instance.ScaleFactor)),
                      Color.White,
                      0f,
                      new Vector2(10, 0),
@@ -181,10 +181,10 @@ namespace Fodder.Core
             if (!Active) return;
 
             if (ShieldTime > 0)
-                sb.Draw(texDude, _screenRelativePosition, new Rectangle(0, 40, 600, 600),
+                sb.Draw(texDude, _screenRelativePosition, new Rectangle(0, (int)(40 * GameSession.Instance.ScaleFactor), (int)(600 * GameSession.Instance.ScaleFactor), (int)(600 * GameSession.Instance.ScaleFactor)),
                     (Team == 0 ? Color.Red : Color.Blue) * 0.2f,
                     0f,
-                    new Vector2(300, 300),
+                    new Vector2((int)(300 * GameSession.Instance.ScaleFactor), (int)(300 * GameSession.Instance.ScaleFactor)),
                     GameSession.Instance.Map.Zoom,
                     SpriteEffects.None, 0);
         }

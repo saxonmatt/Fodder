@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
 using Fodder.Core;
+using Microsoft.Phone.Info;
 
 namespace Fodder.WindowsPhone
 {
@@ -23,6 +24,8 @@ namespace Fodder.WindowsPhone
 
         GameSession gameSession;
 
+        SpriteFont debugFont;
+
         public Fodder()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -35,6 +38,8 @@ namespace Fodder.WindowsPhone
             InactiveSleepTime = TimeSpan.FromSeconds(1);
 
             graphics.IsFullScreen = true;
+
+            
         }
 
         /// <summary>
@@ -54,7 +59,9 @@ namespace Fodder.WindowsPhone
             funcs.Add(new Function("machinegun", 30000, true));
             funcs.Add(new Function("mortar", 30000, true));
 
-            gameSession = new GameSession(GameClientType.Human, GameClientType.AI, 2000, 2000, 100, 100, funcs, "1", GraphicsDevice.Viewport);
+            gameSession = new GameSession(GameClientType.AI, GameClientType.AI, 2000, 2000, 100, 100, funcs, "1", GraphicsDevice.Viewport, 0.625f);
+
+            TouchPanel.EnabledGestures = GestureType.Pinch | GestureType.FreeDrag;
 
             base.Initialize();
         }
@@ -71,6 +78,8 @@ namespace Fodder.WindowsPhone
             AudioController.LoadContent(Content);
 
             gameSession.LoadContent(Content);
+
+            debugFont = Content.Load<SpriteFont>("font");
         }
 
         /// <summary>
@@ -93,6 +102,22 @@ namespace Fodder.WindowsPhone
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
+            if (TouchPanel.IsGestureAvailable)
+            {
+                GestureSample gest = TouchPanel.ReadGesture();
+
+                if (gest.GestureType == GestureType.Pinch)
+                {
+                    if (GetScaleFactor(gest.Position, gest.Position2, gest.Delta, gest.Delta2) > 1f) gameSession.Map.DoZoom(-0.025f, 0f);
+                    if (GetScaleFactor(gest.Position, gest.Position2, gest.Delta, gest.Delta2) < 1f) gameSession.Map.DoZoom(0.025f, 0f);
+                }
+
+                if (gest.GestureType == GestureType.FreeDrag)
+                {
+                    gameSession.Map.ScrollPos.X -= gest.Delta.X * 2f;
+                }
+            }
+
             gameSession.Update(gameTime);
 
             base.Update(gameTime);
@@ -108,7 +133,34 @@ namespace Fodder.WindowsPhone
 
             gameSession.Draw(gameTime, spriteBatch);
 
+            var memuse = (long)DeviceExtendedProperties.GetValue("ApplicationPeakMemoryUsage");
+            var maxmem = (long)DeviceExtendedProperties.GetValue("DeviceTotalMemory");
+            var curmem = (long)DeviceExtendedProperties.GetValue("ApplicationCurrentMemoryUsage");
+            memuse /= 1024 * 1024;
+            maxmem /= 1024 * 1024;
+            curmem /= 1024 * 1024;
+            spriteBatch.Begin();
+            spriteBatch.DrawString(debugFont, "Mem Usage: " + curmem + "/" + memuse + "/" + maxmem, new Vector2(10, 10), Color.Black);
+            spriteBatch.DrawString(debugFont, "Mem Usage: " + curmem + "/" + memuse + "/" + maxmem, new Vector2(9, 9), Color.White);
+            spriteBatch.End();
+
             base.Draw(gameTime);
+        }
+
+        float GetScaleFactor(Vector2 position1, Vector2 position2, Vector2 delta1, Vector2 delta2)
+        {
+            Vector2 oldPosition1 = position1 - delta1;
+            Vector2 oldPosition2 = position2 - delta2;
+
+            float distance = Vector2.Distance(position1, position2);
+            float oldDistance = Vector2.Distance(oldPosition1, oldPosition2);
+
+            if (oldDistance == 0 || distance == 0)
+            {
+                return 1.0f;
+            }
+
+            return (distance / oldDistance);
         }
     }
 }
