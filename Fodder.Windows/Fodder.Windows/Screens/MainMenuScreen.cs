@@ -10,6 +10,10 @@
 #region Using Statements
 using Microsoft.Xna.Framework;
 using Fodder.GameState;
+using Fodder.Core;
+using Microsoft.Xna.Framework.Content;
+using System.IO;
+using System.Xml.Serialization;
 #endregion
 
 namespace Fodder.Windows.GameState
@@ -21,6 +25,7 @@ namespace Fodder.Windows.GameState
     {
         #region Initialization
 
+        ContentManager content;
 
         /// <summary>
         /// Constructor fills in the menu contents.
@@ -33,6 +38,9 @@ namespace Fodder.Windows.GameState
 
         public override void LoadContent()
         {
+            if (content == null)
+                content = new ContentManager(ScreenManager.Game.Services, "Fodder.Content");
+
             // Create our menu entries.
             MenuEntry campaignGameMenuEntry = new MenuEntry("CAMPAIGN");
             MenuEntry quickGameMenuEntry = new MenuEntry("WAR");
@@ -68,14 +76,21 @@ namespace Fodder.Windows.GameState
         /// </summary>
         void CampaignGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
+            string scenarioXML = content.Load<string>("scenarios/1");
+            StringReader input = new StringReader(scenarioXML);
+            XmlSerializer xmls = new XmlSerializer(typeof(Scenario));
+            Scenario scenario = (Scenario)xmls.Deserialize(input);
+
+            ScreenManager.Game.ResetElapsedTime();
+
             LoadingScreen.Load(ScreenManager, false, e.PlayerIndex,
-                               new GameplayScreen());
+                               new GameplayScreen(scenario));
         }
 
         void QuickGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            LoadingScreen.Load(ScreenManager, true, e.PlayerIndex,
-                               new GameplayScreen());
+            //LoadingScreen.Load(ScreenManager, true, e.PlayerIndex,
+              //                 new GameplayScreen());
         }
 
 

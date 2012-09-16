@@ -49,6 +49,7 @@ namespace Fodder.Core
                 if (_currentCDTime > 0)
                 {
                     _currentCDTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
+                    if (GameSession.Instance.ButtonController.HasteTime > 0) _currentCDTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
                 }
             }
             else
@@ -76,8 +77,15 @@ namespace Fodder.Core
         {
             if (_buttonDown == true && IsEnabled)
             {
-                GameSession.Instance.ButtonController.Deselect();
-                IsSelected = true;
+                if (SoulButton == 0)
+                {
+                    GameSession.Instance.ButtonController.Deselect();
+                    IsSelected = true;
+                }
+                else
+                {
+                    ActivateFunction(null);
+                }
 
                 // Button has been clicked
                 _buttonDown = false;
@@ -86,7 +94,7 @@ namespace Fodder.Core
 
         public void ActivateFunction(Dude d)
         {
-            if (_currentCDTime <= 0)
+            if (SoulButton==0 && _currentCDTime <= 0)
             {
                 switch (Function)
                 {
@@ -98,6 +106,7 @@ namespace Fodder.Core
                         d.ShieldTime = 10000;
                         _currentCDTime = _actualCDTime;
                         break;
+                    
                     default:
                         if (d.Weapon.GetType() == typeof(Weapons.Sword))
                         {
@@ -106,6 +115,25 @@ namespace Fodder.Core
                         }
                         break;
                 }
+            }
+
+            if(SoulButton>0 && _currentCDTime >= _actualCDTime)
+            {
+                switch (Function)
+                {
+                    case "haste":
+                        GameSession.Instance.ButtonController.HasteTime = 20000;
+                        break;
+                    case "meteors":
+                        GameSession.Instance.SoulController.AirStrike(GameSession.Instance.Team1ClientType == GameClientType.Human ? 0 : 1);
+                        break;
+                    case "elite":
+                        GameSession.Instance.SoulController.EliteSquad(GameSession.Instance.Team1ClientType == GameClientType.Human ? 0 : 1);
+                        break;
+                }
+
+                if (GameSession.Instance.Team1ClientType == GameClientType.Human) GameSession.Instance.Team1SoulCount -= (int)_actualCDTime * SoulButton;
+                if (GameSession.Instance.Team2ClientType == GameClientType.Human) GameSession.Instance.Team2SoulCount -= (int)_actualCDTime * SoulButton;
             }
         }
 

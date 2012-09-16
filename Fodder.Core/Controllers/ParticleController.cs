@@ -152,6 +152,12 @@ namespace Fodder.Core
             }
         }
 
+        public void AddBoost(Vector2 dudePos)
+        {
+            Vector2 spawnPos = dudePos + new Vector2((float)(Rand.NextDouble() * 20) - 10, -(float)(Rand.NextDouble() * 10));
+            Add(spawnPos, new Vector2(0, -0.1f), 100, false, new Rectangle(0, 10, 3, 3), (float)(Rand.NextDouble() / 10) - 0.05f);
+        }
+
         internal void Reset()
         {
             foreach (Particle p in Particles)

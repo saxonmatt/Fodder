@@ -30,6 +30,8 @@ namespace Fodder.Core
 
     class AIController
     {
+        public double HasteTime = 0;
+
         List<AIAction> Actions = new List<AIAction>();
 
         List<Dude> TeamInOrder = new List<Dude>();
@@ -63,14 +65,24 @@ namespace Fodder.Core
             foreach (AIAction a in Actions)
             {
                 if (a.CurrentCooldown > 0) a.CurrentCooldown -= gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (HasteTime > 0) a.CurrentCooldown -= gameTime.ElapsedGameTime.TotalMilliseconds;
             }
+
+            if (HasteTime > 0) HasteTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            int otherTeamCount = 0;
 
             TeamInOrder.Clear();
 
             foreach (Dude d in GameSession.Instance.DudeController.Dudes)
             {
-                if (d.Team != team) continue;
                 if (!d.Active) continue;
+                if (d.Team != team)
+                {
+                    otherTeamCount++;
+                    continue;
+                }
+                
                 int insertindex = 0;
                 foreach (Dude o in TeamInOrder)
                 {
@@ -109,6 +121,43 @@ namespace Fodder.Core
 
             _currentReactionTime = 0;
             _randomReactionTime = _rand.NextDouble() * REACTION_TIME;
+
+
+            int souls = (team == 0 ? GameSession.Instance.Team1SoulCount : GameSession.Instance.Team2SoulCount);
+
+            // are we on the ropes?
+            // if so, use a soul power!
+            if (otherTeamCount - TeamInOrder.Count > 10)
+            {
+
+                if (souls >= Actions[10].MaxCooldown * 3)
+                {
+                    // use elite squad
+                    GameSession.Instance.SoulController.EliteSquad(team);
+                    if (team == 0) GameSession.Instance.Team1SoulCount -= 3 * (int)Actions[10].MaxCooldown;
+                    if (team == 1) GameSession.Instance.Team2SoulCount -= 3 * (int)Actions[10].MaxCooldown;
+                }
+                else if (souls >= Actions[9].MaxCooldown * 2)
+                {
+                    // use airstrike
+                    GameSession.Instance.SoulController.AirStrike(team);
+                    if (team == 0) GameSession.Instance.Team1SoulCount -= 2 * (int)Actions[9].MaxCooldown;
+                    if (team == 1) GameSession.Instance.Team2SoulCount -= 2 * (int)Actions[9].MaxCooldown;
+                }
+            }
+            else
+            {
+                if (Actions[7].CurrentCooldown + Actions[6].CurrentCooldown + Actions[5].CurrentCooldown > 60000)
+                {
+                    if (souls >= Actions[8].MaxCooldown)
+                    {
+                        // use haste
+                        HasteTime = 20000;
+                        if (team == 0) GameSession.Instance.Team1SoulCount -= (int)Actions[8].MaxCooldown;
+                        if (team == 1) GameSession.Instance.Team2SoulCount -= (int)Actions[8].MaxCooldown;
+                    }
+                }
+            }
 
             // use boost
             if (Actions[0].CurrentCooldown <= 0 && Actions[0].IsEnabled)

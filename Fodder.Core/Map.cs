@@ -141,8 +141,8 @@ namespace Fodder.Core
                             0f, new Vector2(0, _texBG[i].Height), Zoom, SpriteEffects.None, (i+1) * 0.1f);
                     x += _texBG[i].Width;
                 }
-                y -= (_texBG[i].Height / 4f) *Zoom;
-                y -= 50f;
+                y -= (_texBG[i].Height / 4f) * Zoom;
+                y -= 50f-(10*(_numScreens-1));
             }
 
             

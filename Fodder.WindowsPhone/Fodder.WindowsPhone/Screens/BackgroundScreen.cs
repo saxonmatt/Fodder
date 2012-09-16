@@ -80,7 +80,9 @@ namespace Fodder.Phone.GameState
 
             var playerControls = new WindowsPhonePlayerControls(new TouchObserver(), new ButtonObserver());
 
-            attractSession = new GameSession(playerControls, GameClientType.AI, GameClientType.AI, 2000, 2000, 100, 100, funcs, "4", ScreenManager.GraphicsDevice.Viewport, true);
+            Scenario scenario = new Scenario("Attract", "4", funcs, 3000, 100, 100, 1000, 1000);
+
+            attractSession = new GameSession(playerControls, GameClientType.AI, GameClientType.AI, scenario, ScreenManager.GraphicsDevice.Viewport, true);
             attractSession.LoadContent(content);
         }
 

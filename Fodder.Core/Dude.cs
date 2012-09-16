@@ -107,6 +107,7 @@ namespace Fodder.Core
                 // Effects
                 if (BoostTime > 0)
                 {
+                    GameSession.Instance.ParticleController.AddBoost(Position);
                     BoostTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
 
                     _targetMoveTime = 0;

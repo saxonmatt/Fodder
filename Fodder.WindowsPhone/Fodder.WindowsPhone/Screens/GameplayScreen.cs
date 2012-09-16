@@ -35,6 +35,7 @@ namespace Fodder.Phone.GameState
         ContentManager content;
 
         GameSession gameSession;
+        Scenario gameScenario;
 
         WindowsPhonePlayerControls playerControls;
 
@@ -46,8 +47,10 @@ namespace Fodder.Phone.GameState
         /// <summary>
         /// Constructor.
         /// </summary>
-        public GameplayScreen()
+        public GameplayScreen(Scenario scenario)
         {
+            gameScenario = scenario;
+
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
 
@@ -76,7 +79,8 @@ namespace Fodder.Phone.GameState
 
             playerControls = new WindowsPhonePlayerControls(new TouchObserver(), new ButtonObserver());
 
-            gameSession = new GameSession(playerControls, GameClientType.Human, GameClientType.AI, 2000, 2000, 100, 100, funcs, "1", ScreenManager.GraphicsDevice.Viewport, false);
+
+            gameSession = new GameSession(playerControls, GameClientType.Human, GameClientType.AI, gameScenario, ScreenManager.GraphicsDevice.Viewport, false);
             gameSession.LoadContent(content);
 
             ScreenManager.Game.ResetElapsedTime();

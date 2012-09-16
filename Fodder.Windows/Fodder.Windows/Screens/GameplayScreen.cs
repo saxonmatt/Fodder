@@ -34,6 +34,7 @@ namespace Fodder.Windows.GameState
         ContentManager content;
 
         GameSession gameSession;
+        Scenario gameScenario;
 
         #endregion
 
@@ -43,8 +44,10 @@ namespace Fodder.Windows.GameState
         /// <summary>
         /// Constructor.
         /// </summary>
-        public GameplayScreen()
+        public GameplayScreen(Scenario scenario)
         {
+            gameScenario = scenario;
+
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
 
@@ -60,22 +63,9 @@ namespace Fodder.Windows.GameState
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Fodder.Content");
 
-            List<Function> funcs = new List<Function>();
-            funcs.Add(new Function("boost", 1000, true));
-            funcs.Add(new Function("shield", 10000, true));
-            funcs.Add(new Function("pistol", 4000, true));
-            funcs.Add(new Function("shotgun", 6000, true));
-            funcs.Add(new Function("smg", 8000, true));
-            funcs.Add(new Function("sniper", 30000, true));
-            funcs.Add(new Function("machinegun", 30000, true));
-            funcs.Add(new Function("mortar", 30000, true));
-            funcs.Add(new Function("haste", 20, true));
-            funcs.Add(new Function("meteors", 20, true));
-            funcs.Add(new Function("elite", 20, true));
-
             var playerControls = new WindowsPlayerControls(new MouseObserver(), new KeyboardObserver());
 
-            gameSession = new GameSession(playerControls, GameClientType.Human, GameClientType.AI, 2000, 2000, 100, 100, funcs, "1", ScreenManager.GraphicsDevice.Viewport, false);
+            gameSession = new GameSession(playerControls, GameClientType.Human, GameClientType.AI, gameScenario, ScreenManager.GraphicsDevice.Viewport, false);
             gameSession.LoadContent(content);
 
             ScreenManager.Game.ResetElapsedTime();

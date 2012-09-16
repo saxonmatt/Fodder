@@ -122,6 +122,36 @@ namespace Fodder.Core
                 }
         }
 
+        public void AddEliteSquad(Vector2 spawnPos, int team)
+        {
+            int count = 0;
+            foreach (Dude d in Dudes)
+                if (!d.Active)
+                {
+                    d.Spawn(spawnPos, team);
+                    d.BoostTime = 20000;
+                    if (count == 2) d.ShieldTime = 20000;
+                    switch (Rand.Next(3))
+                    {
+                        case 0:
+                            d.GiveWeapon("pistol");
+                            d.Weapon.CurrentAmmo = 20;
+                            break;
+                        case 1:
+                            d.GiveWeapon("shotgun");
+                            d.Weapon.CurrentAmmo = 16;
+                            break;
+                        case 2:
+                            d.GiveWeapon("smg");
+                            d.Weapon.CurrentAmmo = 60;
+                            break;
+                    }
+                    count++;
+                    spawnPos += new Vector2((team == 0 ? -50 : 50), 0);
+                    if (count == 5) break;
+                }
+        }
+
         public Dude EnemyInRange(Dude owner, float range, bool checkLOS)
         {
             Dude returnDude = null;
