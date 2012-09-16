@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fodder.WindowsPhone", "Fodd
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fodder.GameState", "Fodder.GameState\Fodder.GameState.csproj", "{D34C3D8C-F271-43C5-9CA2-71C42F6BC9C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fodder.Utils", "Fodder.Utils\Fodder.Utils.csproj", "{4AA6BA9D-F363-4B1D-B925-DA6865FF0CFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -88,6 +90,18 @@ Global
 		{D34C3D8C-F271-43C5-9CA2-71C42F6BC9C6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D34C3D8C-F271-43C5-9CA2-71C42F6BC9C6}.Release|Windows Phone.ActiveCfg = Release|Any CPU
 		{D34C3D8C-F271-43C5-9CA2-71C42F6BC9C6}.Release|x86.ActiveCfg = Release|Any CPU
+		{4AA6BA9D-F363-4B1D-B925-DA6865FF0CFF}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{4AA6BA9D-F363-4B1D-B925-DA6865FF0CFF}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{4AA6BA9D-F363-4B1D-B925-DA6865FF0CFF}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{4AA6BA9D-F363-4B1D-B925-DA6865FF0CFF}.Debug|Windows Phone.ActiveCfg = Debug|x86
+		{4AA6BA9D-F363-4B1D-B925-DA6865FF0CFF}.Debug|x86.ActiveCfg = Debug|x86
+		{4AA6BA9D-F363-4B1D-B925-DA6865FF0CFF}.Debug|x86.Build.0 = Debug|x86
+		{4AA6BA9D-F363-4B1D-B925-DA6865FF0CFF}.Release|Any CPU.ActiveCfg = Release|x86
+		{4AA6BA9D-F363-4B1D-B925-DA6865FF0CFF}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{4AA6BA9D-F363-4B1D-B925-DA6865FF0CFF}.Release|Mixed Platforms.Build.0 = Release|x86
+		{4AA6BA9D-F363-4B1D-B925-DA6865FF0CFF}.Release|Windows Phone.ActiveCfg = Release|x86
+		{4AA6BA9D-F363-4B1D-B925-DA6865FF0CFF}.Release|x86.ActiveCfg = Release|x86
+		{4AA6BA9D-F363-4B1D-B925-DA6865FF0CFF}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
