@@ -32,7 +32,7 @@ namespace Fodder.Core
         double _currentT2SpawnTime = 2000;
 
         float _lerpZoom;
-        float _zoomScrollX;
+        Vector2 _lerpScroll;
 
         public Map(string name)
         {
@@ -100,16 +100,13 @@ namespace Fodder.Core
             }
 
             Zoom = MathHelper.Lerp(Zoom, _lerpZoom, 0.1f);
-
             Zoom = MathHelper.Clamp(Zoom, (float)GameSession.Instance.Viewport.Width / (float)Width, 1f);
             _lerpZoom = MathHelper.Clamp(_lerpZoom, (float)GameSession.Instance.Viewport.Width / (float)Width, 1f);
 
-            //if (Math.Abs(Zoom - _lerpZoom) > 0.01f)
-            //{
-            //    ScrollPos.X = MathHelper.Lerp(ScrollPos.X, _zoomScrollX, 0.1f);
-            //}
+            ScrollPos = Vector2.Lerp(ScrollPos, _lerpScroll, 0.1f);
+            ScrollPos = Vector2.Clamp(_lerpScroll, Vector2.Zero, new Vector2((Width * Zoom) - GameSession.Instance.Viewport.Width, (Height * Zoom) - GameSession.Instance.Viewport.Height));
+            _lerpScroll = Vector2.Clamp(_lerpScroll, Vector2.Zero, new Vector2((Width * Zoom) - GameSession.Instance.Viewport.Width, (Height * Zoom) - GameSession.Instance.Viewport.Height));
 
-            ScrollPos.X = MathHelper.Clamp(ScrollPos.X, 0f, (Width *Zoom) - GameSession.Instance.Viewport.Width);
         }
 
         public void DrawFG(SpriteBatch sb)
@@ -185,7 +182,11 @@ namespace Fodder.Core
         public void DoZoom(float amount, float scrollX)
         {
             _lerpZoom += amount;
-            _zoomScrollX = ScrollPos.X + ((scrollX * Zoom));
+        }
+
+        public void DoScroll(Vector2 amount)
+        {
+            _lerpScroll += amount;
         }
 
     }
