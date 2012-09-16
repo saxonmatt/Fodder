@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
 using Fodder.Core;
 using Microsoft.Phone.Info;
+using Fodder.WindowsPhone.UX;
 
 namespace Fodder.WindowsPhone
 {
@@ -59,7 +60,9 @@ namespace Fodder.WindowsPhone
             funcs.Add(new Function("machinegun", 30000, true));
             funcs.Add(new Function("mortar", 30000, true));
 
-            gameSession = new GameSession(null, GameClientType.AI, GameClientType.AI, 2000, 2000, 100, 100, funcs, "1", GraphicsDevice.Viewport);
+            var playerControls = new WindowsPhonePlayerControls(new TouchObserver(), new ButtonObserver());
+
+            gameSession = new GameSession(playerControls, GameClientType.AI, GameClientType.AI, 2000, 2000, 100, 100, funcs, "1", GraphicsDevice.Viewport);
 
             TouchPanel.EnabledGestures = GestureType.Pinch | GestureType.FreeDrag;
 
