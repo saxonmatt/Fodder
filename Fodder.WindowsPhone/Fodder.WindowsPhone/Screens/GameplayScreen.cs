@@ -17,7 +17,7 @@ using Microsoft.Xna.Framework.Input;
 using Fodder.GameState;
 using System.Collections.Generic;
 using Fodder.Core;
-using Fodder.Windows.UX;
+using Fodder.WindowsPhone.UX;
 #endregion
 
 namespace Fodder.Phone.GameState
@@ -69,7 +69,7 @@ namespace Fodder.Phone.GameState
             funcs.Add(new Function("machinegun", 30000, true));
             funcs.Add(new Function("mortar", 30000, true));
 
-            var playerControls = new WindowsPlayerControls(new MouseObserver(), new KeyboardObserver());
+            var playerControls = new WindowsPhonePlayerControls(new TouchObserver(), new ButtonObserver());
 
             gameSession = new GameSession(playerControls, GameClientType.Human, GameClientType.AI, 2000, 2000, 100, 100, funcs, "1", ScreenManager.GraphicsDevice.Viewport, false);
             gameSession.LoadContent(content);

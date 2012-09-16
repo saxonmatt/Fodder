@@ -61,7 +61,7 @@ namespace Fodder.WindowsPhone.UX
 
         public Boolean IsButtonShortcutKeyPressed(Keys key)
         {
-            throw new NotImplementedException();
+            return false;
         }
 
         #endregion

@@ -56,14 +56,6 @@ namespace Fodder.WindowsPhone
         /// </summary>
         protected override void Initialize()
         {
-           
-            var playerControls = new WindowsPhonePlayerControls(new TouchObserver(), new ButtonObserver());
-
-            gameSession = new GameSession(playerControls, GameClientType.AI, GameClientType.AI, 2000, 2000, 100, 100, funcs, "1", GraphicsDevice.Viewport);
-
-            TouchPanel.EnabledGestures = GestureType.Pinch | GestureType.FreeDrag;
-
-
             base.Initialize();
         }
 

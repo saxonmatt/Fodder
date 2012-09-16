@@ -13,6 +13,10 @@ namespace Fodder.WindowsPhone.UX
 
         private Int32 GetSingleTouch(TouchCollection touchCollection, TouchAxis axis)
         {
+            // fail fast
+            if (!touchCollection.Any())
+                return 0;
+
             var location = 0;
 
             if (axis == TouchAxis.X)

@@ -79,9 +79,6 @@
     <Compile Include="Screens\OptionsMenuScreen.cs" />
     <Compile Include="Screens\PauseBackgroundScreen.cs" />
     <Compile Include="Screens\PauseMenuScreen.cs" />
-    <Compile Include="UX\KeyboardObserver.cs" />
-    <Compile Include="UX\MouseObserver.cs" />
-    <Compile Include="UX\WindowsPlayerControls.cs" />
     <None Include="Properties\AppManifest.xml">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </None>
