@@ -168,12 +168,15 @@ namespace Fodder.Core
             Weapon.Draw(sb);
 
             if (UIHover)
+            {
                 sb.Draw(texDude, _screenRelativePosition - new Vector2(0, 60 * GameSession.Instance.Map.Zoom), new Rectangle(80, 0, 20, 20),
                      Color.White,
                      0f,
                      new Vector2(10, 0),
                      GameSession.Instance.Map.Zoom,
                      SpriteEffects.None, 0);
+                UIHover = false;
+            }
         }
 
         public void DrawShield(SpriteBatch sb)

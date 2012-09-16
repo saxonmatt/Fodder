@@ -84,9 +84,7 @@ namespace Fodder.Core
                             GameSession.Instance.ButtonController.DudeClicked(d);
                         }
                     }
-                    else d.UIHover = false;
                 }
-                else d.UIHover = false;
             }
         }
 

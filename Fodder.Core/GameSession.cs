@@ -69,12 +69,14 @@ namespace Fodder.Core
 
         internal List<Function> AvailableFunctions;
 
+        internal bool IsAttractMode;
+
         AIController AI1 = new AIController();
         AIController AI2 = new AIController();
 
         private IHumanPlayerControls PlayerControls;
 
-        public GameSession(IHumanPlayerControls playerControls, GameClientType t1CT, GameClientType t2CT, double t1SpawnRate, double t2SpawnRate, int t1Reinforcements, int t2Reinforcements, List<Function> availableFunctions, string map, Viewport vp)
+        public GameSession(IHumanPlayerControls playerControls, GameClientType t1CT, GameClientType t2CT, double t1SpawnRate, double t2SpawnRate, int t1Reinforcements, int t2Reinforcements, List<Function> availableFunctions, string map, Viewport vp, bool attractmode)
         {
             if (playerControls == null)
                 throw new ArgumentException("GameSession cannot be created without PlayerControls");
@@ -87,8 +89,8 @@ namespace Fodder.Core
             Team2Reinforcements = t2Reinforcements;
             Team1StartReinforcements = t1Reinforcements;
             Team2StartReinforcements = t2Reinforcements;
-            Team1SpawnRate = t1SpawnRate;// *(double)scale;
-            Team2SpawnRate = t2SpawnRate;// *(double)scale;
+            Team1SpawnRate = t1SpawnRate;
+            Team2SpawnRate = t2SpawnRate;
 
             Team1DeadCount = 0;
             Team2DeadCount = 0;
@@ -110,6 +112,8 @@ namespace Fodder.Core
 
             Viewport = vp;
 
+            IsAttractMode = attractmode;
+
             this.PlayerControls = playerControls;
 
             Map = new Map(map);
@@ -129,32 +133,37 @@ namespace Fodder.Core
 
         public void Update(GameTime gameTime)
         {
-            if (this.PlayerControls.Reset) this.Reset();
-
-            var zoomDir = this.PlayerControls.Zoom;
-            if (zoomDir == ZoomDirection.In) this.Map.DoZoom(0.05f, 0);
-            if (zoomDir == ZoomDirection.Out) this.Map.DoZoom(-0.05f, 0);
-
-            if (this.PlayerControls.Scroll == ScrollDirection.Left) this.Map.ScrollPos.X -= (10f);
-            if (this.PlayerControls.Scroll == ScrollDirection.Right) this.Map.ScrollPos.X += (10f);
-
             Map.Update(gameTime);
             DudeController.Update(gameTime);
 
             if (Team1ClientType == GameClientType.AI) AI1.Update(gameTime, 0);
-            else if (Team1ClientType == GameClientType.Human) DudeController.HandleInput(this.PlayerControls, 0);
             if (Team2ClientType == GameClientType.AI) AI2.Update(gameTime, 1);
-            else if (Team1ClientType == GameClientType.Human) DudeController.HandleInput(this.PlayerControls, 1);
 
-            ButtonController.Update(gameTime);
-            ButtonController.HandleInput(this.PlayerControls);
+            if (!IsAttractMode)
+            {
+                if (this.PlayerControls.Reset) this.Reset();
+
+                var zoomDir = this.PlayerControls.Zoom;
+                if (zoomDir == ZoomDirection.In) this.Map.DoZoom(0.05f, 0);
+                if (zoomDir == ZoomDirection.Out) this.Map.DoZoom(-0.05f, 0);
+
+                if (this.PlayerControls.Scroll == ScrollDirection.Left) this.Map.DoScroll(new Vector2(-10f,0f));
+                if (this.PlayerControls.Scroll == ScrollDirection.Right) this.Map.DoScroll(new Vector2(10f, 0f));
+
+                if (Team1ClientType == GameClientType.Human) DudeController.HandleInput(this.PlayerControls, 0);
+                if (Team2ClientType == GameClientType.Human) DudeController.HandleInput(this.PlayerControls, 1);
+
+                ButtonController.Update(gameTime);
+                ButtonController.HandleInput(this.PlayerControls);
+            }
 
             SoulController.Update(gameTime);
             HUD.Update(gameTime);
             ProjectileController.Update(gameTime);
             ParticleController.Update(gameTime);
 
-            CalculateWinConditions(gameTime);
+            if(!IsAttractMode)
+                CalculateWinConditions(gameTime);
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -168,8 +177,11 @@ namespace Fodder.Core
             ParticleController.Draw(spriteBatch);
 
             // UI always comes last!
-            ButtonController.Draw(spriteBatch);
-            HUD.Draw(spriteBatch);
+            if (!IsAttractMode)
+            {
+                ButtonController.Draw(spriteBatch);
+                HUD.Draw(spriteBatch);
+            }
         }
 
         public void Reset()
