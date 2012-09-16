@@ -71,7 +71,7 @@ namespace Fodder.Phone.GameState
 
             var playerControls = new WindowsPlayerControls(new MouseObserver(), new KeyboardObserver());
 
-            gameSession = new GameSession(playerControls, GameClientType.Human, GameClientType.AI, 2000, 2000, 100, 100, funcs, "1", ScreenManager.GraphicsDevice.Viewport, false);
+            gameSession = new GameSession(playerControls, GameClientType.Human, GameClientType.AI, 10000, 2000, 2000, 100, 100, funcs, "1", ScreenManager.GraphicsDevice.Viewport, false);
             gameSession.LoadContent(content);
 
             ScreenManager.Game.ResetElapsedTime();

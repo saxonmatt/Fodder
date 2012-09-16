@@ -80,7 +80,7 @@ namespace Fodder.Phone.GameState
 
             var playerControls = new WindowsPlayerControls(new MouseObserver(), new KeyboardObserver());
 
-            attractSession = new GameSession(playerControls, GameClientType.AI, GameClientType.AI, 2000, 2000, 100, 100, funcs, "4", ScreenManager.GraphicsDevice.Viewport, true);
+            attractSession = new GameSession(playerControls, GameClientType.AI, GameClientType.AI, 3000, 2000, 2000, 100, 100, funcs, "4", ScreenManager.GraphicsDevice.Viewport, true);
             attractSession.LoadContent(content);
         }
 

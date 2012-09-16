@@ -80,7 +80,7 @@ namespace Fodder.Core
 
         private IHumanPlayerControls PlayerControls;
 
-        public GameSession(IHumanPlayerControls playerControls, GameClientType t1CT, GameClientType t2CT, double t1SpawnRate, double t2SpawnRate, int t1Reinforcements, int t2Reinforcements, List<Function> availableFunctions, string map, Viewport vp, bool attractmode)
+        public GameSession(IHumanPlayerControls playerControls, GameClientType t1CT, GameClientType t2CT, int aiReactionTime, double t1SpawnRate, double t2SpawnRate, int t1Reinforcements, int t2Reinforcements, List<Function> availableFunctions, string map, Viewport vp, bool attractmode)
         {
             if (playerControls == null)
                 throw new ArgumentException("GameSession cannot be created without PlayerControls");
@@ -113,8 +113,8 @@ namespace Fodder.Core
             ParticleController = new ParticleController();
             HUD = new HUD();
 
-            AI1.Initialize(5000);
-            AI2.Initialize(5000);
+            AI1.Initialize(aiReactionTime);
+            AI2.Initialize(aiReactionTime);
 
             Viewport = vp;
 
@@ -170,8 +170,15 @@ namespace Fodder.Core
             ProjectileController.Update(gameTime);
             ParticleController.Update(gameTime);
 
-            if(!IsAttractMode)
+            if (!IsAttractMode)
+            {
                 CalculateWinConditions(gameTime);
+            }
+            else
+            {
+                Team1Reinforcements = 100;
+                Team2Reinforcements = 100;
+            }
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
