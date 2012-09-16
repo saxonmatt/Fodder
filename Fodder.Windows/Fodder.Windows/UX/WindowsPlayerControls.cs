@@ -99,6 +99,8 @@ namespace Fodder.Windows.UX
             return this._KeyboardObserver.IsKeyPressed(key);
         }
 
+        public Boolean IsPhone { get { return false; } }
+
         #endregion
     }
 }

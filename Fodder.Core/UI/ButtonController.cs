@@ -49,6 +49,9 @@ namespace Fodder.Core
             if (playerControls == null)
                 throw new ArgumentException("Cannot handle input for game buttons without PlayerControls");
 
+            if (playerControls.X == 0 && playerControls.Y == 0)
+                return;
+
             if (GameSession.Instance.Team1Win || GameSession.Instance.Team2Win) return;
             if (GameSession.Instance.Team1ClientType != GameClientType.Human && GameSession.Instance.Team2ClientType != GameClientType.Human) return;
 
@@ -57,9 +60,13 @@ namespace Fodder.Core
                 if(b.UIRect.Contains(playerControls.X, playerControls.Y))
                 {
                     b.MouseOver();
-                    if (playerControls.Select) b.MouseDown();
+                    if (playerControls.Select)
+                    {
+                        b.MouseDown();
+                        if (playerControls.IsPhone) b.MouseUp();
+                    }
                     else b.MouseUp();
-                }
+                }                
                 else b.MouseOut();
 
                 if (playerControls.IsButtonShortcutKeyPressed(b.ShortcutKey) && b.IsEnabled)

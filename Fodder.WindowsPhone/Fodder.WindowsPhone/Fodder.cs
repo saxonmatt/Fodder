@@ -45,7 +45,7 @@ namespace Fodder.WindowsPhone
             Components.Add(screenManager);
 
             screenManager.AddScreen(new BackgroundScreen(), null);
-            screenManager.AddScreen(new MainMenuScreen(), null);
+            screenManager.AddScreen(new MainMenuScreen(), null);            
         }
 
         /// <summary>

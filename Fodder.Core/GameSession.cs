@@ -147,8 +147,11 @@ namespace Fodder.Core
                 if (zoomDir == ZoomDirection.In) this.Map.DoZoom(0.05f, 0);
                 if (zoomDir == ZoomDirection.Out) this.Map.DoZoom(-0.05f, 0);
 
-                if (this.PlayerControls.Scroll == ScrollDirection.Left) this.Map.DoScroll(new Vector2(-10f,0f));
-                if (this.PlayerControls.Scroll == ScrollDirection.Right) this.Map.DoScroll(new Vector2(10f, 0f));
+                var scroll = 0f;
+                if (this.PlayerControls.Scroll == ScrollDirection.Right) scroll = -10f;
+                if (this.PlayerControls.Scroll == ScrollDirection.Left) scroll = 10f;
+                if (this.PlayerControls.IsPhone) scroll = scroll * 4;
+                if (scroll != 0f) this.Map.DoScroll(new Vector2(scroll, 0f));
 
                 if (Team1ClientType == GameClientType.Human) DudeController.HandleInput(this.PlayerControls, 0);
                 if (Team2ClientType == GameClientType.Human) DudeController.HandleInput(this.PlayerControls, 1);

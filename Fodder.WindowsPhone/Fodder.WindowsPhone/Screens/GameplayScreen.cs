@@ -18,6 +18,7 @@ using Fodder.GameState;
 using System.Collections.Generic;
 using Fodder.Core;
 using Fodder.WindowsPhone.UX;
+using Microsoft.Xna.Framework.Input.Touch;
 #endregion
 
 namespace Fodder.Phone.GameState
@@ -35,6 +36,8 @@ namespace Fodder.Phone.GameState
 
         GameSession gameSession;
 
+        WindowsPhonePlayerControls playerControls;
+
         #endregion
 
         #region Initialization
@@ -47,6 +50,8 @@ namespace Fodder.Phone.GameState
         {
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
+
+            this.EnabledGestures = GestureType.Tap | GestureType.Pinch | GestureType.HorizontalDrag;
 
             IsStubbourn = true;
         }
@@ -69,7 +74,7 @@ namespace Fodder.Phone.GameState
             funcs.Add(new Function("machinegun", 30000, true));
             funcs.Add(new Function("mortar", 30000, true));
 
-            var playerControls = new WindowsPhonePlayerControls(new TouchObserver(), new ButtonObserver());
+            playerControls = new WindowsPhonePlayerControls(new TouchObserver(), new ButtonObserver());
 
             gameSession = new GameSession(playerControls, GameClientType.Human, GameClientType.AI, 2000, 2000, 100, 100, funcs, "1", ScreenManager.GraphicsDevice.Viewport, false);
             gameSession.LoadContent(content);
@@ -117,6 +122,8 @@ namespace Fodder.Phone.GameState
         {
             if (input == null)
                 throw new ArgumentNullException("input");
+
+            this.playerControls.Update(input);
 
             if (input.IsPauseGame(ControllingPlayer))
             {

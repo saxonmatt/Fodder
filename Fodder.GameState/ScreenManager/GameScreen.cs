@@ -212,7 +212,7 @@ namespace Fodder.GameState
             }
         }
 
-        GestureType enabledGestures = GestureType.None;
+        GestureType enabledGestures;// = GestureType.None;
 
         /// <summary>
         /// Gets whether or not this screen is serializable. If this is true,
