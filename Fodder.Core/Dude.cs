@@ -154,7 +154,7 @@ namespace Fodder.Core
                                    (int)(_screenRelativePosition.Y - (_sourceRect.Height * GameSession.Instance.Map.Zoom)), 
                                    (int)(_sourceRect.Width * GameSession.Instance.Map.Zoom), 
                                    (int)(_sourceRect.Height * GameSession.Instance.Map.Zoom));
-            UIRect.Inflate((int)((1f - GameSession.Instance.Map.Zoom) * 25f), (int)((1f - GameSession.Instance.Map.Zoom) * 25f));
+            UIRect.Inflate((int)((1f - GameSession.Instance.Map.Zoom) * 15f), (int)((1f - GameSession.Instance.Map.Zoom) * 15f));
             
         }
 

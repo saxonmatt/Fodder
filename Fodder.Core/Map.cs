@@ -34,9 +34,6 @@ namespace Fodder.Core
         float _lerpZoom;
         Vector2 _lerpScroll;
 
-        SpriteFont debugFont;
-        Vector2 debugScreenPos;
-
         public Map(string name)
         {
             Name = name;
@@ -47,7 +44,6 @@ namespace Fodder.Core
 
         public void LoadContent(ContentManager content)
         {
-            debugFont = content.Load<SpriteFont>("font");
             _numScreens = content.Load<int>("maps/" + Name + "/screens");
 
             _texFG = new Texture2D[_numScreens];
@@ -159,10 +155,6 @@ namespace Fodder.Core
                 y -= (_texBG[i].Height / 4f) * Zoom;
                 y -= 50f-(10*(_numScreens-1));
             }
-
-            sb.DrawString(debugFont, Zoom + " - " + _lerpZoom, new Vector2(10, 10), Color.White);
-            sb.DrawString(debugFont, ScrollPos.X + " - " + _lerpScroll.X, new Vector2(10, 30), Color.White);
-            sb.DrawString(debugFont, debugScreenPos.X.ToString(), new Vector2(10, 50), Color.White);
 
             sb.End();
         }
