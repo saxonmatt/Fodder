@@ -18,13 +18,13 @@ using Microsoft.Xna.Framework.Input.Touch;
 using Fodder.GameState;
 using Fodder.Core;
 using System.Collections.Generic;
-using Fodder.Windows.UX;
+using Fodder.WindowsPhone.UX;
 using System.ComponentModel;
 using System.IO;
 using System.Xml.Serialization;
 #endregion
 
-namespace Fodder.Windows.GameState
+namespace Fodder.Phone.GameState
 {
     /// <summary>
     /// This screen implements the actual game logic. It is just a
@@ -70,6 +70,8 @@ namespace Fodder.Windows.GameState
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
 
             scenarioNumber = scenarioNum;
+
+            EnabledGestures = GestureType.Tap;
 
             bgw.DoWork += new DoWorkEventHandler(bgw_DoWork);
             bgw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bgw_RunWorkerCompleted);
@@ -246,7 +248,7 @@ namespace Fodder.Windows.GameState
             scenarioAlpha = 0f;
             loading = true;
 
-           
+            
             bgw.RunWorkerAsync();
         }
 

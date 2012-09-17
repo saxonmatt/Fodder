@@ -56,12 +56,15 @@ namespace Fodder.Core
             {
                 _texFG[i] = content.Load<Texture2D>("maps/" + Name + "/fg" + (i+1));
 
-                Texture2D texPath = content.Load<Texture2D>("maps/" + Name + "/path" + (i+1));
-                Width += texPath.Width;
-                Height = texPath.Height;
+                Width += _texFG[i].Width;
+                Height = _texFG[i].Height;
 
-                Path.AddRange(CalculatePath(texPath));
-                texPath.Dispose();
+                if (!isPreview)
+                {
+                    Texture2D texPath = content.Load<Texture2D>("maps/" + Name + "/path" + (i + 1));
+                    Path.AddRange(CalculatePath(texPath));
+                    texPath.Dispose();
+                }
             }
 
             for (int i = 0; i < 3; i++)
