@@ -160,7 +160,7 @@ namespace Fodder.Core
             ParticleController.LoadContent(content);
             HUD.LoadContent(content);
 
-            Map.LoadContent(content);
+            Map.LoadContent(content, false);
         }
 
         public void Update(GameTime gameTime)
@@ -176,8 +176,8 @@ namespace Fodder.Core
                 if (this.PlayerControls.Reset) this.Reset();
 
                 var zoomDir = this.PlayerControls.Zoom;
-                if (zoomDir == ZoomDirection.In) this.Map.DoZoom(1.1f);
-                if (zoomDir == ZoomDirection.Out) this.Map.DoZoom(0.9f);
+                if (zoomDir == ZoomDirection.In) this.Map.DoZoom(1.3f);
+                if (zoomDir == ZoomDirection.Out) this.Map.DoZoom(0.7f);
 
                 var scroll = 0f;
                 if (this.PlayerControls.Scroll == ScrollDirection.Right) scroll = -10f;

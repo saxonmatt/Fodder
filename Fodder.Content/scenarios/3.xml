@@ -22,7 +22,7 @@
     <Function>
       <Name>shotgun</Name>
       <CoolDown>6000</CoolDown>
-      <IsEnabled>false</IsEnabled>
+      <IsEnabled>true</IsEnabled>
     </Function>
     <Function>
       <Name>smg</Name>
@@ -61,12 +61,12 @@
     </Function>
   </AvailableFunctions>
   <AIReactionTime>10000</AIReactionTime>
-  <T1Reinforcements>15</T1Reinforcements>
-  <T2Reinforcements>15</T2Reinforcements>
-  <T1SpawnRate>8000</T1SpawnRate>
-  <T2SpawnRate>8000</T2SpawnRate>
-  <MapName>campaign2</MapName>
-  <ScenarioName>O'er The Hills</ScenarioName>
+  <T1Reinforcements>25</T1Reinforcements>
+  <T2Reinforcements>25</T2Reinforcements>
+  <T1SpawnRate>7000</T1SpawnRate>
+  <T2SpawnRate>7000</T2SpawnRate>
+  <MapName>3</MapName>
+  <ScenarioName>Uphill Battle</ScenarioName>
 </Scenario>]]>
   </Asset>
 </XnaContent>

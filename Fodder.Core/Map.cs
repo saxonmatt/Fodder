@@ -34,6 +34,8 @@ namespace Fodder.Core
         float _lerpZoom;
         Vector2 _lerpScroll;
 
+        ContentManager content;
+
         public Map(string name)
         {
             Name = name;
@@ -42,7 +44,7 @@ namespace Fodder.Core
             _currentT2SpawnTime = GameSession.Instance.Team2SpawnRate;
         }
 
-        public void LoadContent(ContentManager content)
+        public void LoadContent(ContentManager content, bool isPreview)
         {
             _numScreens = content.Load<int>("maps/" + Name + "/screens");
 
@@ -69,6 +71,7 @@ namespace Fodder.Core
 
             _texSky = content.Load<Texture2D>("sky");
 
+            if (isPreview) return;
             Zoom = (float)GameSession.Instance.Viewport.Width / (float)Width;
             _lerpZoom = Zoom;
         }
@@ -159,6 +162,53 @@ namespace Fodder.Core
             sb.End();
         }
 
+        public Texture2D DrawPreview(SpriteBatch sb, Rectangle vp, float alpha)
+        {
+            RenderTarget2D tr = new RenderTarget2D(sb.GraphicsDevice, vp.Width, vp.Height);
+            sb.GraphicsDevice.SetRenderTarget(tr);
+
+            float zoom = (float)vp.Width / (float)Width;
+
+            sb.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+
+            sb.Draw(_texSky, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, (float)vp.Width/(float)_texSky.Width,  SpriteEffects.None, 1f);
+
+            float y = vp.Height;
+            float x;
+            for (int i = 0; i < 3; i++)
+            {
+                float centerX = (-ScrollPos.X + ((Width / 2) * zoom));
+                x = centerX + ((((centerX - (vp.Width / 2)))) * 0.2f * -(i + 2));
+                x -= (_texBG[i].Width * zoom) * (((Width / 2) / _texBG[i].Width) + 1);
+                while (x < Width)
+                {
+                    sb.Draw(_texBG[i], new Vector2(x, y), null, Color.White,
+                            0f, new Vector2(0, _texBG[i].Height), zoom, SpriteEffects.None, (i + 1) * 0.1f);
+                    x += _texBG[i].Width * zoom;
+                }
+                y -= (_texBG[i].Height / 4f) * zoom;
+                y -= 50f - (15 * (_numScreens - 1));
+            }
+
+            sb.End();
+
+            sb.Begin();
+
+            x = 0;
+            for (int i = 0; i < _numScreens; i++)
+            {
+                sb.Draw(_texFG[i], new Vector2(x, vp.Height), null, Color.White,
+                        0f, new Vector2(0, _texFG[i].Height), zoom, SpriteEffects.None, 1);
+                x += _texFG[i].Width * zoom;
+            }
+
+            sb.End();
+
+            sb.GraphicsDevice.SetRenderTarget(null);
+
+            return tr;
+        }
+
         private List<int> CalculatePath(Texture2D texPath)
         {
             int width = texPath.Width;
@@ -211,7 +261,7 @@ namespace Fodder.Core
 
         private Vector2 ScreenPointToMapPosition(Point position)
         {
-            Vector2 screenPos = new Vector2(position.X, position.Y);
+            Vector2 screenPos = new Vector2(position.X, 0);
             Vector2 mapPos = (screenPos + ScrollPos) / Zoom;
 
             return mapPos;

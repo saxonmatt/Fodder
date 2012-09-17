@@ -201,7 +201,7 @@ namespace Fodder.Core
         {
             if (GameSession.Instance.Team1Win && GameSession.Instance.Team2Win) return;
 
-            AudioController.PlaySFX("hit", 0.2f * GameSession.Instance.Map.Zoom, ((float)GameSession.Instance.DudeController.Rand.NextDouble() * 2f) - 1f, ((2f / GameSession.Instance.Viewport.Width) * _screenRelativePosition.X) - 1f);
+            AudioController.PlaySFX("hit", 0.2f * (GameSession.Instance.Map.Zoom * 1.5f), ((float)GameSession.Instance.DudeController.Rand.NextDouble() * 2f) - 1f, ((2f / GameSession.Instance.Viewport.Width) * _screenRelativePosition.X) - 1f);
 
             Health -= amount / (IsShielded?10:1);
         }
