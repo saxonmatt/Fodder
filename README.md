@@ -5,23 +5,23 @@ Lemmings/Tower Defense type game
 
 Requirements
 ------------
-VS2010
-XNA Game Studio 4
-Windows Phone 7.1 SDK
-Portable Class Library extension (Search "Portable" in Extensions Manager/Online)
+- VS2010
+- XNA Game Studio 4
+- Windows Phone 7.1 SDK
+- Portable Class Library extension (Search "Portable" in Extensions Manager/Online)
 
 
 The List!
 ---------
-
-- Scaling factor in GameSession for SourceRects (Phone version assets will be 60% the size of HD versions)
-- Gamestate Management with touch/mouse support for menus
-- Soul Powers
-  - Speed up cooldowns for 15 seconds (20 souls)
-  - Rain down meteors that only hurt the opposing team (40 souls)
-  - Spawn elite squad of 5 dudes, with weapons, boosted, shielded (60 souls)
-- Menus will have AI v AI gameplay behind them (special single screen map)
+- Solve dude selection on mobile when zoomed out
+- Pre-battle intro (zoom/pan from fully zoomed out to full/half zoom on spawn point depending on map size)
 - Campaign mode
+  - Campaign Scenario select screen (Scenario = one "level"/map)
+    - Needs async content loading for map preview and Scenario deserialization
+    - Launch into CampaignGameplayScreen
+    - Accept ScenarioResult back from CampaignGameplayScreen (including stats on the game... time, deaths, etc)
+    - Scenario needs a performance rating (ie. out of three stars)                                                                                      
+- Tutorials (ugh)
 - Quick play mode (can set AI difficulty, map etc.)
 - Get some graphics done!
 - Music for menus, win + loss
