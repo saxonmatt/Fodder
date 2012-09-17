@@ -150,7 +150,11 @@ namespace Fodder.Core
             WeaponPosition = Position + (Weapon.WeaponOffset * new Vector2(PathDirection, 1));
             HitPosition = Position + new Vector2(0, -(_sourceRect.Width / 2));
 
-            UIRect = new Rectangle((int)(_screenRelativePosition.X - ((_sourceRect.Width / 2) * GameSession.Instance.Map.Zoom)), (int)(_screenRelativePosition.Y - (_sourceRect.Height * GameSession.Instance.Map.Zoom)), (int)(_sourceRect.Width * GameSession.Instance.Map.Zoom), (int)(_sourceRect.Height * GameSession.Instance.Map.Zoom));
+            UIRect = new Rectangle((int)(_screenRelativePosition.X - ((_sourceRect.Width / 2) * GameSession.Instance.Map.Zoom)),
+                                   (int)(_screenRelativePosition.Y - (_sourceRect.Height * GameSession.Instance.Map.Zoom)), 
+                                   (int)(_sourceRect.Width * GameSession.Instance.Map.Zoom), 
+                                   (int)(_sourceRect.Height * GameSession.Instance.Map.Zoom));
+            UIRect.Inflate((int)((1f - GameSession.Instance.Map.Zoom) * 25f), (int)((1f - GameSession.Instance.Map.Zoom) * 25f));
             
         }
 

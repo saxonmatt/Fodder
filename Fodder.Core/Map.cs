@@ -34,6 +34,9 @@ namespace Fodder.Core
         float _lerpZoom;
         Vector2 _lerpScroll;
 
+        SpriteFont debugFont;
+        Vector2 debugScreenPos;
+
         public Map(string name)
         {
             Name = name;
@@ -44,6 +47,7 @@ namespace Fodder.Core
 
         public void LoadContent(ContentManager content)
         {
+            debugFont = content.Load<SpriteFont>("font");
             _numScreens = content.Load<int>("maps/" + Name + "/screens");
 
             _texFG = new Texture2D[_numScreens];
@@ -99,13 +103,18 @@ namespace Fodder.Core
                 }
             }
 
+            //_lerpZoom = MathHelper.Clamp(_lerpZoom, (float)GameSession.Instance.Viewport.Width / (float)Width, 1f);
+            //_lerpScroll = Vector2.Clamp(_lerpScroll, Vector2.Zero, new Vector2((Width * Zoom) - GameSession.Instance.Viewport.Width, (Height * Zoom) - (GameSession.Instance.Viewport.Height - GameSession.Instance.ScreenBottom)));
+
             Zoom = MathHelper.Lerp(Zoom, _lerpZoom, 0.1f);
             Zoom = MathHelper.Clamp(Zoom, (float)GameSession.Instance.Viewport.Width / (float)Width, 1f);
-            _lerpZoom = MathHelper.Clamp(_lerpZoom, (float)GameSession.Instance.Viewport.Width / (float)Width, 1f);
+            
 
+            
+            //_lerpScroll = Vector2.Clamp(_lerpScroll, Vector2.Zero, new Vector2((Width * _lerpZoom) - GameSession.Instance.Viewport.Width, (Height * _lerpZoom) - (GameSession.Instance.Viewport.Height - GameSession.Instance.ScreenBottom)));
             ScrollPos = Vector2.Lerp(ScrollPos, _lerpScroll, 0.1f);
-            ScrollPos = Vector2.Clamp(_lerpScroll, Vector2.Zero, new Vector2((Width * Zoom) - GameSession.Instance.Viewport.Width, (Height * Zoom) - GameSession.Instance.Viewport.Height));
-            _lerpScroll = Vector2.Clamp(_lerpScroll, Vector2.Zero, new Vector2((Width * Zoom) - GameSession.Instance.Viewport.Width, (Height * Zoom) - (GameSession.Instance.Viewport.Height-GameSession.Instance.ScreenBottom)));
+            ScrollPos = Vector2.Clamp(ScrollPos, Vector2.Zero, new Vector2((Width * Zoom) - GameSession.Instance.Viewport.Width, (Height * Zoom) - (GameSession.Instance.Viewport.Height - GameSession.Instance.ScreenBottom)));
+            
 
         }
 
@@ -134,18 +143,26 @@ namespace Fodder.Core
             float y = sb.GraphicsDevice.Viewport.Height - GameSession.Instance.ScreenBottom;
             for (int i = 0; i < 3; i++)
             {
-                float x = -ScrollPos.X / (i+2);
+                //float x = (-ScrollPos.X - (GameSession.Instance.Viewport.Width * Zoom)) / (i+2);
+                //float x = (-((ScrollPos.X)) + ((Width / 2) * Zoom)) - (((_texBG[i].Width * Zoom) * (((Width/2)/_texBG[i].Width)+1))) + ((ScrollPos.X) * Zoom);
+                //float x = (GameSession.Instance.Viewport.Width/2) + (-((ScrollPos.X) / (i+2)));
+
+                float centerX = (-ScrollPos.X + ((Width / 2) * Zoom));
+                float x = centerX + ((((centerX - (GameSession.Instance.Viewport.Width/2)))) * 0.2f * -(i+2));
+                x -= (_texBG[i].Width * Zoom) * (((Width / 2) / _texBG[i].Width) + 1);
                 while (x < Width)
                 {
-                    sb.Draw(_texBG[i], new Vector2(x * Zoom, y), null, Color.White,
+                    sb.Draw(_texBG[i], new Vector2(x, y), null, Color.White,
                             0f, new Vector2(0, _texBG[i].Height), Zoom, SpriteEffects.None, (i+1) * 0.1f);
-                    x += _texBG[i].Width;
+                    x += _texBG[i].Width * Zoom;
                 }
                 y -= (_texBG[i].Height / 4f) * Zoom;
                 y -= 50f-(10*(_numScreens-1));
             }
 
-            
+            sb.DrawString(debugFont, Zoom + " - " + _lerpZoom, new Vector2(10, 10), Color.White);
+            sb.DrawString(debugFont, ScrollPos.X + " - " + _lerpScroll.X, new Vector2(10, 30), Color.White);
+            sb.DrawString(debugFont, debugScreenPos.X.ToString(), new Vector2(10, 50), Color.White);
 
             sb.End();
         }
@@ -179,14 +196,33 @@ namespace Fodder.Core
             else return Path[pos];
         }
 
-        public void DoZoom(float amount, float scrollX)
+        public void DoZoom(float scaleFactor)
         {
-            _lerpZoom += amount;
+            Point position = new Point(GameSession.Instance.Viewport.Width / 2, (GameSession.Instance.Viewport.Height / 2) - GameSession.Instance.ScreenBottom);
+
+            _lerpZoom = Zoom * scaleFactor;
+            if (_lerpZoom >= 0.97f)
+            {
+                _lerpZoom = 1f;
+                _lerpScroll = (ScreenPointToMapPosition(position) * _lerpZoom) - (new Vector2(GameSession.Instance.Viewport.Width / 2, (GameSession.Instance.Viewport.Height - GameSession.Instance.ScreenBottom) / 2));
+            }
+
+            if(_lerpZoom<1f)
+                _lerpScroll = (ScreenPointToMapPosition(position) * _lerpZoom) - (new Vector2(GameSession.Instance.Viewport.Width / 2, (GameSession.Instance.Viewport.Height - GameSession.Instance.ScreenBottom) / 2));
         }
 
-        public void DoScroll(Vector2 amount)
+        public void DoScroll(Vector2 delta)
         {
-            _lerpScroll += amount;
+            _lerpScroll += delta;
+            _lerpScroll = Vector2.Clamp(_lerpScroll, Vector2.Zero, new Vector2((Width * _lerpZoom) - GameSession.Instance.Viewport.Width, (Height * _lerpZoom) - (GameSession.Instance.Viewport.Height - GameSession.Instance.ScreenBottom)));
+        }
+
+        private Vector2 ScreenPointToMapPosition(Point position)
+        {
+            Vector2 screenPos = new Vector2(position.X, position.Y);
+            Vector2 mapPos = (screenPos + ScrollPos) / Zoom;
+
+            return mapPos;
         }
 
     }

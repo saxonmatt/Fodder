@@ -76,7 +76,7 @@ namespace Fodder.Phone.GameState
         /// </summary>
         void CampaignGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            string scenarioXML = content.Load<string>("scenarios/1");
+            string scenarioXML = content.Load<string>("scenarios/2");
             StringReader input = new StringReader(scenarioXML);
             XmlSerializer xmls = new XmlSerializer(typeof(Scenario));
             Scenario scenario = (Scenario)xmls.Deserialize(input);
