@@ -23,7 +23,7 @@ namespace Fodder.Core.Weapons
             WeaponOffset = new Vector2(5, -20);
 
             _targetAttackTime = 1000;
-
+            _needsLOS = false;
         }
 
 
