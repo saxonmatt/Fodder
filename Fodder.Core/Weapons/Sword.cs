@@ -17,7 +17,7 @@ namespace Fodder.Core.Weapons
 
         public Sword(Dude owner) : base(owner)
         {
-            Range = 20f;
+            Range = 25f;
             StartingAmmo = -1;
             CurrentAmmo = -1;
             WeaponOffset = new Vector2(5, -20);

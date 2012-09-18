@@ -54,7 +54,7 @@ namespace Fodder.Phone.GameState
         float arrowLeftAlpha = 0.5f;
         float arrowRightAlpha = 0.5f;
 
-        const int MAX_SCENARIOS = 3;
+        const int MAX_SCENARIOS = 7;
 
         #endregion
 

@@ -126,20 +126,23 @@ namespace Fodder.Core
                 {
                     if ((GameSession.Instance.Team1Win && Team == 0) || (GameSession.Instance.Team2Win && Team == 1))
                     {
-                        // DO some kind of win anim
-                        if (!Jumping)
+                        if (Position.X > 0 && Position.X < GameSession.Instance.Map.Width)
                         {
-                            if (GameSession.Instance.DudeController.Rand.Next(100) == 1)
+                            // DO some kind of win anim
+                            if (!Jumping)
                             {
-                                Jumping = true;
-                                JumpSpeed = 2f;
+                                if (GameSession.Instance.DudeController.Rand.Next(100) == 1)
+                                {
+                                    Jumping = true;
+                                    JumpSpeed = 2f;
+                                }
                             }
-                        }
-                        else
-                        {
-                            Position += new Vector2(0, -1f * JumpSpeed);
-                            JumpSpeed -= (GameSession.Instance.Map.Gravity.Y * 2);
-                            if (Position.Y >= GameSession.Instance.Map.TryGetPath((int)Position.X, (int)Position.Y)) Jumping = false;
+                            else
+                            {
+                                Position += new Vector2(0, -1f * JumpSpeed);
+                                JumpSpeed -= (GameSession.Instance.Map.Gravity.Y * 2);
+                                if (Position.Y >= GameSession.Instance.Map.TryGetPath((int)Position.X, (int)Position.Y)) Jumping = false;
+                            }
                         }
                     }
                 }

@@ -27,46 +27,46 @@
     <Function>
       <Name>smg</Name>
       <CoolDown>8000</CoolDown>
-      <IsEnabled>false</IsEnabled>
+      <IsEnabled>true</IsEnabled>
     </Function>
     <Function>
       <Name>sniper</Name>
       <CoolDown>30000</CoolDown>
-      <IsEnabled>false</IsEnabled>
+      <IsEnabled>true</IsEnabled>
     </Function>
     <Function>
       <Name>machinegun</Name>
       <CoolDown>30000</CoolDown>
-      <IsEnabled>false</IsEnabled>
+      <IsEnabled>true</IsEnabled>
     </Function>
     <Function>
       <Name>mortar</Name>
       <CoolDown>30000</CoolDown>
-      <IsEnabled>false</IsEnabled>
+      <IsEnabled>true</IsEnabled>
     </Function>
     <Function>
       <Name>haste</Name>
       <CoolDown>20</CoolDown>
-      <IsEnabled>false</IsEnabled>
+      <IsEnabled>true</IsEnabled>
     </Function>
     <Function>
       <Name>meteors</Name>
       <CoolDown>20</CoolDown>
-      <IsEnabled>false</IsEnabled>
+      <IsEnabled>true</IsEnabled>
     </Function>
     <Function>
       <Name>elite</Name>
       <CoolDown>20</CoolDown>
-      <IsEnabled>false</IsEnabled>
+      <IsEnabled>true</IsEnabled>
     </Function>
   </AvailableFunctions>
   <AIReactionTime>10000</AIReactionTime>
-  <T1Reinforcements>25</T1Reinforcements>
-  <T2Reinforcements>25</T2Reinforcements>
-  <T1SpawnRate>7000</T1SpawnRate>
-  <T2SpawnRate>7000</T2SpawnRate>
-  <MapName>campaign3</MapName>
-  <ScenarioName>Burning Steppes</ScenarioName>
+  <T1Reinforcements>50</T1Reinforcements>
+  <T2Reinforcements>50</T2Reinforcements>
+  <T1SpawnRate>4000</T1SpawnRate>
+  <T2SpawnRate>4000</T2SpawnRate>
+  <MapName>campaign7</MapName>
+  <ScenarioName>Got Soul?</ScenarioName>
 </Scenario>]]>
   </Asset>
 </XnaContent>
