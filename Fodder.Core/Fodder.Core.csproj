@@ -39,7 +39,7 @@
     <Compile Include="Controllers\ParticleController.cs" />
     <Compile Include="Controllers\ProjectileController.cs" />
     <Compile Include="Controllers\SoulController.cs" />
-    <Compile Include="Copy of Projectile.cs" />
+    <Compile Include="Projectile.cs" />
     <Compile Include="Dude.cs" />
     <Compile Include="GameSession.cs" />
     <Compile Include="Map.cs" />
