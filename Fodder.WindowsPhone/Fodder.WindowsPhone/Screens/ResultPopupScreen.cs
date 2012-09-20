@@ -84,6 +84,8 @@ namespace Fodder.Phone.GameState
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(1.5);
             IsPopup = true;
+
+            EnabledGestures = GestureType.Tap;
         }
 
 

@@ -64,8 +64,8 @@ namespace Fodder.Core
             Team1Human = (session.Team1ClientType == GameClientType.Human ? true : false);
             Team2Human = (session.Team2ClientType == GameClientType.Human ? true : false);
 
-            int Team1Percent = ((100/Team1TotalReinforcements) * Team1RemainingReinforcements) + ((100/Team1TotalReinforcements) * Team1ActiveCount);
-            int Team2Percent = ((100/Team2TotalReinforcements) * Team2RemainingReinforcements) + ((100/Team2TotalReinforcements) * Team2ActiveCount);
+            int Team1Percent = (int)((100M / (decimal)Team1TotalReinforcements) * ((decimal)Team1RemainingReinforcements + (decimal)Team1ActiveCount));
+            int Team2Percent = (int)((100M / (decimal)Team2TotalReinforcements) * ((decimal)Team2RemainingReinforcements + (decimal)Team2ActiveCount));
 
             if (Team1Percent >= scenario.BronzeScore) Team1ScoreRewarded = 1;
             if (Team1Percent >= scenario.SilverScore) Team1ScoreRewarded = 2;
