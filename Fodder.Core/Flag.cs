@@ -69,11 +69,13 @@ namespace Fodder.Core
             // Reset the lowering counter for the next loop
             NumLowering = 0;
 
-            _screenRelativePosition = -GameSession.Instance.Map.ScrollPos + (new Vector2(0, (GameSession.Instance.Viewport.Height- GameSession.Instance.ScreenBottom) - (GameSession.Instance.Map.Height * GameSession.Instance.Map.Zoom)) + (Position * GameSession.Instance.Map.Zoom));
+            
         }
 
         public void Draw(SpriteBatch sb)
         {
+            _screenRelativePosition = -GameSession.Instance.Map.ScrollPos + (new Vector2(0, (GameSession.Instance.Viewport.Height - GameSession.Instance.ScreenBottom) - (GameSession.Instance.Map.Height * GameSession.Instance.Map.Zoom)) + (Position * GameSession.Instance.Map.Zoom));
+
             sb.Draw(_texFlag, _screenRelativePosition  , _sourceRectPole, 
                     Color.White,
                     0f,

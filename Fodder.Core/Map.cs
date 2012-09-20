@@ -101,7 +101,7 @@ namespace Fodder.Core
             _currentT1SpawnTime += gameTime.ElapsedGameTime.TotalMilliseconds;
             _currentT2SpawnTime += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            if (!GameSession.Instance.Team1Win && !GameSession.Instance.Team2Win)
+            if (!GameSession.Instance.Team1Win && !GameSession.Instance.Team2Win && GameSession.Instance.StartCountdown <= 0)
             {
                 if (_currentT1SpawnTime >= GameSession.Instance.Team1SpawnRate && GameSession.Instance.Team1Reinforcements > 0)
                 {
@@ -277,6 +277,12 @@ namespace Fodder.Core
         {
             _lerpScroll += delta;
             _lerpScroll = Vector2.Clamp(_lerpScroll, Vector2.Zero, new Vector2((Width * _lerpZoom) - GameSession.Instance.Viewport.Width, (Height * _lerpZoom) - (GameSession.Instance.Viewport.Height - GameSession.Instance.ScreenBottom)));
+        }
+
+        public void PanTo(float zoom, Vector2 scrollPos)
+        {
+            _lerpScroll = scrollPos;
+            _lerpZoom = zoom;
         }
 
         private Vector2 ScreenPointToMapPosition(Point position)
