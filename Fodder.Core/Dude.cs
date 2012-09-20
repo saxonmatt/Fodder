@@ -45,6 +45,8 @@ namespace Fodder.Core
         internal Vector2 _screenRelativePosition;
         Rectangle _sourceRect;
 
+        bool PersonalShield = false;
+
         public Dude(Texture2D texture)
         {
             texDude = texture;
@@ -67,6 +69,7 @@ namespace Fodder.Core
             BoostTime = 0;
             ShieldTime = 0;
             UIHover = false;
+            PersonalShield = false;
 
             _currentMoveTime = 0;
             _targetMoveTime = 10;
@@ -118,7 +121,26 @@ namespace Fodder.Core
                 if (ShieldTime > 0)
                     ShieldTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
 
-                if ((PathDirection == 1 && (int)Position.X >= GameSession.Instance.Map.Width + 40) || (PathDirection == -1 && (int)Position.X <= -40)) Active = false;
+                if ((PathDirection == 1 && (int)Position.X >= GameSession.Instance.Map.Width + 20) || (PathDirection == -1 && (int)Position.X <= -20)) Active = false;
+                if ((PathDirection == 1 && (int)Position.X <= 70) || (PathDirection == -1 && (int)Position.X >= GameSession.Instance.Map.Width - 70))
+                    PersonalShield = true;
+                else PersonalShield = false;
+
+                if (PersonalShield) IsShielded = true;
+
+                // Flag lowering
+                if(Team==0)
+                    if ((Position - GameSession.Instance.Map.T2Flag.Position).Length() < 40)
+                    {
+                        Weapon.FeetPlanted = true;
+                        GameSession.Instance.Map.T2Flag.NumLowering+=(BoostTime>0?3:1);
+                    }
+                if (Team == 1)
+                    if ((Position - GameSession.Instance.Map.T1Flag.Position).Length() < 40)
+                    {
+                        Weapon.FeetPlanted = true;
+                        GameSession.Instance.Map.T1Flag.NumLowering += (BoostTime > 0 ? 2 : 1);
+                    }
             }
             else
             {
@@ -197,6 +219,14 @@ namespace Fodder.Core
                     0f,
                     new Vector2(300, 300),
                     GameSession.Instance.Map.Zoom,
+                    SpriteEffects.None, 0);
+
+            if(PersonalShield)
+                sb.Draw(texDude, _screenRelativePosition, new Rectangle(0, 40, 600, 600),
+                    (Team == 0 ? Color.Red : Color.Blue) * 0.2f,
+                    0f,
+                    new Vector2(300, 300),
+                    0.18f * GameSession.Instance.Map.Zoom,
                     SpriteEffects.None, 0);
         }
 

@@ -151,7 +151,29 @@ namespace Fodder.Core
             if (Team1ClientType == GameClientType.AI) AI1.Update(gameTime, 0);
             if (Team2ClientType == GameClientType.AI) AI2.Update(gameTime, 1);
 
+            ButtonController.Update(gameTime);
+            SoulController.Update(gameTime);
+            HUD.Update(gameTime);
+            ProjectileController.Update(gameTime);
+            ParticleController.Update(gameTime);
+
             if (!IsAttractMode)
+            {
+                CalculateWinConditions(gameTime);
+            }
+            else
+            {
+                Team1Reinforcements = 100;
+                Team2Reinforcements = 100;
+
+                if (Map.T1Flag.RaisedHeight == 16) Team1SoulCount++;
+                if (Map.T2Flag.RaisedHeight == 16) Team2SoulCount++;
+            }
+        }
+
+        public void HandleInput()
+        {
+            if (!IsAttractMode && !Team1Win && !Team2Win)
             {
                 if (this.PlayerControls.Reset) this.Reset();
 
@@ -168,23 +190,7 @@ namespace Fodder.Core
                 if (Team1ClientType == GameClientType.Human) DudeController.HandleInput(this.PlayerControls, 0);
                 if (Team2ClientType == GameClientType.Human) DudeController.HandleInput(this.PlayerControls, 1);
 
-                ButtonController.Update(gameTime);
                 ButtonController.HandleInput(this.PlayerControls);
-            }
-
-            SoulController.Update(gameTime);
-            HUD.Update(gameTime);
-            ProjectileController.Update(gameTime);
-            ParticleController.Update(gameTime);
-
-            if (!IsAttractMode)
-            {
-                CalculateWinConditions(gameTime);
-            }
-            else
-            {
-                Team1Reinforcements = 100;
-                Team2Reinforcements = 100;
             }
         }
 
@@ -245,8 +251,8 @@ namespace Fodder.Core
                         if(!d.Weapon.IsInRange)
                             if (d.Team == 0) Team1PlantedCount++; else Team2PlantedCount++;
 
-                    if (d.Team == 0 && d.Position.X > Map.Width) Team1Win = true;
-                    if (d.Team == 1 && d.Position.X < 0) Team2Win = true;
+                    //if (d.Team == 0 && d.Position.X > Map.Width) Team1Win = true;
+                    //if (d.Team == 1 && d.Position.X < 0) Team2Win = true;
                 }
             }
 
@@ -268,6 +274,9 @@ namespace Fodder.Core
                     }
                 }
             }
+
+            if (Map.T1Flag.RaisedHeight == 16) Team2Win = true;
+            if (Map.T2Flag.RaisedHeight == 16) Team1Win = true;
 
 
         }

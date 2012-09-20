@@ -22,10 +22,13 @@ namespace Fodder.Core
         public float Zoom = 0.5f;
         public Vector2 ScrollPos;
         public Vector2 Gravity = new Vector2(0, 0.05f);
+        public Flag T1Flag;
+        public Flag T2Flag;
 
         Texture2D _texSky;
         Texture2D[] _texFG;
         Texture2D[] _texBG;
+        Texture2D _texFlag;
 
         int _numScreens = 1;
         double _currentT1SpawnTime = 2000;
@@ -33,6 +36,8 @@ namespace Fodder.Core
 
         float _lerpZoom;
         Vector2 _lerpScroll;
+
+        
 
         ContentManager content;
 
@@ -73,6 +78,13 @@ namespace Fodder.Core
             }
 
             _texSky = content.Load<Texture2D>("sky");
+            _texFlag = content.Load<Texture2D>("flag");
+
+            if (!isPreview)
+            {
+                T1Flag = new Flag(_texFlag, new Vector2(50, Path[50]), 0);
+                T2Flag = new Flag(_texFlag, new Vector2(Width - 50, Path[Width - 50]), 1);
+            }
 
             if (isPreview) return;
             Zoom = (float)GameSession.Instance.Viewport.Width / (float)Width;
@@ -103,6 +115,9 @@ namespace Fodder.Core
                     GameSession.Instance.DudeController.Add(new Vector2(Width + 39, Path[Width - 1]), 1);
                     GameSession.Instance.Team2Reinforcements--;
                 }
+
+                T1Flag.Update(gameTime);
+                T2Flag.Update(gameTime);
             }
 
             //_lerpZoom = MathHelper.Clamp(_lerpZoom, (float)GameSession.Instance.Viewport.Width / (float)Width, 1f);
@@ -132,6 +147,8 @@ namespace Fodder.Core
                 x += _texFG[i].Width * Zoom;
             }
 
+            T1Flag.Draw(sb);
+            T2Flag.Draw(sb);
 
             sb.End();
         }

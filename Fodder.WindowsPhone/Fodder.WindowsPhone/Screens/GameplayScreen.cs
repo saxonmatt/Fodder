@@ -154,6 +154,8 @@ namespace Fodder.Phone.GameState
                 ScreenManager.AddScreen(pauseBG, ControllingPlayer);
                 ScreenManager.AddScreen(new PauseMenuScreen(pauseBG), ControllingPlayer);
             }
+
+            gameSession.HandleInput();
         }
 
 

@@ -60,17 +60,17 @@
       <IsEnabled>true</IsEnabled>
     </Function>
   </AvailableFunctions>
-  <AIReactionTime>9000</AIReactionTime>
-  <T1Reinforcements>60</T1Reinforcements>
-  <T2Reinforcements>60</T2Reinforcements>
-  <T1SpawnRate>4000</T1SpawnRate>
-  <T2SpawnRate>4000</T2SpawnRate>
-  <MapName>campaign8</MapName>
-  <ScenarioName>Now You're on Your Own</ScenarioName>
+  <AIReactionTime>8500</AIReactionTime>
+  <T1Reinforcements>70</T1Reinforcements>
+  <T2Reinforcements>70</T2Reinforcements>
+  <T1SpawnRate>3500</T1SpawnRate>
+  <T2SpawnRate>3500</T2SpawnRate>
+  <MapName>campaign9</MapName>
+  <ScenarioName>Take the High Road</ScenarioName>
   <BronzeScore>0</BronzeScore>
   <SilverScore>40</SilverScore>
   <GoldScore>80</GoldScore>
-  <CampaignMissionNum>8</CampaignMissionNum>
+  <CampaignMissionNum>9</CampaignMissionNum>
 </Scenario>]]>
   </Asset>
 </XnaContent>
