@@ -167,8 +167,8 @@ namespace Fodder.Core
                 {
                     fightTransition += 0.1f;
                     prepareTransition -= 0.2f;
-                    if (Team1ClientType == GameClientType.Human) Map.PanTo(1f, new Vector2(0, Map.Path[0]));
-                    if (Team2ClientType == GameClientType.Human) Map.PanTo(1f, new Vector2(Map.Width, Map.Path[Map.Width - 1]));
+                    if (Team1ClientType == GameClientType.Human) Map.PanTo(2f, new Vector2(0, Map.Path[0]));
+                    if (Team2ClientType == GameClientType.Human) Map.PanTo(2f, new Vector2(Map.Width, Map.Path[Map.Width - 1]));
                     fightTransition = MathHelper.Clamp(fightTransition, 0f, 1f);
                     prepareTransition = MathHelper.Clamp(prepareTransition, 0f, 1f);
                 }
@@ -211,11 +211,13 @@ namespace Fodder.Core
                 if (zoomDir == ZoomDirection.In) this.Map.DoZoom(1.3f);
                 if (zoomDir == ZoomDirection.Out) this.Map.DoZoom(0.7f);
 
-                var scroll = 0f;
-                if (this.PlayerControls.Scroll == ScrollDirection.Right) scroll = -10f;
-                if (this.PlayerControls.Scroll == ScrollDirection.Left) scroll = 10f;
+                var scroll = Vector2.Zero;
+                if (this.PlayerControls.Scroll == ScrollDirection.Right) scroll.X = -10f;
+                if (this.PlayerControls.Scroll == ScrollDirection.Left) scroll.X = 10f;
+                if (this.PlayerControls.Scroll == ScrollDirection.Up) scroll.Y = -10f;
+                if (this.PlayerControls.Scroll == ScrollDirection.Down) scroll.Y = 10f;
                 if (this.PlayerControls.IsPhone) scroll = scroll * 6;
-                if (scroll != 0f) this.Map.DoScroll(new Vector2(scroll, 0f));
+                if (scroll != Vector2.Zero) this.Map.DoScroll(scroll);
 
                 if (Team1ClientType == GameClientType.Human) DudeController.HandleInput(this.PlayerControls, 0);
                 if (Team2ClientType == GameClientType.Human) DudeController.HandleInput(this.PlayerControls, 1);

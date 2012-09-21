@@ -37,7 +37,7 @@ namespace Fodder.Core
         float _lerpZoom;
         Vector2 _lerpScroll;
 
-        
+        float maxZoom;
 
         ContentManager content;
 
@@ -89,6 +89,8 @@ namespace Fodder.Core
             if (isPreview) return;
             Zoom = (float)GameSession.Instance.Viewport.Width / (float)Width;
             _lerpZoom = Zoom;
+            if (Width < GameSession.Instance.Viewport.Width) maxZoom = (float)Width / (float)GameSession.Instance.Viewport.Width;
+            else maxZoom = 1f;
         }
 
         public void Dispose()
@@ -124,13 +126,13 @@ namespace Fodder.Core
             //_lerpScroll = Vector2.Clamp(_lerpScroll, Vector2.Zero, new Vector2((Width * Zoom) - GameSession.Instance.Viewport.Width, (Height * Zoom) - (GameSession.Instance.Viewport.Height - GameSession.Instance.ScreenBottom)));
 
             Zoom = MathHelper.Lerp(Zoom, _lerpZoom, 0.1f);
-            Zoom = MathHelper.Clamp(Zoom, (float)GameSession.Instance.Viewport.Width / (float)Width, 1f);
+            Zoom = MathHelper.Clamp(Zoom, (float)GameSession.Instance.Viewport.Width / (float)Width, maxZoom);
             
 
             
             //_lerpScroll = Vector2.Clamp(_lerpScroll, Vector2.Zero, new Vector2((Width * _lerpZoom) - GameSession.Instance.Viewport.Width, (Height * _lerpZoom) - (GameSession.Instance.Viewport.Height - GameSession.Instance.ScreenBottom)));
             ScrollPos = Vector2.Lerp(ScrollPos, _lerpScroll, 0.1f);
-            ScrollPos = Vector2.Clamp(ScrollPos, Vector2.Zero, new Vector2((Width * Zoom) - GameSession.Instance.Viewport.Width, (Height * Zoom) - (GameSession.Instance.Viewport.Height - GameSession.Instance.ScreenBottom)));
+            ScrollPos = Vector2.Clamp(ScrollPos, Vector2.Zero, new Vector2((Width * Zoom) - GameSession.Instance.Viewport.Width, ((Height+100) * Zoom) - (GameSession.Instance.Viewport.Height - GameSession.Instance.ScreenBottom)));
             
 
         }
@@ -142,7 +144,7 @@ namespace Fodder.Core
             float x = -ScrollPos.X;
             for (int i = 0; i < _numScreens; i++)
             {
-                sb.Draw(_texFG[i], new Vector2(x, sb.GraphicsDevice.Viewport.Height - GameSession.Instance.ScreenBottom), null, Color.White,
+                sb.Draw(_texFG[i], new Vector2(x, (sb.GraphicsDevice.Viewport.Height - GameSession.Instance.ScreenBottom) + ScrollPos.Y), null, Color.White,
                         0f, new Vector2(0, _texFG[i].Height), Zoom, SpriteEffects.None, 1);
                 x += _texFG[i].Width * Zoom;
             }
@@ -157,7 +159,7 @@ namespace Fodder.Core
         {
             sb.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
-            sb.Draw(_texSky, Vector2.Zero, null, Color.White, 0f, Vector2.Zero,1f, SpriteEffects.None, 1f);
+            sb.Draw(_texSky, sb.GraphicsDevice.Viewport.Bounds, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 1f);
 
             float y = sb.GraphicsDevice.Viewport.Height - GameSession.Instance.ScreenBottom;
             for (int i = 0; i < 3; i++)
@@ -260,34 +262,35 @@ namespace Fodder.Core
 
         public void DoZoom(float scaleFactor)
         {
-            Point position = new Point(GameSession.Instance.Viewport.Width / 2, (GameSession.Instance.Viewport.Height / 2) - GameSession.Instance.ScreenBottom);
+            Point position = new Point(GameSession.Instance.Viewport.Width / 2, (GameSession.Instance.Viewport.Height - GameSession.Instance.ScreenBottom) / 2);
 
             _lerpZoom = Zoom * scaleFactor;
-            if (_lerpZoom >= 0.97f)
+            if (_lerpZoom >= maxZoom-0.03f)
             {
-                _lerpZoom = 1f;
+                _lerpZoom = maxZoom;
                 _lerpScroll = (ScreenPointToMapPosition(position) * _lerpZoom) - (new Vector2(GameSession.Instance.Viewport.Width / 2, (GameSession.Instance.Viewport.Height - GameSession.Instance.ScreenBottom) / 2));
             }
 
-            if(_lerpZoom<1f)
+            if(_lerpZoom<maxZoom)
                 _lerpScroll = (ScreenPointToMapPosition(position) * _lerpZoom) - (new Vector2(GameSession.Instance.Viewport.Width / 2, (GameSession.Instance.Viewport.Height - GameSession.Instance.ScreenBottom) / 2));
         }
 
         public void DoScroll(Vector2 delta)
         {
             _lerpScroll += delta;
-            _lerpScroll = Vector2.Clamp(_lerpScroll, Vector2.Zero, new Vector2((Width * _lerpZoom) - GameSession.Instance.Viewport.Width, (Height * _lerpZoom) - (GameSession.Instance.Viewport.Height - GameSession.Instance.ScreenBottom)));
+            _lerpScroll = Vector2.Clamp(_lerpScroll, Vector2.Zero, new Vector2((Width * _lerpZoom) - GameSession.Instance.Viewport.Width, ((Height+100) * _lerpZoom) - (GameSession.Instance.Viewport.Height - GameSession.Instance.ScreenBottom)));
         }
 
         public void PanTo(float zoom, Vector2 scrollPos)
         {
+            scrollPos.Y = (Height -scrollPos.Y) - 100;
             _lerpScroll = scrollPos;
-            _lerpZoom = zoom;
+            _lerpZoom = MathHelper.Clamp(zoom, (float)GameSession.Instance.Viewport.Width / (float)Width,maxZoom);
         }
 
         private Vector2 ScreenPointToMapPosition(Point position)
         {
-            Vector2 screenPos = new Vector2(position.X, 0);
+            Vector2 screenPos = new Vector2(position.X, position.Y);
             Vector2 mapPos = (screenPos + ScrollPos) / Zoom;
 
             return mapPos;

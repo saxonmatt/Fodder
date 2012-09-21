@@ -69,6 +69,10 @@ namespace Fodder.Windows.UX
                     scrollDirection = ScrollDirection.Left;
                 if (this._KeyboardObserver.IsKeyPressed(Keys.D))
                     scrollDirection = ScrollDirection.Right;
+                if (this._KeyboardObserver.IsKeyPressed(Keys.W))
+                    scrollDirection = ScrollDirection.Up;
+                if (this._KeyboardObserver.IsKeyPressed(Keys.S))
+                    scrollDirection = ScrollDirection.Down;
 
                 return scrollDirection;
             }

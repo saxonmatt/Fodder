@@ -170,7 +170,7 @@ namespace Fodder.Core
                 }
             }
 
-            _screenRelativePosition = -GameSession.Instance.Map.ScrollPos + (new Vector2(0, (GameSession.Instance.Viewport.Height- GameSession.Instance.ScreenBottom) - (GameSession.Instance.Map.Height * GameSession.Instance.Map.Zoom)) + (Position * GameSession.Instance.Map.Zoom));
+            
 
             WeaponPosition = Position + (Weapon.WeaponOffset * new Vector2(PathDirection, 1));
             HitPosition = Position + new Vector2(0, -(_sourceRect.Width / 2));
@@ -185,6 +185,8 @@ namespace Fodder.Core
 
         public void Draw(SpriteBatch sb)
         {
+            _screenRelativePosition = (new Vector2(-GameSession.Instance.Map.ScrollPos.X, GameSession.Instance.Map.ScrollPos.Y + ((GameSession.Instance.Viewport.Height - GameSession.Instance.ScreenBottom) - (GameSession.Instance.Map.Height * GameSession.Instance.Map.Zoom))) + (Position * GameSession.Instance.Map.Zoom));
+
             if (!Active) return;
 
             // We'll draw the dude with an origin of bottom middle, bcause his position will be fixed to the path
@@ -211,6 +213,8 @@ namespace Fodder.Core
 
         public void DrawShield(SpriteBatch sb)
         {
+            _screenRelativePosition = (new Vector2(-GameSession.Instance.Map.ScrollPos.X, GameSession.Instance.Map.ScrollPos.Y + ((GameSession.Instance.Viewport.Height - GameSession.Instance.ScreenBottom) - (GameSession.Instance.Map.Height * GameSession.Instance.Map.Zoom))) + (Position * GameSession.Instance.Map.Zoom));
+
             if (!Active) return;
 
             if (ShieldTime > 0)
