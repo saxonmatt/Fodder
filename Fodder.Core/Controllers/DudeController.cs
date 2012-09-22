@@ -164,8 +164,8 @@ namespace Fodder.Core
 
                 if (owner.Team == d.Team) continue;
 
-                if (owner.Position.X > d.Position.X-5 && owner.PathDirection == 1) continue;
-                if (owner.Position.X < d.Position.X+5 && owner.PathDirection == -1) continue;
+                if (owner.Position.X > d.Position.X && owner.PathDirection == 1) continue;
+                if (owner.Position.X < d.Position.X && owner.PathDirection == -1) continue;
 
                 float distance = (owner.Position - d.Position).Length();
 

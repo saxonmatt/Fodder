@@ -132,7 +132,7 @@ namespace Fodder.Core
             
             //_lerpScroll = Vector2.Clamp(_lerpScroll, Vector2.Zero, new Vector2((Width * _lerpZoom) - GameSession.Instance.Viewport.Width, (Height * _lerpZoom) - (GameSession.Instance.Viewport.Height - GameSession.Instance.ScreenBottom)));
             ScrollPos = Vector2.Lerp(ScrollPos, _lerpScroll, 0.1f);
-            ScrollPos = Vector2.Clamp(ScrollPos, Vector2.Zero, new Vector2((Width * Zoom) - GameSession.Instance.Viewport.Width, ((Height+100) * Zoom) - (GameSession.Instance.Viewport.Height - GameSession.Instance.ScreenBottom)));
+            ScrollPos = Vector2.Clamp(ScrollPos, Vector2.Zero, new Vector2((Width * Zoom) - GameSession.Instance.Viewport.Width, ((Height+50) * Zoom) - (GameSession.Instance.Viewport.Height - GameSession.Instance.ScreenBottom)));
             
 
         }
@@ -278,14 +278,16 @@ namespace Fodder.Core
         public void DoScroll(Vector2 delta)
         {
             _lerpScroll += delta;
-            _lerpScroll = Vector2.Clamp(_lerpScroll, Vector2.Zero, new Vector2((Width * _lerpZoom) - GameSession.Instance.Viewport.Width, ((Height+100) * _lerpZoom) - (GameSession.Instance.Viewport.Height - GameSession.Instance.ScreenBottom)));
+            _lerpScroll = Vector2.Clamp(_lerpScroll, Vector2.Zero, new Vector2((Width * _lerpZoom) - GameSession.Instance.Viewport.Width, ((Height+50) * _lerpZoom) - (GameSession.Instance.Viewport.Height - GameSession.Instance.ScreenBottom)));
         }
 
         public void PanTo(float zoom, Vector2 scrollPos)
         {
-            scrollPos.Y = (Height -scrollPos.Y) - 100;
-            _lerpScroll = scrollPos;
-            _lerpZoom = MathHelper.Clamp(zoom, (float)GameSession.Instance.Viewport.Width / (float)Width,maxZoom);
+            _lerpZoom = MathHelper.Clamp(zoom, (float)GameSession.Instance.Viewport.Width / (float)Width, maxZoom);
+
+                scrollPos.Y = (Height - scrollPos.Y) - 50;
+                _lerpScroll = scrollPos;
+                _lerpScroll = Vector2.Clamp(_lerpScroll, Vector2.Zero, new Vector2((Width * _lerpZoom) - GameSession.Instance.Viewport.Width, ((Height + 50) * _lerpZoom) - (GameSession.Instance.Viewport.Height - GameSession.Instance.ScreenBottom)));
         }
 
         private Vector2 ScreenPointToMapPosition(Point position)
