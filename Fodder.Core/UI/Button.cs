@@ -90,7 +90,6 @@ namespace Fodder.Core
         }
         public void MouseUp()
         {
-            
             _buttonDown = false;
         }
 

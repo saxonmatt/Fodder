@@ -13,11 +13,8 @@ Requirements
 
 The List!
 ---------
-- Solve dude selection on mobile when zoomed out (partially solved, needs more testing and tweaking)
-- UX (Controls)
-  - Phone pinch should produce a ScaleFactor result to pass to Map.DoZoom                                                      - Phone drag should produce a Delta result to pass to Map.DoScroll
-  - Scrolling needs to work in X and Y (currently not supported in Map class)
-  - PC/Mouse controls should also support click+drag to scroll (as well as WASD) 
+- Tweak phone controls for response (UIRect for dudes etc)
+- Possibly do a context check on dudes to help when they're bunched up (distance test between tap point and surrounding dudes, apply skill intelligently to stacked dudes (boost ones with weapons, give weapons to dudes without, shield highest HP etc.))
 - More campaign missions!    
 - Tutorials (ugh)
 - Quick play mode (can set AI difficulty, map etc.)

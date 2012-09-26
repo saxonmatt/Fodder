@@ -18,7 +18,6 @@ using Microsoft.Xna.Framework.Input.Touch;
 using Fodder.GameState;
 using Fodder.Core;
 using System.Collections.Generic;
-using Fodder.Windows.UX;
 using System.ComponentModel;
 using System.IO;
 using System.Xml.Serialization;

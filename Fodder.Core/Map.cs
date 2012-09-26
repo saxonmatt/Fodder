@@ -264,7 +264,7 @@ namespace Fodder.Core
         {
             Point position = new Point(GameSession.Instance.Viewport.Width / 2, (GameSession.Instance.Viewport.Height - GameSession.Instance.ScreenBottom) / 2);
 
-            _lerpZoom = Zoom * scaleFactor;
+            _lerpZoom = Zoom * ((float)Math.Pow(scaleFactor, 10));
             if (_lerpZoom >= maxZoom-0.03f)
             {
                 _lerpZoom = maxZoom;

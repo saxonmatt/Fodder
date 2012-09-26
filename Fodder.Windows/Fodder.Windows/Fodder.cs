@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Fodder.Core;
-using Fodder.Windows.UX;
 using Fodder.GameState;
 using Fodder.Windows.GameState;
 
@@ -31,8 +30,8 @@ namespace Fodder.Windows
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Fodder.Content";
 
-            graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 480;
             //graphics.IsFullScreen = true;
             
 

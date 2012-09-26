@@ -8,8 +8,9 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
-using Fodder.Core.UX;
+using Fodder.GameState;
 
 namespace Fodder.Core
 {
@@ -86,14 +87,10 @@ namespace Fodder.Core
         float prepareTransition;
         float fightTransition;
 
-        private IHumanPlayerControls PlayerControls;
-
         SpriteFont largeFont;
 
-        public GameSession(IHumanPlayerControls playerControls, GameClientType t1CT, GameClientType t2CT, Scenario scenario, Viewport vp, bool attractmode)
+        public GameSession(GameClientType t1CT, GameClientType t2CT, Scenario scenario, Viewport vp, bool attractmode)
         {
-            if (playerControls == null)
-                throw new ArgumentException("GameSession cannot be created without PlayerControls");
 
             Instance = this;
 
@@ -135,8 +132,6 @@ namespace Fodder.Core
             StartCountdown = (IsAttractMode ? 0 : 4000);
             prepareTransition = (IsAttractMode ?0f:1f);
             fightTransition = 0f;
-
-            this.PlayerControls = playerControls;
 
             Map = new Map(scenario.MapName);
         }
@@ -201,28 +196,38 @@ namespace Fodder.Core
             }
         }
 
-        public void HandleInput()
+        public void HandleInput(InputState input)
         {
             if (!IsAttractMode && !Team1Win && !Team2Win && StartCountdown<=0)
             {
-                if (this.PlayerControls.Reset) this.Reset();
+                var kbscroll = Vector2.Zero;
+                if (input.CurrentKeyboardStates[0].IsKeyDown(Keys.D)) kbscroll.X = -10f;
+                if (input.CurrentKeyboardStates[0].IsKeyDown(Keys.A)) kbscroll.X = 10f;
+                if (input.CurrentKeyboardStates[0].IsKeyDown(Keys.W)) kbscroll.Y = -10f;
+                if (input.CurrentKeyboardStates[0].IsKeyDown(Keys.S)) kbscroll.Y = 10f;
+                if (kbscroll != Vector2.Zero) this.Map.DoScroll(kbscroll);
 
-                var zoomDir = this.PlayerControls.Zoom;
-                if (zoomDir == ZoomDirection.In) this.Map.DoZoom(1.3f);
-                if (zoomDir == ZoomDirection.Out) this.Map.DoZoom(0.7f);
+                if (input.PinchGesture.HasValue)
+                {
+                    this.Map.DoZoom(input.GetScaleFactor(input.PinchGesture.Value));
+                }
+                if (input.DragGesture.HasValue)
+                {
+                    this.Map.DoScroll(new Vector2(-input.DragGesture.Value.Delta.X, input.DragGesture.Value.Delta.Y) * 3f);
+                }
+                if (input.MouseDragging)
+                {
+                    this.Map.DoScroll(new Vector2(-input.MouseDelta.X, input.MouseDelta.Y));
+                }
+                if (input.CurrentMouseState.ScrollWheelValue > input.LastMouseState.ScrollWheelValue) this.Map.DoZoom(1.03f);
+                if (input.CurrentMouseState.ScrollWheelValue < input.LastMouseState.ScrollWheelValue) this.Map.DoZoom(0.97f);
 
-                var scroll = Vector2.Zero;
-                if (this.PlayerControls.Scroll == ScrollDirection.Right) scroll.X = -10f;
-                if (this.PlayerControls.Scroll == ScrollDirection.Left) scroll.X = 10f;
-                if (this.PlayerControls.Scroll == ScrollDirection.Up) scroll.Y = -10f;
-                if (this.PlayerControls.Scroll == ScrollDirection.Down) scroll.Y = 10f;
-                if (this.PlayerControls.IsPhone) scroll = scroll * 6;
-                if (scroll != Vector2.Zero) this.Map.DoScroll(scroll);
+                if (Team1ClientType == GameClientType.Human) DudeController.HandleInput(input, 0);
+                if (Team2ClientType == GameClientType.Human) DudeController.HandleInput(input, 1);
 
-                if (Team1ClientType == GameClientType.Human) DudeController.HandleInput(this.PlayerControls, 0);
-                if (Team2ClientType == GameClientType.Human) DudeController.HandleInput(this.PlayerControls, 1);
+                ButtonController.HandleInput(input);
 
-                ButtonController.HandleInput(this.PlayerControls);
+
             }
         }
 
