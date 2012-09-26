@@ -201,8 +201,8 @@ namespace Fodder.Core
             if (!IsAttractMode && !Team1Win && !Team2Win && StartCountdown<=0)
             {
                 var kbscroll = Vector2.Zero;
-                if (input.CurrentKeyboardStates[0].IsKeyDown(Keys.D)) kbscroll.X = -10f;
-                if (input.CurrentKeyboardStates[0].IsKeyDown(Keys.A)) kbscroll.X = 10f;
+                if (input.CurrentKeyboardStates[0].IsKeyDown(Keys.D)) kbscroll.X = 10f;
+                if (input.CurrentKeyboardStates[0].IsKeyDown(Keys.A)) kbscroll.X = -10f;
                 if (input.CurrentKeyboardStates[0].IsKeyDown(Keys.W)) kbscroll.Y = -10f;
                 if (input.CurrentKeyboardStates[0].IsKeyDown(Keys.S)) kbscroll.Y = 10f;
                 if (kbscroll != Vector2.Zero) this.Map.DoScroll(kbscroll);
@@ -321,7 +321,7 @@ namespace Fodder.Core
                 if (p.Active) return;
             }
 
-            if(Team1Reinforcements==0 && Team2Reinforcements==0)
+            if(Team1Reinforcements==0 || Team2Reinforcements==0)
             {
                 if (Team1ActiveCount == 0 || Team2ActiveCount == 0)
                 {

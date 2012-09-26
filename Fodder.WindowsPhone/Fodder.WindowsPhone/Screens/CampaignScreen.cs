@@ -48,7 +48,7 @@ namespace Fodder.Phone.GameState
 
         BackgroundWorker bgw = new BackgroundWorker();
 
-        const int MAX_SCENARIOS = 11;
+        const int MAX_SCENARIOS = 15;
 
         int furthestScenario = 1;
         List<int> scenarioScores = new List<int>(MAX_SCENARIOS);

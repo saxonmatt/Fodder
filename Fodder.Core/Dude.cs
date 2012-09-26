@@ -45,7 +45,7 @@ namespace Fodder.Core
         internal Vector2 _screenRelativePosition;
         Rectangle _sourceRect;
 
-        bool PersonalShield = false;
+        double PersonalShield = 0;
 
         public Dude(Texture2D texture)
         {
@@ -69,7 +69,7 @@ namespace Fodder.Core
             BoostTime = 0;
             ShieldTime = 0;
             UIHover = false;
-            PersonalShield = false;
+            PersonalShield = 5000;
 
             _currentMoveTime = 0;
             _targetMoveTime = 10;
@@ -121,12 +121,12 @@ namespace Fodder.Core
                 if (ShieldTime > 0)
                     ShieldTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
 
-                if ((PathDirection == 1 && (int)Position.X >= GameSession.Instance.Map.Width + 20) || (PathDirection == -1 && (int)Position.X <= -20)) Active = false;
-                if ((PathDirection == 1 && (int)Position.X <= 70) || (PathDirection == -1 && (int)Position.X >= GameSession.Instance.Map.Width - 70))
-                    PersonalShield = true;
-                else PersonalShield = false;
-
-                if (PersonalShield) IsShielded = true;
+                if (PersonalShield > 0)
+                {
+                    IsShielded = true;
+                    PersonalShield -= gameTime.ElapsedGameTime.TotalMilliseconds;
+                }
+                
 
                 // Flag lowering
                 if(Team==0)
@@ -225,7 +225,7 @@ namespace Fodder.Core
                     GameSession.Instance.Map.Zoom,
                     SpriteEffects.None, 0);
 
-            if(PersonalShield)
+            if(PersonalShield>0)
                 sb.Draw(texDude, _screenRelativePosition, new Rectangle(0, 40, 600, 600),
                     (Team == 0 ? Color.Red : Color.Blue) * 0.2f,
                     0f,

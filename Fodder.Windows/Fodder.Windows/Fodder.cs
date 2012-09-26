@@ -30,8 +30,8 @@ namespace Fodder.Windows
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Fodder.Content";
 
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 480;
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
             //graphics.IsFullScreen = true;
             
 

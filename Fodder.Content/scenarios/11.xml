@@ -60,16 +60,16 @@
       <IsEnabled>true</IsEnabled>
     </Function>
   </AvailableFunctions>
-  <AIReactionTime>5000</AIReactionTime>
-  <T1Reinforcements>150</T1Reinforcements>
-  <T2Reinforcements>150</T2Reinforcements>
-  <T1SpawnRate>1000</T1SpawnRate>
-  <T2SpawnRate>1000</T2SpawnRate>
-  <MapName>2</MapName>
-  <ScenarioName>Later Mission Difficulty</ScenarioName>
+  <AIReactionTime>7500</AIReactionTime>
+  <T1Reinforcements>80</T1Reinforcements>
+  <T2Reinforcements>80</T2Reinforcements>
+  <T1SpawnRate>3100</T1SpawnRate>
+  <T2SpawnRate>3100</T2SpawnRate>
+  <MapName>campaign11</MapName>
+  <ScenarioName>In the Valley</ScenarioName>
   <BronzeScore>0</BronzeScore>
-  <SilverScore>10</SilverScore>
-  <GoldScore>20</GoldScore>
+  <SilverScore>30</SilverScore>
+  <GoldScore>70</GoldScore>
   <CampaignMissionNum>11</CampaignMissionNum>
 </Scenario>]]>
   </Asset>

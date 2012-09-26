@@ -60,17 +60,17 @@
       <IsEnabled>true</IsEnabled>
     </Function>
   </AvailableFunctions>
-  <AIReactionTime>8000</AIReactionTime>
-  <T1Reinforcements>75</T1Reinforcements>
-  <T2Reinforcements>75</T2Reinforcements>
-  <T1SpawnRate>3200</T1SpawnRate>
-  <T2SpawnRate>3200</T2SpawnRate>
-  <MapName>campaign10</MapName>
-  <ScenarioName>Up to the Plateau</ScenarioName>
+  <AIReactionTime>7000</AIReactionTime>
+  <T1Reinforcements>100</T1Reinforcements>
+  <T2Reinforcements>100</T2Reinforcements>
+  <T1SpawnRate>2500</T1SpawnRate>
+  <T2SpawnRate>1500</T2SpawnRate>
+  <MapName>campaign15</MapName>
+  <ScenarioName>A Simple Defense?</ScenarioName>
   <BronzeScore>0</BronzeScore>
   <SilverScore>30</SilverScore>
   <GoldScore>70</GoldScore>
-  <CampaignMissionNum>10</CampaignMissionNum>
+  <CampaignMissionNum>15</CampaignMissionNum>
 </Scenario>]]>
   </Asset>
 </XnaContent>
