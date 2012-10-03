@@ -13,7 +13,7 @@ using Fodder.GameState;
 
 namespace Fodder.Core
 {
-    class DudeController
+    public class DudeController
     {
         const int MAX_DUDES = 1000;
 

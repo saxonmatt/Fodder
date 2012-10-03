@@ -64,10 +64,10 @@ namespace Fodder.Windows.GameState
         /// </summary>
         public override void LoadContent()
         {
-            if (content == null)
+            if (content == null) 
                 content = new ContentManager(ScreenManager.Game.Services, "Fodder.Content");
 
-            gameSession = new GameSession(GameClientType.Human, GameClientType.AI, gameScenario, ScreenManager.GraphicsDevice.Viewport, false);
+            gameSession = new GameSession(GameClientType.Human, GameClientType.Network, new NetworkController(), gameScenario, ScreenManager.GraphicsDevice.Viewport, false);
             gameSession.LoadContent(content);
 
             ScreenManager.Game.ResetElapsedTime();

@@ -42,7 +42,7 @@ namespace Fodder.Core
     public class GameSession
     {
         public static GameSession Instance;
-        internal DudeController DudeController;
+        public DudeController DudeController;
         internal ButtonController ButtonController;
         internal ParticleController ParticleController;
         internal ProjectileController ProjectileController;
@@ -83,14 +83,17 @@ namespace Fodder.Core
         AIController AI1 = new AIController();
         AIController AI2 = new AIController();
 
+        INetworkController Net;
+
         public double StartCountdown;
         float prepareTransition;
         float fightTransition;
 
         SpriteFont largeFont;
 
-        public GameSession(GameClientType t1CT, GameClientType t2CT, Scenario scenario, Viewport vp, bool attractmode)
+        public GameSession(GameClientType t1CT, GameClientType t2CT, INetworkController net, Scenario scenario, Viewport vp, bool attractmode)
         {
+            Net = net;
 
             Instance = this;
 
@@ -122,6 +125,9 @@ namespace Fodder.Core
 
             AI1.Initialize(scenario.AIReactionTime);
             AI2.Initialize(scenario.AIReactionTime);
+
+            if (t1CT == GameClientType.Network) Net.Initialize(0);
+            if (t2CT == GameClientType.Network) Net.Initialize(1);
 
             Viewport = vp;
 
@@ -176,6 +182,7 @@ namespace Fodder.Core
 
             if (Team1ClientType == GameClientType.AI) AI1.Update(gameTime, 0);
             if (Team2ClientType == GameClientType.AI) AI2.Update(gameTime, 1);
+            if (Team1ClientType == GameClientType.Network || Team2ClientType == GameClientType.Network) Net.Update(gameTime);
 
             ButtonController.Update(gameTime);
             SoulController.Update(gameTime);

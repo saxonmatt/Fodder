@@ -13,7 +13,39 @@ using Fodder.Core.Weapons;
 
 namespace Fodder.Core
 {
-    class Dude
+    public class DudeNetPacket
+    {
+        public int Team { get; set; }
+
+        public float PosX { get; set; }
+        public float PosY { get; set; }
+        public int Health { get; set; }
+        public double BoostTime { get; set; }
+        public double ShieldTime { get; set; }
+        public bool IsShielded { get; set; }
+        public double CurrentMoveTime { get; set; }
+        public float Rot { get; set; }
+        public double PersonalShield { get; set; }
+
+        public string WeaponType { get; set; }
+        public int CurrentAmmo { get; set; }
+        public bool FeetPlanted { get; set; }
+        public bool IsInRange { get; set; }
+        public double CurrentAttackTime { get; set; }
+
+        public void WriteTo(Dude d)
+        {
+            PosX = d.Position.X;
+            PosY = d.Position.Y;
+            Health = d.Health;
+            BoostTime = d.BoostTime;
+            ShieldTime = d.ShieldTime;
+        }
+
+        
+    }
+
+    public class Dude
     {
         public Vector2 Position;
         public bool Active = false;
@@ -271,6 +303,17 @@ namespace Fodder.Core
                     Weapon = new Mortar(this);
                     break;
             }
+        }
+
+        public void ReadFromPacket(DudeNetPacket dnp)
+        {
+            Spawn(new Vector2(dnp.PosX, dnp.PosY), dnp.Team);
+
+            PersonalShield = 0;
+
+            Health = dnp.Health;
+            BoostTime = dnp.BoostTime;
+            ShieldTime = dnp.ShieldTime;
         }
     }
 }

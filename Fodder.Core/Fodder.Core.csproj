@@ -36,6 +36,7 @@
     <Compile Include="Controllers\AIController.cs" />
     <Compile Include="Controllers\AudioController.cs" />
     <Compile Include="Controllers\DudeController.cs" />
+    <Compile Include="Controllers\INetworkController.cs" />
     <Compile Include="Controllers\ParticleController.cs" />
     <Compile Include="Controllers\ProjectileController.cs" />
     <Compile Include="Controllers\SoulController.cs" />

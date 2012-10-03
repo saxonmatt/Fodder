@@ -81,7 +81,7 @@ namespace Fodder.Windows.GameState
 
             Scenario scenario = new Scenario("Attract", "attract", funcs, 3000, 100, 100, 1000, 1000);
 
-            attractSession = new GameSession(GameClientType.AI, GameClientType.AI, scenario, ScreenManager.GraphicsDevice.Viewport, true);
+            attractSession = new GameSession(GameClientType.AI, GameClientType.AI, null, scenario, ScreenManager.GraphicsDevice.Viewport, true);
             attractSession.LoadContent(content);
         }
 

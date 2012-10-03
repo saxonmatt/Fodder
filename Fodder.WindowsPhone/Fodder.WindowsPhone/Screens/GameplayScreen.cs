@@ -76,7 +76,7 @@ namespace Fodder.Phone.GameState
             funcs.Add(new Function("machinegun", 30000, true));
             funcs.Add(new Function("mortar", 30000, true));
 
-            gameSession = new GameSession(GameClientType.Human, GameClientType.AI, gameScenario, ScreenManager.GraphicsDevice.Viewport, false);
+            gameSession = new GameSession(GameClientType.Human, GameClientType.AI, null, gameScenario, ScreenManager.GraphicsDevice.Viewport, false);
             gameSession.LoadContent(content);
 
             ScreenManager.Game.ResetElapsedTime();

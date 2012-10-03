@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Fodder.Core.Weapons
 {
-    class BaseWeapon
+    public class BaseWeapon
     {
         public float Range;
         public int StartingAmmo;
