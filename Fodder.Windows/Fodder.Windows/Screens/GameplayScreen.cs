@@ -36,6 +36,8 @@ namespace Fodder.Windows.GameState
         GameSession gameSession;
         Scenario gameScenario;
 
+        INetworkController Net;
+
         bool resultReached;
 
         #endregion
@@ -57,6 +59,18 @@ namespace Fodder.Windows.GameState
 
             EnabledGestures = GestureType.Pinch | GestureType.Tap | GestureType.FreeDrag;
         }
+        public GameplayScreen(Scenario scenario, INetworkController net)
+        {
+            Net = net;
+            gameScenario = scenario;
+
+            TransitionOnTime = TimeSpan.FromSeconds(1.5);
+            TransitionOffTime = TimeSpan.FromSeconds(0.5);
+
+            IsStubbourn = true;
+
+            EnabledGestures = GestureType.Pinch | GestureType.Tap | GestureType.FreeDrag;
+        }
 
 
         /// <summary>
@@ -67,7 +81,15 @@ namespace Fodder.Windows.GameState
             if (content == null) 
                 content = new ContentManager(ScreenManager.Game.Services, "Fodder.Content");
 
-            gameSession = new GameSession(GameClientType.Human, GameClientType.Network, new NetworkController(), gameScenario, ScreenManager.GraphicsDevice.Viewport, false);
+            if (Net != null) // Is a multiplayer game
+            {
+                gameSession = new GameSession(Net.GetTeam() == 0 ? GameClientType.Network : GameClientType.Human, Net.GetTeam() == 1 ? GameClientType.Network : GameClientType.Human, Net, gameScenario, ScreenManager.GraphicsDevice.Viewport, false);
+            }
+            else
+            {
+                gameSession = new GameSession(GameClientType.Human, GameClientType.AI, null, gameScenario, ScreenManager.GraphicsDevice.Viewport, false);
+            }
+
             gameSession.LoadContent(content);
 
             ScreenManager.Game.ResetElapsedTime();
@@ -107,7 +129,7 @@ namespace Fodder.Windows.GameState
             }
             if (!found)
             {
-                gameSession.Update(gameTime);
+                if(TransitionPosition==0) gameSession.Update(gameTime);
 
                 if (gameSession.Team1Win || gameSession.Team2Win)
                 {

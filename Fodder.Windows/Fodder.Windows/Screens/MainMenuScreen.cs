@@ -46,18 +46,21 @@ namespace Fodder.Windows.GameState
             // Create our menu entries.
             MenuEntry campaignGameMenuEntry = new MenuEntry("CAMPAIGN");
             MenuEntry quickGameMenuEntry = new MenuEntry("WAR");
+            MenuEntry mpGameMenuEntry = new MenuEntry("MULTIPLAYER");
             MenuEntry optionsMenuEntry = new MenuEntry("OPTIONS");
             MenuEntry exitMenuEntry = new MenuEntry("EXIT GAME");
 
             // Hook up menu event handlers.
             campaignGameMenuEntry.Selected += CampaignGameMenuEntrySelected;
             quickGameMenuEntry.Selected += QuickGameMenuEntrySelected;
+            mpGameMenuEntry.Selected += MPGameMenuEntrySelected;
             optionsMenuEntry.Selected += OptionsMenuEntrySelected;
             exitMenuEntry.Selected += ExitMenuEntrySelected;
 
             // Add entries to the menu.
             MenuEntries.Add(campaignGameMenuEntry);
             MenuEntries.Add(quickGameMenuEntry);
+            MenuEntries.Add(mpGameMenuEntry);
             MenuEntries.Add(optionsMenuEntry);
             if (!ScreenManager.IsPhone)
             {
@@ -87,6 +90,10 @@ namespace Fodder.Windows.GameState
               //                 new GameplayScreen());
         }
 
+        void MPGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
+        {
+            ScreenManager.AddScreen(new MultiplayerScreen(-1, null), e.PlayerIndex);
+        }
 
         /// <summary>
         /// Event handler for when the Options menu entry is selected.

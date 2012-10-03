@@ -126,8 +126,8 @@ namespace Fodder.Core
             AI1.Initialize(scenario.AIReactionTime);
             AI2.Initialize(scenario.AIReactionTime);
 
-            if (t1CT == GameClientType.Network) Net.Initialize(0);
-            if (t2CT == GameClientType.Network) Net.Initialize(1);
+            //if (t1CT == GameClientType.Network) Net.Initialize(0);
+            //if (t2CT == GameClientType.Network) Net.Initialize(1);
 
             Viewport = vp;
 
@@ -160,6 +160,17 @@ namespace Fodder.Core
             Map.Update(gameTime);
             HUD.Update(gameTime);
 
+            if (Team1ClientType == GameClientType.Network || Team2ClientType == GameClientType.Network)
+            {
+                Net.Update(gameTime);
+
+                if (Net.GetState() == RemoteClientState.ReadyToStart)
+                {
+                    Net.SendReady();
+                    return;
+                }
+            }
+
             if (StartCountdown > 0)
             {
                 StartCountdown -= gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -182,7 +193,7 @@ namespace Fodder.Core
 
             if (Team1ClientType == GameClientType.AI) AI1.Update(gameTime, 0);
             if (Team2ClientType == GameClientType.AI) AI2.Update(gameTime, 1);
-            if (Team1ClientType == GameClientType.Network || Team2ClientType == GameClientType.Network) Net.Update(gameTime);
+            
 
             ButtonController.Update(gameTime);
             SoulController.Update(gameTime);
@@ -256,10 +267,18 @@ namespace Fodder.Core
             }
 
             spriteBatch.Begin();
-            if (prepareTransition > 0)
+            if (Net != null && Net.GetState() == RemoteClientState.ReadyToStart)
             {
-                spriteBatch.DrawString(largeFont, "Prepare for Battle", (new Vector2(spriteBatch.GraphicsDevice.Viewport.Width, spriteBatch.GraphicsDevice.Viewport.Height) / 2) + Vector2.One, Color.Black * prepareTransition, 0f, largeFont.MeasureString("Prepare for Battle") / 2, 0.5f, SpriteEffects.None, 1);
-                spriteBatch.DrawString(largeFont, "Prepare for Battle", new Vector2(spriteBatch.GraphicsDevice.Viewport.Width, spriteBatch.GraphicsDevice.Viewport.Height) / 2, Color.White * prepareTransition, 0f, largeFont.MeasureString("Prepare for Battle") / 2, 0.5f, SpriteEffects.None, 1);
+                spriteBatch.DrawString(largeFont, "Waiting for other player", (new Vector2(spriteBatch.GraphicsDevice.Viewport.Width, spriteBatch.GraphicsDevice.Viewport.Height) / 2) + Vector2.One, Color.Black, 0f, largeFont.MeasureString("Waiting for other player") / 2, 0.5f, SpriteEffects.None, 1);
+                spriteBatch.DrawString(largeFont, "Waiting for other player", new Vector2(spriteBatch.GraphicsDevice.Viewport.Width, spriteBatch.GraphicsDevice.Viewport.Height) / 2, Color.White, 0f, largeFont.MeasureString("Waiting for other player") / 2, 0.5f, SpriteEffects.None, 1);
+            }
+            else
+            {
+                if (prepareTransition > 0)
+                {
+                    spriteBatch.DrawString(largeFont, "Prepare for Battle", (new Vector2(spriteBatch.GraphicsDevice.Viewport.Width, spriteBatch.GraphicsDevice.Viewport.Height) / 2) + Vector2.One, Color.Black * prepareTransition, 0f, largeFont.MeasureString("Prepare for Battle") / 2, 0.5f, SpriteEffects.None, 1);
+                    spriteBatch.DrawString(largeFont, "Prepare for Battle", new Vector2(spriteBatch.GraphicsDevice.Viewport.Width, spriteBatch.GraphicsDevice.Viewport.Height) / 2, Color.White * prepareTransition, 0f, largeFont.MeasureString("Prepare for Battle") / 2, 0.5f, SpriteEffects.None, 1);
+                }
             }
             if (fightTransition > 0f)
             {

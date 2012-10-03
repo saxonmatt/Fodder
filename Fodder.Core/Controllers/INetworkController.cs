@@ -9,9 +9,18 @@ namespace Fodder.Core
     public enum PacketTypes
     {
         INIT,
+        READY,
         DUDES,
         PROJECTILES,
         FLAGS
+    }
+
+    public enum RemoteClientState
+    {
+        NotConnected,
+        Connected,
+        ReadyToStart,
+        InGame
     }
 
     public interface INetworkController
@@ -19,6 +28,10 @@ namespace Fodder.Core
         void Initialize(int team);
 
         void Update(GameTime gameTime);
+
+        RemoteClientState GetState();
+        int GetTeam();
+        void SendReady();
 
     }
 }

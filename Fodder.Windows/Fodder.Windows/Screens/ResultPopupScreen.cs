@@ -147,6 +147,7 @@ namespace Fodder.Windows.GameState
             }
             else
             {
+                LoadingScreen.Load(ScreenManager, false, null, new BackgroundScreen(), new MainMenuScreen());
                 // Not a campaign result, do something else!
             }
         }

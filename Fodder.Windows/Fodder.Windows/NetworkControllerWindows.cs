@@ -14,7 +14,9 @@ using Fodder.Core;
 
 namespace Fodder.Windows
 {
-    class NetworkController : INetworkController
+    
+
+    class NetworkControllerWindows : INetworkController
     {
         NetPeer peer;
         NetConnection conn;
@@ -27,17 +29,19 @@ namespace Fodder.Windows
         double UPDATE_TIME = 100;
 
         public int Team;
+        public RemoteClientState RemoteState;
 
         public void Initialize(int team)
         {
             Team = team;
+            RemoteState = RemoteClientState.NotConnected;
 
             NetPeerConfiguration Config = new NetPeerConfiguration("fodder");
             Config.EnableMessageType(NetIncomingMessageType.DiscoveryRequest);
             Config.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
             Config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
             Config.EnableMessageType(NetIncomingMessageType.UnconnectedData);
-            Config.Port = 12345;
+            Config.Port = ListenPort;
             Config.LocalAddress = NetUtility.Resolve("localhost");
 
             peer = new NetPeer(Config);
@@ -65,11 +69,12 @@ namespace Fodder.Windows
 
                 if (peer.Connections.Count > 0)
                 {
+                    if (RemoteState == RemoteClientState.NotConnected) RemoteState = RemoteClientState.Connected;
                     NetOutgoingMessage outmsg = peer.CreateMessage();
                     outmsg.Write((Int32)PacketTypes.DUDES);
                     foreach (Dude d in GameSession.Instance.DudeController.Dudes)
                     {
-                        if (d.Active && d.Team == Team)
+                        if (d.Active && d.Team != Team)
                         {
                             DudeNetPacket dnp = new DudeNetPacket();
                             dnp.WriteTo(d);
@@ -88,15 +93,21 @@ namespace Fodder.Windows
                     case NetIncomingMessageType.DiscoveryRequest:
                         //Console.WriteLine("ReceivePeersData DiscoveryRequest");
                         peer.SendDiscoveryResponse(null, msg.SenderEndpoint);
+                        //RemoteState = RemoteClientState.Connected;
                         break;
                     case NetIncomingMessageType.DiscoveryResponse:
                         // just connect to first server discovered
                         //Console.WriteLine("ReceivePeersData DiscoveryResponse CONNECT");
-                        peer.Connect(msg.SenderEndpoint);
+                        try
+                        {
+                            peer.Connect(msg.SenderEndpoint);
+                        }
+                        catch (Exception ex) { }
                         break;
                     case NetIncomingMessageType.ConnectionApproval:
                         //Console.WriteLine("ReceivePeersData ConnectionApproval");
                         msg.SenderConnection.Approve();
+                        //RemoteState = RemoteClientState.Connected;
                         //broadcast this to all connected clients
                         //msg.SenderEndpoint.Address, msg.SenderEndpoint.Port
                         //netManager.SendPeerInfo(msg.SenderEndpoint.Address, msg.SenderEndpoint.Port);
@@ -105,6 +116,8 @@ namespace Fodder.Windows
                         //another client sent us data
                         //Console.WriteLine("BEGIN ReceivePeersData Data");
                         PacketTypes mType = (PacketTypes)msg.ReadInt32();
+                        if (mType == PacketTypes.READY)
+                            RemoteState = RemoteClientState.InGame;
                         if (mType == PacketTypes.DUDES)
                         {
                             foreach (Dude d in GameSession.Instance.DudeController.Dudes)
@@ -148,16 +161,24 @@ namespace Fodder.Windows
             }
         }
 
-        public void HandleInput(MouseState ms)
+        public RemoteClientState GetState()
         {
-           
+            return RemoteState;
+        }
+        public int GetTeam()
+        {
+            return Team;
         }
 
-        public void Draw(SpriteBatch sb)
+        public void SendReady()
         {
-           
+            if (peer.Connections.Count > 0)
+            {
+                NetOutgoingMessage outmsg = peer.CreateMessage();
+                outmsg.Write((Int32)PacketTypes.READY);
+                peer.SendMessage(outmsg, peer.Connections, NetDeliveryMethod.ReliableOrdered, 0);
+            }
         }
-
        
     }
 }
