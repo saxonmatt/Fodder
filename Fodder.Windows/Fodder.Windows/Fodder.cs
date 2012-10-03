@@ -11,19 +11,23 @@ using Microsoft.Xna.Framework.Media;
 using Fodder.Core;
 using Fodder.GameState;
 using Fodder.Windows.GameState;
+using XConsoleApp;
 
 namespace Fodder.Windows
 {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Fodder : Microsoft.Xna.Framework.Game
+    public class Fodder : Microsoft.Xna.Framework.Game, XConsole.IKeyboardInputService
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
         //GameSession gameSession;
-        ScreenManager screenManager; 
+        ScreenManager screenManager;
+
+        XConsole xc;
+        KeyboardState currentKeyboard, previousKeyboard;
 
         public Fodder()
         {
@@ -43,6 +47,12 @@ namespace Fodder.Windows
             // Activate the first screens.
             screenManager.AddScreen(new BackgroundScreen(), null);
             screenManager.AddScreen(new MainMenuScreen(), null);
+
+            Services.AddService(typeof(XConsole.IKeyboardInputService), this);
+
+            xc = new XConsole(this.Services, "Fodder.Content/consolefont");
+
+            Components.Add(xc);
         }
 
         /// <summary>
@@ -103,6 +113,10 @@ namespace Fodder.Windows
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            // Update the keyboard state
+            previousKeyboard = currentKeyboard;
+            currentKeyboard = Keyboard.GetState();
+
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
@@ -124,5 +138,24 @@ namespace Fodder.Windows
 
             base.Draw(gameTime);
         }
+
+        #region XConsole.IKeyboardInputService Members
+
+        public bool IsJustPressed(Keys key)
+        {
+            return currentKeyboard.IsKeyDown(key) && previousKeyboard.IsKeyUp(key);
+        }
+
+        public bool IsDown(Keys key)
+        {
+            return currentKeyboard.IsKeyDown(key);
+        }
+
+        public Keys[] GetPressedKeys()
+        {
+            return currentKeyboard.GetPressedKeys();
+        }
+
+        #endregion
     }
 }

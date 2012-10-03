@@ -22,6 +22,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Xml.Serialization;
 using System.IO.IsolatedStorage;
+using XConsoleApp;
 #endregion
 
 namespace Fodder.Windows.GameState
@@ -100,6 +101,8 @@ namespace Fodder.Windows.GameState
             Net = new NetworkControllerWindows();
             Net.Initialize(0);
 
+            XConsole.Instance.SelectedObjects.Add(Net);
+
             bgw.DoWork += new DoWorkEventHandler(bgw_DoWork);
             bgw.RunWorkerAsync();
 
@@ -112,7 +115,7 @@ namespace Fodder.Windows.GameState
         /// </summary>
         public override void UnloadContent()
         {
-            Net.CloseConn();
+            
             content.Unload();
         }
 
@@ -157,6 +160,7 @@ namespace Fodder.Windows.GameState
 
             if (input.IsMenuCancel(ControllingPlayer, out pi))
             {
+                Net.CloseConn();
                 this.ExitScreen();
             }
             
@@ -185,9 +189,9 @@ namespace Fodder.Windows.GameState
                     
 
                 if(Net.RemoteState== RemoteClientState.NotConnected)
-                    spriteBatch.DrawString(font, "Waiting for connection", new Vector2(spriteBatch.GraphicsDevice.Viewport.Width / 2, (spriteBatch.GraphicsDevice.Viewport.Height / 2)), Color.White * TransitionAlpha, 0f, font.MeasureString("Waiting for connection") / 2, 1f, SpriteEffects.None, 1);
+                    spriteBatch.DrawString(font, "Waiting for connection with " + Net.HostName, new Vector2(spriteBatch.GraphicsDevice.Viewport.Width / 2, (spriteBatch.GraphicsDevice.Viewport.Height / 2)), Color.White * TransitionAlpha, 0f, font.MeasureString("Waiting for connection with " + Net.HostName) / 2, 1f, SpriteEffects.None, 1);
                 if (Net.RemoteState == RemoteClientState.Connected)
-                    spriteBatch.DrawString(font, "Waiting for connection", new Vector2(spriteBatch.GraphicsDevice.Viewport.Width / 2, (spriteBatch.GraphicsDevice.Viewport.Height / 2)), Color.White * TransitionAlpha, 0f, font.MeasureString("Waiting for connection") / 2, 1f, SpriteEffects.None, 1);
+                    spriteBatch.DrawString(font, "Connected to " + Net.HostName, new Vector2(spriteBatch.GraphicsDevice.Viewport.Width / 2, (spriteBatch.GraphicsDevice.Viewport.Height / 2)), Color.White * TransitionAlpha, 0f, font.MeasureString("Connected to " + Net.HostName) / 2, 1f, SpriteEffects.None, 1);
                
                 spriteBatch.End();
          

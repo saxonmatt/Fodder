@@ -25,6 +25,8 @@ namespace Fodder.Windows
 
         public int ListenPort = 12345;
         public int ClientPort = 12345;
+
+        public string HostName = "localhost";
         
         double currentUpdateTime = 0;
 
@@ -80,7 +82,11 @@ namespace Fodder.Windows
 
                 if (peer.Connections.Count == 0)
                 {
-                    peer.DiscoverKnownPeer(new System.Net.IPEndPoint(IPAddress.Parse("192.168.1.6"), ClientPort));
+                    try
+                    {
+                        peer.DiscoverKnownPeer(new System.Net.IPEndPoint(NetUtility.Resolve(HostName), ClientPort));
+                    }
+                    catch (Exception ex) { };
                 }
 
                 if (peer.Connections.Count > 0)

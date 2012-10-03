@@ -179,7 +179,7 @@ namespace Fodder.Core
 
             if (StartCountdown > 0)
             {
-                Net.SendReady();
+                if(Net!=null) Net.SendReady();
                 StartCountdown -= gameTime.ElapsedGameTime.TotalMilliseconds;
                 CalculateWinConditions(gameTime);
                 if ((int)StartCountdown < 1000)

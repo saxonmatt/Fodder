@@ -88,6 +88,7 @@
     <Compile Include="Screens\OptionsMenuScreen.cs" />
     <Compile Include="Screens\PauseBackgroundScreen.cs" />
     <Compile Include="Screens\PauseMenuScreen.cs" />
+    <Compile Include="XConsole.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
