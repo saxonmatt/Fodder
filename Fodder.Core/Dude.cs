@@ -40,6 +40,16 @@ namespace Fodder.Core
             Health = d.Health;
             BoostTime = d.BoostTime;
             ShieldTime = d.ShieldTime;
+            IsShielded = d.IsShielded;
+            CurrentMoveTime = d._currentMoveTime;
+            Rot = d._rot;
+            PersonalShield = d.PersonalShield;
+
+            WeaponType = d.Weapon.GetType().Name.ToLower();
+            CurrentAmmo = d.Weapon.CurrentAmmo;
+            FeetPlanted = d.Weapon.FeetPlanted;
+            IsInRange = d.Weapon.IsInRange;
+            CurrentAttackTime = d.Weapon._currentAttackTime;
         }
 
         
@@ -70,14 +80,14 @@ namespace Fodder.Core
 
         public Texture2D texDude;
 
-        double _currentMoveTime = 0;
+        public double _currentMoveTime = 0;
         double _targetMoveTime = 10;
-        float _rot = 0f;
+        public float _rot = 0f;
         int _movePixels = 1;
         internal Vector2 _screenRelativePosition;
         Rectangle _sourceRect;
 
-        double PersonalShield = 0;
+        public double PersonalShield = 0;
 
         public Dude(Texture2D texture)
         {
@@ -314,6 +324,17 @@ namespace Fodder.Core
             Health = dnp.Health;
             BoostTime = dnp.BoostTime;
             ShieldTime = dnp.ShieldTime;
+            IsShielded = dnp.IsShielded;
+            _currentMoveTime = dnp.CurrentMoveTime;
+            _rot = dnp.Rot;
+            PersonalShield = dnp.PersonalShield;
+
+            GiveWeapon(dnp.WeaponType);
+            
+            Weapon.CurrentAmmo = dnp.CurrentAmmo;
+            Weapon.FeetPlanted = dnp.FeetPlanted;
+            Weapon.IsInRange = dnp.IsInRange;
+            Weapon._currentAttackTime = dnp.CurrentAttackTime;
         }
     }
 }

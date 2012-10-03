@@ -101,6 +101,7 @@ namespace Fodder.Windows.GameState
         /// </summary>
         public override void UnloadContent()
         {
+            gameSession.Dispose();
             content.Unload();
         }
 

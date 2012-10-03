@@ -12,11 +12,11 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Fodder.Core
 {
-    class ProjectileController
+    public class ProjectileController
     {
         const int MAX_PROJECTILES = 1000;
 
-        public static Projectile[] Projectiles;
+        public Projectile[] Projectiles;
         public static Random Rand = new Random();
 
         static Texture2D _texDude;

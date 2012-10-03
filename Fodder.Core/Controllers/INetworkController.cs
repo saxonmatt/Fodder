@@ -33,5 +33,7 @@ namespace Fodder.Core
         int GetTeam();
         void SendReady();
 
+        void CloseConn();
+
     }
 }

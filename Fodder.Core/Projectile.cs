@@ -13,7 +13,33 @@ using Fodder.Core.Weapons;
 
 namespace Fodder.Core
 {
-    class Projectile
+    public class ProjectileNetPacket
+    {
+        public int Team { get; set; }
+
+        public float PosX { get; set; }
+        public float PosY { get; set; }
+        public float VelX { get; set; }
+        public float VelY { get; set; }
+        public float Size { get; set; }
+        public bool Explosive { get; set; }
+        public int Damage { get; set; }
+        public bool AffectedByGravity { get; set; }
+
+        public void WriteTo(Projectile p)
+        {
+            PosX = p.Position.X;
+            PosY = p.Position.Y;
+            VelX = p.Velocity.X;
+            VelY = p.Velocity.Y;
+            Size = p.Size;
+            Explosive = p.Explosive;
+            Damage = p.Damage;
+            AffectedByGravity = p.AffectedByGravity;
+        }
+    }
+
+    public class Projectile
     {
         public Vector2 Position;
         public Vector2 Velocity;
@@ -80,6 +106,19 @@ namespace Fodder.Core
                     new Vector2(_sourceRect.Width/2, _sourceRect.Height/2),
                     Size * GameSession.Instance.Map.Zoom, 
                     SpriteEffects.None, 0);
+        }
+
+        public void ReadFromPacket(ProjectileNetPacket pnp)
+        {
+            Team = pnp.Team;
+            Active = true;
+
+            Position = new Vector2(pnp.PosX, pnp.PosY);
+            Velocity = new Vector2(pnp.VelX, pnp.VelY);
+            Size = pnp.Size;
+            Explosive = pnp.Explosive;
+            Damage = pnp.Damage;
+            AffectedByGravity = pnp.AffectedByGravity;
         }
        
     }

@@ -45,7 +45,7 @@ namespace Fodder.Core
         public DudeController DudeController;
         internal ButtonController ButtonController;
         internal ParticleController ParticleController;
-        internal ProjectileController ProjectileController;
+        public ProjectileController ProjectileController;
         internal SoulController SoulController;
         internal HUD HUD;
 
@@ -155,6 +155,12 @@ namespace Fodder.Core
             largeFont = content.Load<SpriteFont>("largefont");
         }
 
+        public void Dispose()
+        {
+            if (Net != null)
+                Net.CloseConn();
+        }
+
         public void Update(GameTime gameTime)
         {
             Map.Update(gameTime);
@@ -173,6 +179,7 @@ namespace Fodder.Core
 
             if (StartCountdown > 0)
             {
+                Net.SendReady();
                 StartCountdown -= gameTime.ElapsedGameTime.TotalMilliseconds;
                 CalculateWinConditions(gameTime);
                 if ((int)StartCountdown < 1000)

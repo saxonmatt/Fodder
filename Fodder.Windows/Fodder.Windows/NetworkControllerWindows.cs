@@ -72,6 +72,10 @@ namespace Fodder.Windows
                     if (RemoteState == RemoteClientState.NotConnected) RemoteState = RemoteClientState.Connected;
                     NetOutgoingMessage outmsg = peer.CreateMessage();
                     outmsg.Write((Int32)PacketTypes.DUDES);
+                    int dudecount = 0;
+                    foreach (Dude d in GameSession.Instance.DudeController.Dudes)
+                        if (d.Active && d.Team != Team) dudecount++;
+                    outmsg.Write(dudecount);
                     foreach (Dude d in GameSession.Instance.DudeController.Dudes)
                     {
                         if (d.Active && d.Team != Team)
@@ -81,6 +85,25 @@ namespace Fodder.Windows
                             outmsg.WriteAllProperties(dnp);
                         }
                     }
+                    outmsg.WritePadBits();
+                    peer.SendMessage(outmsg, peer.Connections, NetDeliveryMethod.ReliableOrdered, 0);
+
+                    outmsg = peer.CreateMessage();
+                    outmsg.Write((Int32)PacketTypes.PROJECTILES);
+                    int pcount = 0;
+                    foreach (Projectile p in GameSession.Instance.ProjectileController.Projectiles)
+                        if (p.Active && p.Team != Team) pcount++;
+                    outmsg.Write(pcount);
+                    foreach (Projectile p in GameSession.Instance.ProjectileController.Projectiles)
+                    {
+                        if (p.Active && p.Team != Team)
+                        {
+                            ProjectileNetPacket pnp = new ProjectileNetPacket();
+                            pnp.WriteTo(p);
+                            outmsg.WriteAllProperties(pnp);
+                        }
+                    }
+                    outmsg.WritePadBits();
                     peer.SendMessage(outmsg, peer.Connections, NetDeliveryMethod.ReliableOrdered, 0);
                 }
             }
@@ -107,6 +130,7 @@ namespace Fodder.Windows
                     case NetIncomingMessageType.ConnectionApproval:
                         //Console.WriteLine("ReceivePeersData ConnectionApproval");
                         msg.SenderConnection.Approve();
+                        Team = 1;
                         //RemoteState = RemoteClientState.Connected;
                         //broadcast this to all connected clients
                         //msg.SenderEndpoint.Address, msg.SenderEndpoint.Port
@@ -117,23 +141,52 @@ namespace Fodder.Windows
                         //Console.WriteLine("BEGIN ReceivePeersData Data");
                         PacketTypes mType = (PacketTypes)msg.ReadInt32();
                         if (mType == PacketTypes.READY)
+                        {
                             RemoteState = RemoteClientState.InGame;
+                        }
                         if (mType == PacketTypes.DUDES)
                         {
                             foreach (Dude d in GameSession.Instance.DudeController.Dudes)
                                 if (d.Team == Team) d.Active = false;
-                            while (msg.Position < msg.LengthBits)
+                            int dudecount = msg.ReadInt32();
+                            for(int i=0;i<dudecount;i++)
                             {
                                 try
                                 {
                                     DudeNetPacket dnp = new DudeNetPacket();
-                                    msg.ReadAllProperties(dnp);
+                                    try { msg.ReadAllProperties(dnp); }
+                                    catch (NetException e) { break; }
                                     dnp.Team = Team;
                                     foreach (Dude d in GameSession.Instance.DudeController.Dudes)
                                     {
                                         if (!d.Active)
                                         {
                                             d.ReadFromPacket(dnp);
+                                            break;
+                                        }
+                                    }
+                                }
+                                catch (Exception ex) { }
+                            }
+                        }
+                        if (mType == PacketTypes.PROJECTILES)
+                        {
+                            foreach (Projectile p in GameSession.Instance.ProjectileController.Projectiles)
+                                if (p.Team == Team) p.Active = false;
+                            int pcount = msg.ReadInt32();
+                            for (int i = 0; i < pcount; i++)
+                            {
+                                try
+                                {
+                                    ProjectileNetPacket pnp = new ProjectileNetPacket();
+                                    try { msg.ReadAllProperties(pnp); }
+                                    catch (NetException e) { break; }
+                                    pnp.Team = Team;
+                                    foreach (Projectile p in GameSession.Instance.ProjectileController.Projectiles)
+                                    {
+                                        if (!p.Active)
+                                        {
+                                            p.ReadFromPacket(pnp);
                                             break;
                                         }
                                     }
@@ -178,6 +231,11 @@ namespace Fodder.Windows
                 outmsg.Write((Int32)PacketTypes.READY);
                 peer.SendMessage(outmsg, peer.Connections, NetDeliveryMethod.ReliableOrdered, 0);
             }
+        }
+
+        public void CloseConn()
+        {
+            peer.Shutdown("bye");
         }
        
     }

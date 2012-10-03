@@ -86,7 +86,7 @@ namespace Fodder.Windows.GameState
             font = content.Load<SpriteFont>("font");
 
             Net = new NetworkControllerWindows();
-            Net.Initialize(1);
+            Net.Initialize(0);
 
             ScreenManager.Game.ResetElapsedTime();
         }
@@ -118,6 +118,7 @@ namespace Fodder.Windows.GameState
 
             if (Net.RemoteState == RemoteClientState.Connected)
             {
+                Net.RemoteState = RemoteClientState.ReadyToStart;
                 LoadingScreen.Load(ScreenManager, false, null, new GameplayScreen(gameScenario, Net));
             }
 
