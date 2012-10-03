@@ -60,7 +60,7 @@ namespace Fodder.Windows.GameState
 
             List<Function> funcs = new List<Function>();
             funcs.Add(new Function("boost", 1000, true));
-            funcs.Add(new Function("shield", 10000, true));
+            funcs.Add(new Function("shield", 15000, true));
             funcs.Add(new Function("pistol", 4000, true));
             funcs.Add(new Function("shotgun", 6000, true));
             funcs.Add(new Function("smg", 8000, true));
@@ -71,7 +71,7 @@ namespace Fodder.Windows.GameState
             funcs.Add(new Function("meteors", 20, true));
             funcs.Add(new Function("elite", 20, true));
 
-            gameScenario = new Scenario("Multiplayer", "campaign11", funcs, 2000, 100, 100, 2000, 2000);
+            gameScenario = new Scenario("Multiplayer", "campaign11", funcs, 5000, 100, 100, 2000, 2000);
         }
 
 
