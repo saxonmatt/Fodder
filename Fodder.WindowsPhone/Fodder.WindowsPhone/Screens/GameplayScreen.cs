@@ -67,15 +67,6 @@ namespace Fodder.Phone.GameState
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Fodder.Content");
 
-            List<Function> funcs = new List<Function>();
-            funcs.Add(new Function("boost", 1000, true));
-            funcs.Add(new Function("shield", 10000, true));
-            funcs.Add(new Function("pistol", 4000, true));
-            funcs.Add(new Function("shotgun", 6000, true));
-            funcs.Add(new Function("sniper", 30000, true));
-            funcs.Add(new Function("machinegun", 30000, true));
-            funcs.Add(new Function("mortar", 30000, true));
-
             gameSession = new GameSession(GameClientType.Human, GameClientType.AI, null, gameScenario, ScreenManager.GraphicsDevice.Viewport, false);
             gameSession.LoadContent(content);
 

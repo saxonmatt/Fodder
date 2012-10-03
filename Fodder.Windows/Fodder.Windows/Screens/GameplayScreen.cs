@@ -83,7 +83,7 @@ namespace Fodder.Windows.GameState
 
             if (Net != null) // Is a multiplayer game
             {
-                gameSession = new GameSession(Net.GetTeam() == 0 ? GameClientType.Network : GameClientType.AI, Net.GetTeam() == 1 ? GameClientType.Network : GameClientType.AI, Net, gameScenario, ScreenManager.GraphicsDevice.Viewport, false);
+                gameSession = new GameSession(Net.GetTeam() == 0 ? GameClientType.Network : GameClientType.Human, Net.GetTeam() == 1 ? GameClientType.Network : GameClientType.Human, Net, gameScenario, ScreenManager.GraphicsDevice.Viewport, false);
             }
             else
             {

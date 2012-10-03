@@ -43,6 +43,10 @@ namespace Fodder.Windows.GameState
 
         NetworkControllerWindows Net;
 
+        BackgroundWorker bgw = new BackgroundWorker();
+        bool upnpTried = false;
+        bool upnpDone = false;
+
         #endregion
 
         #region Initialization
@@ -72,6 +76,14 @@ namespace Fodder.Windows.GameState
             funcs.Add(new Function("elite", 20, true));
 
             gameScenario = new Scenario("Multiplayer", "campaign11", funcs, 5000, 100, 100, 2000, 2000);
+
+            
+        }
+
+        void bgw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            upnpDone = Net.UPNP();
+            upnpTried = true;
         }
 
 
@@ -88,6 +100,9 @@ namespace Fodder.Windows.GameState
             Net = new NetworkControllerWindows();
             Net.Initialize(0);
 
+            bgw.DoWork += new DoWorkEventHandler(bgw_DoWork);
+            bgw.RunWorkerAsync();
+
             ScreenManager.Game.ResetElapsedTime();
         }
 
@@ -97,6 +112,7 @@ namespace Fodder.Windows.GameState
         /// </summary>
         public override void UnloadContent()
         {
+            Net.CloseConn();
             content.Unload();
         }
 
@@ -155,7 +171,19 @@ namespace Fodder.Windows.GameState
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
 
             spriteBatch.Begin();
-            
+
+            if (!upnpTried)
+                spriteBatch.DrawString(font, "Attempting UPnP Port Forward", new Vector2(spriteBatch.GraphicsDevice.Viewport.Width / 2, (spriteBatch.GraphicsDevice.Viewport.Height / 2) - 30), Color.White * TransitionAlpha, 0f, font.MeasureString("Attempting UPnP Port Forward") / 2, 1f, SpriteEffects.None, 1);
+            else
+            {
+                if(upnpDone)
+                    spriteBatch.DrawString(font, "UPnP Port Forward Successful!", new Vector2(spriteBatch.GraphicsDevice.Viewport.Width / 2, (spriteBatch.GraphicsDevice.Viewport.Height / 2) - 30), Color.White * TransitionAlpha, 0f, font.MeasureString("UPnP Port Forward Successful!") / 2, 1f, SpriteEffects.None, 1);
+                else
+                    spriteBatch.DrawString(font, "UPnP forwarding failed - please forward port " + Net.ClientPort + " UDP", new Vector2(spriteBatch.GraphicsDevice.Viewport.Width / 2, (spriteBatch.GraphicsDevice.Viewport.Height / 2) - 30), Color.White * TransitionAlpha, 0f, font.MeasureString("UPnP forwarding failed - please forward port " + Net.ClientPort + " UDP") / 2, 1f, SpriteEffects.None, 1);
+
+            }
+                    
+
                 if(Net.RemoteState== RemoteClientState.NotConnected)
                     spriteBatch.DrawString(font, "Waiting for connection", new Vector2(spriteBatch.GraphicsDevice.Viewport.Width / 2, (spriteBatch.GraphicsDevice.Viewport.Height / 2)), Color.White * TransitionAlpha, 0f, font.MeasureString("Waiting for connection") / 2, 1f, SpriteEffects.None, 1);
                 if (Net.RemoteState == RemoteClientState.Connected)

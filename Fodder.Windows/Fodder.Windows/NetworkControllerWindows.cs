@@ -11,6 +11,8 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Lidgren.Network;
 using Fodder.Core;
+using System.Net;
+using System.ComponentModel;
 
 namespace Fodder.Windows
 {
@@ -21,8 +23,8 @@ namespace Fodder.Windows
         NetPeer peer;
         NetConnection conn;
 
-        int ListenPort = 12345;
-        int ClientPort = 12346;
+        public int ListenPort = 12345;
+        public int ClientPort = 12345;
         
         double currentUpdateTime = 0;
 
@@ -31,10 +33,16 @@ namespace Fodder.Windows
         public int Team;
         public RemoteClientState RemoteState;
 
+        
+
+        
+
         public void Initialize(int team)
         {
             Team = team;
             RemoteState = RemoteClientState.NotConnected;
+
+            
 
             NetPeerConfiguration Config = new NetPeerConfiguration("fodder");
             Config.EnableMessageType(NetIncomingMessageType.DiscoveryRequest);
@@ -42,10 +50,18 @@ namespace Fodder.Windows
             Config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
             Config.EnableMessageType(NetIncomingMessageType.UnconnectedData);
             Config.Port = ListenPort;
-            Config.LocalAddress = NetUtility.Resolve("localhost");
+            Config.EnableUPnP = true;
+            //Config.LocalAddress = NetUtility.Resolve("localhost");
 
             peer = new NetPeer(Config);
             peer.Start();
+        }
+
+        public bool UPNP()
+        {
+            NetUPnP pnp = new NetUPnP(peer);
+            
+            return pnp.ForwardPort(12345, "Fodder game");
         }
 
         public void LoadContent(ContentManager content)
@@ -64,7 +80,7 @@ namespace Fodder.Windows
 
                 if (peer.Connections.Count == 0)
                 {
-                    peer.DiscoverKnownPeer("localhost", ClientPort);
+                    peer.DiscoverKnownPeer(new System.Net.IPEndPoint(IPAddress.Parse("192.168.1.6"), ClientPort));
                 }
 
                 if (peer.Connections.Count > 0)
@@ -115,7 +131,7 @@ namespace Fodder.Windows
                 {
                     case NetIncomingMessageType.DiscoveryRequest:
                         //Console.WriteLine("ReceivePeersData DiscoveryRequest");
-                        peer.SendDiscoveryResponse(null, msg.SenderEndpoint);
+                        peer.SendDiscoveryResponse(null, msg.SenderEndPoint);
                         //RemoteState = RemoteClientState.Connected;
                         break;
                     case NetIncomingMessageType.DiscoveryResponse:
@@ -123,7 +139,7 @@ namespace Fodder.Windows
                         //Console.WriteLine("ReceivePeersData DiscoveryResponse CONNECT");
                         try
                         {
-                            peer.Connect(msg.SenderEndpoint);
+                            peer.Connect(msg.SenderEndPoint);
                         }
                         catch (Exception ex) { }
                         break;
