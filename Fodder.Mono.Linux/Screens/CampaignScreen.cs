@@ -24,7 +24,7 @@ using System.Xml.Serialization;
 using System.IO.IsolatedStorage;
 #endregion
 
-namespace Fodder.Windows.GameState
+namespace Fodder.Linux.GameState
 {
     /// <summary>
     /// This screen implements the actual game logic. It is just a

@@ -160,8 +160,9 @@ namespace Fodder.GameState
 
             Vector2 origin = new Vector2(font.MeasureString(text).X/2, font.LineSpacing / 2);
 
-            spriteBatch.DrawString(font, text, position, color, 0,
-                                   origin, Zoom, SpriteEffects.None, 0);
+            //spriteBatch.DrawString(font, text, position, color, 0f,
+              //                     origin, Zoom, SpriteEffects.None, 0f);
+            //spriteBatch.DrawString(font, text, position, color);
         }
 
 

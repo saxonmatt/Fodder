@@ -1,0 +1,762 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6553DB24-76E3-47C7-9432-D139E142D50D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fodder.Mono.Linux</RootNamespace>
+    <AssemblyName>Fodder.Mono.Linux</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;LINUX</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;LINUX</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\Fodder.Core\Controllers\AIController.cs">
+      <Link>Controllers\AIController.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.Core\Controllers\AudioController.cs">
+      <Link>Controllers\AudioController.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.Core\Controllers\DudeController.cs">
+      <Link>Controllers\DudeController.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.Core\Controllers\INetworkController.cs">
+      <Link>Controllers\INetworkController.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.Core\Controllers\ParticleController.cs">
+      <Link>Controllers\ParticleController.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.Core\Controllers\ProjectileController.cs">
+      <Link>Controllers\ProjectileController.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.Core\Controllers\SoulController.cs">
+      <Link>Controllers\SoulController.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.Core\Dude.cs">
+      <Link>Dude.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.Core\Flag.cs">
+      <Link>Flag.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.Core\GameSession.cs">
+      <Link>GameSession.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.Core\Map.cs">
+      <Link>Map.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.Core\Projectile.cs">
+      <Link>Projectile.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.Core\Scenario.cs">
+      <Link>Scenario.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.Core\UI\Button.cs">
+      <Link>UI\Button.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.Core\UI\ButtonController.cs">
+      <Link>UI\ButtonController.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.Core\UI\HUD.cs">
+      <Link>UI\HUD.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.Core\Weapons\MachineGun.cs">
+      <Link>Weapons\MachineGun.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.Core\Weapons\Mortar.cs">
+      <Link>Weapons\Mortar.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.Core\Weapons\Pistol.cs">
+      <Link>Weapons\Pistol.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.Core\Weapons\Shotgun.cs">
+      <Link>Weapons\Shotgun.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.Core\Weapons\SMG.cs">
+      <Link>Weapons\SMG.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.Core\Weapons\Sniper.cs">
+      <Link>Weapons\Sniper.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.Core\Weapons\Sword.cs">
+      <Link>Weapons\Sword.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.Core\Weapons\_BaseWeapon.cs">
+      <Link>Weapons\_BaseWeapon.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.GameState\ScreenManager\GameScreen.cs">
+      <Link>ScreenManager\GameScreen.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.GameState\ScreenManager\InputState.cs">
+      <Link>ScreenManager\InputState.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.GameState\ScreenManager\MenuEntry.cs">
+      <Link>ScreenManager\MenuEntry.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.GameState\ScreenManager\MenuScreen.cs">
+      <Link>ScreenManager\MenuScreen.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.GameState\ScreenManager\PlayerIndexEventArgs.cs">
+      <Link>ScreenManager\PlayerIndexEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Fodder.GameState\ScreenManager\ScreenManager.cs">
+      <Link>ScreenManager\ScreenManager.cs</Link>
+    </Compile>
+    <Compile Include="Fodder.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Screens\BackgroundScreen.cs" />
+    <Compile Include="Screens\CampaignScreen.cs" />
+    <Compile Include="Screens\GameplayScreen.cs" />
+    <Compile Include="Screens\LoadingScreen.cs" />
+    <Compile Include="Screens\MainMenuScreen.cs" />
+    <Compile Include="Screens\MessageBoxScreen.cs" />
+    <Compile Include="Screens\OptionsMenuScreen.cs" />
+    <Compile Include="Screens\PauseBackgroundScreen.cs" />
+    <Compile Include="Screens\PauseMenuScreen.cs" />
+    <Compile Include="Screens\ResultPopupScreen.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="MonoGame.Framework.Linux, Version=2.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\MonoGame\MonoGame.Framework\bin\Debug\MonoGame.Framework.Linux.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK">
+      <HintPath>$(MSBuildExtensionsPath)\..\MonoGame\v3.0\Assemblies\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="Lidgren.Network">
+      <HintPath>$(MSBuildExtensionsPath)\..\MonoGame\v3.0\Assemblies\Lidgren.Network.dll</HintPath>
+    </Reference>
+    <Reference Include="Tao.Sdl">
+      <HintPath>$(MSBuildExtensionsPath)\..\MonoGame\v3.0\Assemblies\Tao.Sdl.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\audio\sfx\explode.xnb">
+      <Link>Fodder.Content\audio\sfx\explode.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\audio\sfx\hit.xnb">
+      <Link>Fodder.Content\audio\sfx\hit.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\audio\sfx\machinegun.xnb">
+      <Link>Fodder.Content\audio\sfx\machinegun.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\audio\sfx\mortar.xnb">
+      <Link>Fodder.Content\audio\sfx\mortar.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\audio\sfx\pistol.xnb">
+      <Link>Fodder.Content\audio\sfx\pistol.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\audio\sfx\shotgun.xnb">
+      <Link>Fodder.Content\audio\sfx\shotgun.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\audio\sfx\smg.xnb">
+      <Link>Fodder.Content\audio\sfx\smg.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\audio\sfx\sniper.xnb">
+      <Link>Fodder.Content\audio\sfx\sniper.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\audio\sfx\sword.xnb">
+      <Link>Fodder.Content\audio\sfx\sword.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\blank.xnb">
+      <Link>Fodder.Content\blank.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\buttonsheet.xnb">
+      <Link>Fodder.Content\buttonsheet.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\campaign.xnb">
+      <Link>Fodder.Content\campaign.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\consolefont.xnb">
+      <Link>Fodder.Content\consolefont.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\dude.xnb">
+      <Link>Fodder.Content\dude.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\flag.xnb">
+      <Link>Fodder.Content\flag.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\font.xnb">
+      <Link>Fodder.Content\font.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\hud.xnb">
+      <Link>Fodder.Content\hud.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\largefont.xnb">
+      <Link>Fodder.Content\largefont.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\logo.xnb">
+      <Link>Fodder.Content\logo.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\attract\bg1.xnb">
+      <Link>Fodder.Content\maps\attract\bg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\attract\bg2.xnb">
+      <Link>Fodder.Content\maps\attract\bg2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\attract\bg3.xnb">
+      <Link>Fodder.Content\maps\attract\bg3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\attract\fg1.xnb">
+      <Link>Fodder.Content\maps\attract\fg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\attract\path1.xnb">
+      <Link>Fodder.Content\maps\attract\path1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\attract\screens.xnb">
+      <Link>Fodder.Content\maps\attract\screens.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\particles.xnb">
+      <Link>Fodder.Content\particles.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\paused.xnb">
+      <Link>Fodder.Content\paused.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\resultpopup.xnb">
+      <Link>Fodder.Content\resultpopup.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\scenarios\1.xnb">
+      <Link>Fodder.Content\scenarios\1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\scenarios\10.xnb">
+      <Link>Fodder.Content\scenarios\10.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\scenarios\11.xnb">
+      <Link>Fodder.Content\scenarios\11.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\scenarios\12.xnb">
+      <Link>Fodder.Content\scenarios\12.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\scenarios\13.xnb">
+      <Link>Fodder.Content\scenarios\13.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\scenarios\14.xnb">
+      <Link>Fodder.Content\scenarios\14.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\scenarios\15.xnb">
+      <Link>Fodder.Content\scenarios\15.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\scenarios\2.xnb">
+      <Link>Fodder.Content\scenarios\2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\scenarios\20.xnb">
+      <Link>Fodder.Content\scenarios\20.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\scenarios\3.xnb">
+      <Link>Fodder.Content\scenarios\3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\scenarios\4.xnb">
+      <Link>Fodder.Content\scenarios\4.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\scenarios\5.xnb">
+      <Link>Fodder.Content\scenarios\5.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\scenarios\6.xnb">
+      <Link>Fodder.Content\scenarios\6.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\scenarios\7.xnb">
+      <Link>Fodder.Content\scenarios\7.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\scenarios\8.xnb">
+      <Link>Fodder.Content\scenarios\8.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\scenarios\9.xnb">
+      <Link>Fodder.Content\scenarios\9.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\sky.xnb">
+      <Link>Fodder.Content\sky.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\star.xnb">
+      <Link>Fodder.Content\star.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign10\bg1.xnb">
+      <Link>Fodder.Content\maps\campaign10\bg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign10\bg2.xnb">
+      <Link>Fodder.Content\maps\campaign10\bg2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign10\bg3.xnb">
+      <Link>Fodder.Content\maps\campaign10\bg3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign10\fg1.xnb">
+      <Link>Fodder.Content\maps\campaign10\fg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign10\fg2.xnb">
+      <Link>Fodder.Content\maps\campaign10\fg2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign10\path1.xnb">
+      <Link>Fodder.Content\maps\campaign10\path1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign10\path2.xnb">
+      <Link>Fodder.Content\maps\campaign10\path2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign10\screens.xnb">
+      <Link>Fodder.Content\maps\campaign10\screens.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign11\bg1.xnb">
+      <Link>Fodder.Content\maps\campaign11\bg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign11\bg2.xnb">
+      <Link>Fodder.Content\maps\campaign11\bg2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign11\bg3.xnb">
+      <Link>Fodder.Content\maps\campaign11\bg3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign11\fg1.xnb">
+      <Link>Fodder.Content\maps\campaign11\fg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign11\path1.xnb">
+      <Link>Fodder.Content\maps\campaign11\path1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign11\screens.xnb">
+      <Link>Fodder.Content\maps\campaign11\screens.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign12\bg1.xnb">
+      <Link>Fodder.Content\maps\campaign12\bg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign12\bg2.xnb">
+      <Link>Fodder.Content\maps\campaign12\bg2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign12\bg3.xnb">
+      <Link>Fodder.Content\maps\campaign12\bg3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign12\fg1.xnb">
+      <Link>Fodder.Content\maps\campaign12\fg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign12\fg2.xnb">
+      <Link>Fodder.Content\maps\campaign12\fg2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign12\path1.xnb">
+      <Link>Fodder.Content\maps\campaign12\path1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign12\path2.xnb">
+      <Link>Fodder.Content\maps\campaign12\path2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign12\screens.xnb">
+      <Link>Fodder.Content\maps\campaign12\screens.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign13\bg1.xnb">
+      <Link>Fodder.Content\maps\campaign13\bg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign13\bg2.xnb">
+      <Link>Fodder.Content\maps\campaign13\bg2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign13\bg3.xnb">
+      <Link>Fodder.Content\maps\campaign13\bg3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign13\fg1.xnb">
+      <Link>Fodder.Content\maps\campaign13\fg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign13\path1.xnb">
+      <Link>Fodder.Content\maps\campaign13\path1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign13\screens.xnb">
+      <Link>Fodder.Content\maps\campaign13\screens.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign14\bg1.xnb">
+      <Link>Fodder.Content\maps\campaign14\bg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign14\bg2.xnb">
+      <Link>Fodder.Content\maps\campaign14\bg2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign14\bg3.xnb">
+      <Link>Fodder.Content\maps\campaign14\bg3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign14\fg1.xnb">
+      <Link>Fodder.Content\maps\campaign14\fg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign14\fg2.xnb">
+      <Link>Fodder.Content\maps\campaign14\fg2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign14\path1.xnb">
+      <Link>Fodder.Content\maps\campaign14\path1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign14\path2.xnb">
+      <Link>Fodder.Content\maps\campaign14\path2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign14\screens.xnb">
+      <Link>Fodder.Content\maps\campaign14\screens.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign15\bg1.xnb">
+      <Link>Fodder.Content\maps\campaign15\bg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign15\bg2.xnb">
+      <Link>Fodder.Content\maps\campaign15\bg2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign15\bg3.xnb">
+      <Link>Fodder.Content\maps\campaign15\bg3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign15\fg1.xnb">
+      <Link>Fodder.Content\maps\campaign15\fg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign15\path1.xnb">
+      <Link>Fodder.Content\maps\campaign15\path1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign15\screens.xnb">
+      <Link>Fodder.Content\maps\campaign15\screens.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign1\bg1.xnb">
+      <Link>Fodder.Content\maps\campaign1\bg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign1\bg2.xnb">
+      <Link>Fodder.Content\maps\campaign1\bg2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign1\bg3.xnb">
+      <Link>Fodder.Content\maps\campaign1\bg3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign1\fg1.xnb">
+      <Link>Fodder.Content\maps\campaign1\fg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign1\path1.xnb">
+      <Link>Fodder.Content\maps\campaign1\path1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign1\screens.xnb">
+      <Link>Fodder.Content\maps\campaign1\screens.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign2\bg1.xnb">
+      <Link>Fodder.Content\maps\campaign2\bg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign2\bg2.xnb">
+      <Link>Fodder.Content\maps\campaign2\bg2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign2\bg3.xnb">
+      <Link>Fodder.Content\maps\campaign2\bg3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign2\fg1.xnb">
+      <Link>Fodder.Content\maps\campaign2\fg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign2\path1.xnb">
+      <Link>Fodder.Content\maps\campaign2\path1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign2\screens.xnb">
+      <Link>Fodder.Content\maps\campaign2\screens.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign3\bg1.xnb">
+      <Link>Fodder.Content\maps\campaign3\bg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign3\bg2.xnb">
+      <Link>Fodder.Content\maps\campaign3\bg2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign3\bg3.xnb">
+      <Link>Fodder.Content\maps\campaign3\bg3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign3\fg1.xnb">
+      <Link>Fodder.Content\maps\campaign3\fg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign3\path1.xnb">
+      <Link>Fodder.Content\maps\campaign3\path1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign3\screens.xnb">
+      <Link>Fodder.Content\maps\campaign3\screens.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign4\bg1.xnb">
+      <Link>Fodder.Content\maps\campaign4\bg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign4\bg2.xnb">
+      <Link>Fodder.Content\maps\campaign4\bg2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign4\bg3.xnb">
+      <Link>Fodder.Content\maps\campaign4\bg3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign4\fg1.xnb">
+      <Link>Fodder.Content\maps\campaign4\fg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign4\path1.xnb">
+      <Link>Fodder.Content\maps\campaign4\path1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign4\screens.xnb">
+      <Link>Fodder.Content\maps\campaign4\screens.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign5\bg1.xnb">
+      <Link>Fodder.Content\maps\campaign5\bg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign5\bg2.xnb">
+      <Link>Fodder.Content\maps\campaign5\bg2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign5\bg3.xnb">
+      <Link>Fodder.Content\maps\campaign5\bg3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign5\fg1.xnb">
+      <Link>Fodder.Content\maps\campaign5\fg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign5\path1.xnb">
+      <Link>Fodder.Content\maps\campaign5\path1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign5\screens.xnb">
+      <Link>Fodder.Content\maps\campaign5\screens.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign6\bg1.xnb">
+      <Link>Fodder.Content\maps\campaign6\bg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign6\bg2.xnb">
+      <Link>Fodder.Content\maps\campaign6\bg2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign6\bg3.xnb">
+      <Link>Fodder.Content\maps\campaign6\bg3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign6\fg1.xnb">
+      <Link>Fodder.Content\maps\campaign6\fg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign6\path1.xnb">
+      <Link>Fodder.Content\maps\campaign6\path1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign6\screens.xnb">
+      <Link>Fodder.Content\maps\campaign6\screens.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign7\bg1.xnb">
+      <Link>Fodder.Content\maps\campaign7\bg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign7\bg2.xnb">
+      <Link>Fodder.Content\maps\campaign7\bg2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign7\bg3.xnb">
+      <Link>Fodder.Content\maps\campaign7\bg3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign7\fg1.xnb">
+      <Link>Fodder.Content\maps\campaign7\fg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign7\path1.xnb">
+      <Link>Fodder.Content\maps\campaign7\path1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign7\screens.xnb">
+      <Link>Fodder.Content\maps\campaign7\screens.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign8\bg1.xnb">
+      <Link>Fodder.Content\maps\campaign8\bg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign8\bg2.xnb">
+      <Link>Fodder.Content\maps\campaign8\bg2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign8\bg3.xnb">
+      <Link>Fodder.Content\maps\campaign8\bg3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign8\fg1.xnb">
+      <Link>Fodder.Content\maps\campaign8\fg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign8\fg2.xnb">
+      <Link>Fodder.Content\maps\campaign8\fg2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign8\path1.xnb">
+      <Link>Fodder.Content\maps\campaign8\path1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign8\path2.xnb">
+      <Link>Fodder.Content\maps\campaign8\path2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign8\screens.xnb">
+      <Link>Fodder.Content\maps\campaign8\screens.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign9\bg1.xnb">
+      <Link>Fodder.Content\maps\campaign9\bg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign9\bg2.xnb">
+      <Link>Fodder.Content\maps\campaign9\bg2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign9\bg3.xnb">
+      <Link>Fodder.Content\maps\campaign9\bg3.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign9\fg1.xnb">
+      <Link>Fodder.Content\maps\campaign9\fg1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign9\fg2.xnb">
+      <Link>Fodder.Content\maps\campaign9\fg2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign9\path1.xnb">
+      <Link>Fodder.Content\maps\campaign9\path1.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign9\path2.xnb">
+      <Link>Fodder.Content\maps\campaign9\path2.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Fodder.Windows\Fodder.Windows\bin\x86\Debug\Fodder.Content\maps\campaign9\screens.xnb">
+      <Link>Fodder.Content\maps\campaign9\screens.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

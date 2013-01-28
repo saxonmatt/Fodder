@@ -120,7 +120,6 @@ namespace Fodder.GameState
         {
             // Load content belonging to the screen manager.
             ContentManager content = Game.Content;
-
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = content.Load<SpriteFont>("font");
             blankTexture = content.Load<Texture2D>("blank");
